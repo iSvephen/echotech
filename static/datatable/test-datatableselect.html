@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selectable Table with DataTables</title>
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/jquery.dataTables.css">
+<style>
+    /* Add basic styling to the table */
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+td.selected {
+    background-color: #90ee90; /* Highlight color */
+}
+
+</style>
+</head>
+<body>
+    <table id="myTable" class="display">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Country</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>John</td>
+                <td>28</td>
+                <td>USA</td>
+            </tr>
+            <tr>
+                <td>Jane</td>
+                <td>34</td>
+                <td>UK</td>
+            </tr>
+            <tr>
+                <td>Pedro</td>
+                <td>21</td>
+                <td>Spain</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Log Button -->
+    <button id="logSelection">Log Selected Cells</button>
+
+    <!-- jQuery and DataTables JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.js"></script>
+<script>
+    $(document).ready(function() {
+    // Initialize DataTable
+    const table = $('#myTable').DataTable();
+
+    // Toggle selection on click (using DataTables row API)
+    $('#myTable tbody').on('click', 'td', function() {
+        // Get the clicked cell
+        const cell = table.cell(this);
+
+        // Toggle the 'selected' class on the clicked cell
+        $(this).toggleClass('selected');
+    });
+
+    // Log selected cells when button is clicked
+    $('#logSelection').on('click', function() {
+        const selectedCells = $('#myTable td.selected');
+        if (selectedCells.length > 0) {
+            const selectedData = [];
+            selectedCells.each(function() {
+                selectedData.push($(this).text());
+            });
+            console.log('Selected Cells:', selectedData);
+        } else {
+            console.log('No cells selected.');
+        }
+    });
+});
+
+</script>
+</body>
+</html>
