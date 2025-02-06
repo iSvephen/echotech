@@ -2,7 +2,7 @@
     Nav header start
 ***********************************-->
 <div class="nav-header">
-	<a href="index.html" class="brand-logo">
+	<a href="/" class="brand-logo">
 		<img class="logo-abbr" src="./images/Echo_Symbol.png" alt="" />
 		<!-- <img class="logo-compact" src="./images/Echo_Logomark.png" alt=""> -->
 		<img class="brand-title" src="./images/Echo_Logotitle.png" alt="" />
@@ -95,13 +95,13 @@
 	<div class="dlabnav-scroll">
 		<ul class="metismenu" id="menu">
 			<li>
-				<a href="index.html" class="ai-icon" aria-expanded="false">
+				<a href="/" class="ai-icon" aria-expanded="false">
 					<i class="flaticon-381-networking"></i>
 					<span class="nav-text">Dashboard</span>
 				</a>
 			</li>
 			<li>
-				<a href="clients.html" class="ai-icon" aria-expanded="false">
+				<a href="clients" class="ai-icon" aria-expanded="false">
 					<i class="fa fa-users"></i>
 					<span class="nav-text">Clients</span>
 				</a>
@@ -124,7 +124,7 @@
 				</ul>
 			</li>
 			<li>
-				<a href="tiering.html" class="ai-icon" aria-expanded="false">
+				<a href="tiering" class="ai-icon" aria-expanded="false">
 					<i class="fa fa-calculator"></i>
 					<span class="nav-text">Tiering</span>
 				</a>
