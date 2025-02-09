@@ -1,6 +1,3 @@
-
-
-
 	<div class="container-fluid">
 		<!-- Add Order -->
 		<div class="modal fade" id="addOrderModalside">
@@ -96,8 +93,6 @@
 										<th scope="col">Prepared by</th>
 										<th scope="col">Date</th>
 										<th scope="col">Status</th>
-										<th scope="col">Bills</th>
-										<th scope="col"></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -109,34 +104,6 @@
 										<td>
 											<span class="badge badge-rounded badge-primary">Checkin</span>
 										</td>
-										<td>$120</td>
-										<td>
-											<div class="dropdown custom-dropdown mb-0">
-												<div class="btn sharp btn-primary tp-btn" data-toggle="dropdown">
-													<svg
-														xmlns="http://www.w3.org/2000/svg"
-														xmlns:xlink="http://www.w3.org/1999/xlink"
-														width="18px"
-														height="18px"
-														viewBox="0 0 24 24"
-														version="1.1"
-													>
-														<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-															<rect x="0" y="0" width="24" height="24" />
-															<circle fill="#000000" cx="12" cy="5" r="2" />
-															<circle fill="#000000" cx="12" cy="12" r="2" />
-															<circle fill="#000000" cx="12" cy="19" r="2" />
-														</g>
-													</svg>
-												</div>
-												<div class="dropdown-menu dropdown-menu-right">
-													<a class="dropdown-item" href="javascript:void(0);">Details</a>
-													<a class="dropdown-item text-danger" href="javascript:void(0);"
-														>Delete</a
-													>
-												</div>
-											</div>
-										</td>
 									</tr>
 									<tr>
 										<td>10</td>
@@ -145,34 +112,6 @@
 										<td>31 July 2024</td>
 										<td>
 											<span class="badge badge-rounded badge-warning">Panding</span>
-										</td>
-										<td>$540</td>
-										<td>
-											<div class="dropdown custom-dropdown mb-0">
-												<div class="btn sharp btn-primary tp-btn" data-toggle="dropdown">
-													<svg
-														xmlns="http://www.w3.org/2000/svg"
-														xmlns:xlink="http://www.w3.org/1999/xlink"
-														width="18px"
-														height="18px"
-														viewBox="0 0 24 24"
-														version="1.1"
-													>
-														<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-															<rect x="0" y="0" width="24" height="24" />
-															<circle fill="#000000" cx="12" cy="5" r="2" />
-															<circle fill="#000000" cx="12" cy="12" r="2" />
-															<circle fill="#000000" cx="12" cy="19" r="2" />
-														</g>
-													</svg>
-												</div>
-												<div class="dropdown-menu dropdown-menu-right">
-													<a class="dropdown-item" href="javascript:void(0);">Details</a>
-													<a class="dropdown-item text-danger" href="javascript:void(0);"
-														>Delete</a
-													>
-												</div>
-											</div>
 										</td>
 									</tr>
 									<tr>
@@ -183,34 +122,6 @@
 										<td>
 											<span class="badge badge-rounded badge-danger">Canceled</span>
 										</td>
-										<td>$301</td>
-										<td>
-											<div class="dropdown custom-dropdown mb-0">
-												<div class="btn sharp btn-primary tp-btn" data-toggle="dropdown">
-													<svg
-														xmlns="http://www.w3.org/2000/svg"
-														xmlns:xlink="http://www.w3.org/1999/xlink"
-														width="18px"
-														height="18px"
-														viewBox="0 0 24 24"
-														version="1.1"
-													>
-														<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-															<rect x="0" y="0" width="24" height="24" />
-															<circle fill="#000000" cx="12" cy="5" r="2" />
-															<circle fill="#000000" cx="12" cy="12" r="2" />
-															<circle fill="#000000" cx="12" cy="19" r="2" />
-														</g>
-													</svg>
-												</div>
-												<div class="dropdown-menu dropdown-menu-right">
-													<a class="dropdown-item" href="javascript:void(0);">Details</a>
-													<a class="dropdown-item text-danger" href="javascript:void(0);"
-														>Delete</a
-													>
-												</div>
-											</div>
-										</td>
 									</tr>
 									<tr>
 										<td>05</td>
@@ -220,34 +131,6 @@
 										<td>
 											<span class="badge badge-rounded badge-success">Checkin</span>
 										</td>
-										<td>$099</td>
-										<td>
-											<div class="dropdown custom-dropdown mb-0">
-												<div class="btn sharp btn-primary tp-btn" data-toggle="dropdown">
-													<svg
-														xmlns="http://www.w3.org/2000/svg"
-														xmlns:xlink="http://www.w3.org/1999/xlink"
-														width="18px"
-														height="18px"
-														viewBox="0 0 24 24"
-														version="1.1"
-													>
-														<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-															<rect x="0" y="0" width="24" height="24" />
-															<circle fill="#000000" cx="12" cy="5" r="2" />
-															<circle fill="#000000" cx="12" cy="12" r="2" />
-															<circle fill="#000000" cx="12" cy="19" r="2" />
-														</g>
-													</svg>
-												</div>
-												<div class="dropdown-menu dropdown-menu-right">
-													<a class="dropdown-item" href="javascript:void(0);">Details</a>
-													<a class="dropdown-item text-danger" href="javascript:void(0);"
-														>Delete</a
-													>
-												</div>
-											</div>
-										</td>
 									</tr>
 									<tr>
 										<td>06</td>
@@ -256,34 +139,6 @@
 										<td>28 July 2024</td>
 										<td>
 											<span class="badge badge-rounded badge-success">Checkin</span>
-										</td>
-										<td>$520</td>
-										<td>
-											<div class="dropdown custom-dropdown mb-0">
-												<div class="btn sharp btn-primary tp-btn" data-toggle="dropdown">
-													<svg
-														xmlns="http://www.w3.org/2000/svg"
-														xmlns:xlink="http://www.w3.org/1999/xlink"
-														width="18px"
-														height="18px"
-														viewBox="0 0 24 24"
-														version="1.1"
-													>
-														<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-															<rect x="0" y="0" width="24" height="24" />
-															<circle fill="#000000" cx="12" cy="5" r="2" />
-															<circle fill="#000000" cx="12" cy="12" r="2" />
-															<circle fill="#000000" cx="12" cy="19" r="2" />
-														</g>
-													</svg>
-												</div>
-												<div class="dropdown-menu dropdown-menu-right">
-													<a class="dropdown-item" href="javascript:void(0);">Details</a>
-													<a class="dropdown-item text-danger" href="javascript:void(0);"
-														>Delete</a
-													>
-												</div>
-											</div>
 										</td>
 									</tr>
 								</tbody>
@@ -309,7 +164,6 @@
 										<th>T2</th>
 										<th>T3</th>
 										<th>T4</th>
-										<th></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -320,28 +174,7 @@
 										<td>1.106</td>
 										<td>1.264</td>
 										<td>1.58</td>
-										<td>
-											<div class="dropdown">
-												<button
-													type="button"
-													class="btn btn-success light sharp"
-													data-toggle="dropdown"
-												>
-													<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
-														<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-															<rect x="0" y="0" width="24" height="24" />
-															<circle fill="#000000" cx="5" cy="12" r="2" />
-															<circle fill="#000000" cx="12" cy="12" r="2" />
-															<circle fill="#000000" cx="19" cy="12" r="2" />
-														</g>
-													</svg>
-												</button>
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="#">Edit</a>
-													<a class="dropdown-item" href="#">Delete</a>
-												</div>
-											</div>
-										</td>
+										
 									</tr>
 									<tr>
 										<td>Smartphone Recycling</td>
@@ -350,28 +183,7 @@
 										<td>0.623</td>
 										<td>0.712</td>
 										<td>0.803</td>
-										<td>
-											<div class="dropdown">
-												<button
-													type="button"
-													class="btn btn-success light sharp"
-													data-toggle="dropdown"
-												>
-													<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
-														<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-															<rect x="0" y="0" width="24" height="24" />
-															<circle fill="#000000" cx="5" cy="12" r="2" />
-															<circle fill="#000000" cx="12" cy="12" r="2" />
-															<circle fill="#000000" cx="19" cy="12" r="2" />
-														</g>
-													</svg>
-												</button>
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="#">Edit</a>
-													<a class="dropdown-item" href="#">Delete</a>
-												</div>
-											</div>
-										</td>
+										
 									</tr>
 									<tr>
 										<td>Laptop Recycling</td>
@@ -380,28 +192,7 @@
 										<td>1.045</td>
 										<td>1.246</td>
 										<td>1.523</td>
-										<td>
-											<div class="dropdown">
-												<button
-													type="button"
-													class="btn btn-success light sharp"
-													data-toggle="dropdown"
-												>
-													<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
-														<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-															<rect x="0" y="0" width="24" height="24" />
-															<circle fill="#000000" cx="5" cy="12" r="2" />
-															<circle fill="#000000" cx="12" cy="12" r="2" />
-															<circle fill="#000000" cx="19" cy="12" r="2" />
-														</g>
-													</svg>
-												</button>
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="#">Edit</a>
-													<a class="dropdown-item" href="#">Delete</a>
-												</div>
-											</div>
-										</td>
+										
 									</tr>
 									<tr>
 										<td>Desktop Computers Recycling</td>
@@ -410,28 +201,7 @@
 										<td>1.263</td>
 										<td>1.499</td>
 										<td>1.786</td>
-										<td>
-											<div class="dropdown">
-												<button
-													type="button"
-													class="btn btn-success light sharp"
-													data-toggle="dropdown"
-												>
-													<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
-														<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-															<rect x="0" y="0" width="24" height="24" />
-															<circle fill="#000000" cx="5" cy="12" r="2" />
-															<circle fill="#000000" cx="12" cy="12" r="2" />
-															<circle fill="#000000" cx="19" cy="12" r="2" />
-														</g>
-													</svg>
-												</button>
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="#">Edit</a>
-													<a class="dropdown-item" href="#">Delete</a>
-												</div>
-											</div>
-										</td>
+										
 									</tr>
 									<tr>
 										<td>CRT Monitors Recycling</td>
@@ -440,28 +210,7 @@
 										<td>2.352</td>
 										<td>2.598</td>
 										<td>3.009</td>
-										<td>
-											<div class="dropdown">
-												<button
-													type="button"
-													class="btn btn-success light sharp"
-													data-toggle="dropdown"
-												>
-													<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
-														<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-															<rect x="0" y="0" width="24" height="24" />
-															<circle fill="#000000" cx="5" cy="12" r="2" />
-															<circle fill="#000000" cx="12" cy="12" r="2" />
-															<circle fill="#000000" cx="19" cy="12" r="2" />
-														</g>
-													</svg>
-												</button>
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="#">Edit</a>
-													<a class="dropdown-item" href="#">Delete</a>
-												</div>
-											</div>
-										</td>
+										
 									</tr>
 									<tr>
 										<td>LED/LCD TVs Recycling</td>
@@ -470,28 +219,7 @@
 										<td>1.134</td>
 										<td>1.381</td>
 										<td>1.579</td>
-										<td>
-											<div class="dropdown">
-												<button
-													type="button"
-													class="btn btn-success light sharp"
-													data-toggle="dropdown"
-												>
-													<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
-														<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-															<rect x="0" y="0" width="24" height="24" />
-															<circle fill="#000000" cx="5" cy="12" r="2" />
-															<circle fill="#000000" cx="12" cy="12" r="2" />
-															<circle fill="#000000" cx="19" cy="12" r="2" />
-														</g>
-													</svg>
-												</button>
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="#">Edit</a>
-													<a class="dropdown-item" href="#">Delete</a>
-												</div>
-											</div>
-										</td>
+										
 									</tr>
 								</tbody>
 							</table>
@@ -509,7 +237,6 @@
 										<th>T2</th>
 										<th>T3</th>
 										<th>T4</th>
-										<th></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -520,28 +247,7 @@
 										<td>1.106</td>
 										<td>1.264</td>
 										<td>1.58</td>
-										<td>
-											<div class="dropdown">
-												<button
-													type="button"
-													class="btn btn-success light sharp"
-													data-toggle="dropdown"
-												>
-													<svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
-														<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-															<rect x="0" y="0" width="24" height="24" />
-															<circle fill="#000000" cx="5" cy="12" r="2" />
-															<circle fill="#000000" cx="12" cy="12" r="2" />
-															<circle fill="#000000" cx="19" cy="12" r="2" />
-														</g>
-													</svg>
-												</button>
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="#">Edit</a>
-													<a class="dropdown-item" href="#">Delete</a>
-												</div>
-											</div>
-										</td>
+										
 									</tr>
 									<tr>
 										<td>Smartphone Recycling</td>
@@ -550,28 +256,7 @@
 										<td>0.623</td>
 										<td>0.712</td>
 										<td>0.803</td>
-										<td>
-											<div class="dropdown">
-												<button
-													type="button"
-													class="btn btn-success light sharp"
-													data-toggle="dropdown"
-												>
-													<svg widtd="20px" height="20px" viewBox="0 0 24 24" version="1.1">
-														<g stroke="none" stroke-widtd="1" fill="none" fill-rule="evenodd">
-															<rect x="0" y="0" widtd="24" height="24" />
-															<circle fill="#000000" cx="5" cy="12" r="2" />
-															<circle fill="#000000" cx="12" cy="12" r="2" />
-															<circle fill="#000000" cx="19" cy="12" r="2" />
-														</g>
-													</svg>
-												</button>
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="#">Edit</a>
-													<a class="dropdown-item" href="#">Delete</a>
-												</div>
-											</div>
-										</td>
+										
 									</tr>
 									<tr>
 										<td>Laptop Recycling</td>
@@ -580,28 +265,7 @@
 										<td>1.045</td>
 										<td>1.246</td>
 										<td>1.523</td>
-										<td>
-											<div class="dropdown">
-												<button
-													type="button"
-													class="btn btn-success light sharp"
-													data-toggle="dropdown"
-												>
-													<svg widtd="20px" height="20px" viewBox="0 0 24 24" version="1.1">
-														<g stroke="none" stroke-widtd="1" fill="none" fill-rule="evenodd">
-															<rect x="0" y="0" widtd="24" height="24" />
-															<circle fill="#000000" cx="5" cy="12" r="2" />
-															<circle fill="#000000" cx="12" cy="12" r="2" />
-															<circle fill="#000000" cx="19" cy="12" r="2" />
-														</g>
-													</svg>
-												</button>
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="#">Edit</a>
-													<a class="dropdown-item" href="#">Delete</a>
-												</div>
-											</div>
-										</td>
+										
 									</tr>
 									<tr>
 										<td>Desktop Computers Recycling</td>
@@ -610,28 +274,7 @@
 										<td>1.263</td>
 										<td>1.499</td>
 										<td>1.786</td>
-										<td>
-											<div class="dropdown">
-												<button
-													type="button"
-													class="btn btn-success light sharp"
-													data-toggle="dropdown"
-												>
-													<svg widtd="20px" height="20px" viewBox="0 0 24 24" version="1.1">
-														<g stroke="none" stroke-widtd="1" fill="none" fill-rule="evenodd">
-															<rect x="0" y="0" widtd="24" height="24" />
-															<circle fill="#000000" cx="5" cy="12" r="2" />
-															<circle fill="#000000" cx="12" cy="12" r="2" />
-															<circle fill="#000000" cx="19" cy="12" r="2" />
-														</g>
-													</svg>
-												</button>
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="#">Edit</a>
-													<a class="dropdown-item" href="#">Delete</a>
-												</div>
-											</div>
-										</td>
+										
 									</tr>
 									<tr>
 										<td>
@@ -643,28 +286,6 @@
 										<td>2.352</td>
 										<td>2.598</td>
 										<td>3.009</td>
-										<td>
-											<div class="dropdown">
-												<button
-													type="button"
-													class="btn btn-success light sharp"
-													data-toggle="dropdown"
-												>
-													<svg widtd="20px" height="20px" viewBox="0 0 24 24" version="1.1">
-														<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-															<rect x="0" y="0" width="24" height="24" />
-															<circle fill="#000000" cx="5" cy="12" r="2" />
-															<circle fill="#000000" cx="12" cy="12" r="2" />
-															<circle fill="#000000" cx="19" cy="12" r="2" />
-														</g>
-													</svg>
-												</button>
-												<div class="dropdown-menu">
-													<a class="dropdown-item" href="#">Edit</a>
-													<a class="dropdown-item" href="#">Delete</a>
-												</div>
-											</div>
-										</td>
 									</tr>
 								</tbody>
 							</table>

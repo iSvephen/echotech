@@ -7,7 +7,7 @@
     async function login() {
       try {
         await pb.collection('users').authWithPassword(email, password);
-        goto('/units');
+        goto('/dashboard');
       } catch (err) {
         console.error('Login error:', err);
         error = 'Invalid email or password';
@@ -35,9 +35,9 @@
                         <div class="col-xl-12">
                             <div class="auth-form">
               <div class="text-center mb-3">
-                <a href="/"><img src="/images/Echo_Sybol.png" alt=""></a>
+                <a href="/"><img src="/images/Echo_Symbol.png" width="100%" alt=""></a>
               </div>
-                                <h4 class="text-center mb-4 text-white">Sign in your account</h4>
+                                <!-- <h4 class="text-center mb-4 text-white">Sign in your account</h4> -->
                                 <form on:submit|preventDefault={login}>
                                     <div class="form-group">
                                         <label class="mb-1 text-white"><strong>Email</strong></label>
@@ -51,7 +51,7 @@
                                     <p style="color:red">{error}</p>
                                   {/if}
                                     <div class="text-center">
-                                        <button type="submit" class="btn bg-white text-primary btn-block">Sign Me In</button>
+                                        <button type="submit" class="btn bg-white text-black btn-block">Sign Me In</button>
                                     </div>
                                 </form>
                             </div>
