@@ -23,8 +23,8 @@ export const actions = {
             await pb.collection('units').create({ name});
             throw redirect(303, '/units');
         } catch (error) {
-            console.error('Error creating post:', error);
-            return fail(500, { message: 'Failed to create post' });
+            console.error('Error creating unit:', error);
+            return fail(500, { message: 'Failed to create unit' });
         }
     },
 
@@ -39,8 +39,8 @@ export const actions = {
             await pb.collection('units').update(id, { name });
             throw redirect(303, '/units');
         } catch (error) {
-            console.error('Error updating post:', error);
-            return fail(500, { message: 'Failed to update post' });
+            console.error('Error updating unit:', error);
+            return fail(500, { message: 'Failed to update unit' });
         }
     },
 
@@ -48,14 +48,14 @@ export const actions = {
         const formData = await request.formData();
         const id = formData.get('id');
 
-        if (!id) return fail(400, { message: 'Invalid post ID' });
+        if (!id) return fail(400, { message: 'Invalid unit ID' });
 
         try {
             await pb.collection('units').delete(id);
             throw redirect(303, '/units');
         } catch (error) {
-            console.error('Error deleting post:', error);
-            return fail(500, { message: 'Failed to delete post' });
+            console.error('Error deleting unit:', error);
+            return fail(500, { message: 'Failed to delete unit' });
         }
     }
 };

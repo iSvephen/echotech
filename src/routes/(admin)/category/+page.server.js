@@ -23,8 +23,8 @@ export const actions = {
             await pb.collection('service_category').create({ name});
             throw redirect(303, '/category');
         } catch (error) {
-            console.error('Error creating post:', error);
-            return fail(500, { message: 'Failed to create post' });
+            console.error('Error creating category:', error);
+            return fail(500, { message: 'Failed to create category' });
         }
     },
 
@@ -39,8 +39,8 @@ export const actions = {
             await pb.collection('service_category').update(id, { name });
             throw redirect(303, '/category');
         } catch (error) {
-            console.error('Error updating post:', error);
-            return fail(500, { message: 'Failed to update post' });
+            console.error('Error updating category:', error);
+            return fail(500, { message: 'Failed to update category' });
         }
     },
 
@@ -48,14 +48,14 @@ export const actions = {
         const formData = await request.formData();
         const id = formData.get('id');
 
-        if (!id) return fail(400, { message: 'Invalid post ID' });
+        if (!id) return fail(400, { message: 'Invalid category ID' });
 
         try {
             await pb.collection('service_category').delete(id);
             throw redirect(303, '/category');
         } catch (error) {
-            console.error('Error deleting post:', error);
-            return fail(500, { message: 'Failed to delete post' });
+            console.error('Error deleting category:', error);
+            return fail(500, { message: 'Failed to delete category' });
         }
     }
 };

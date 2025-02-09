@@ -23,8 +23,8 @@ export const actions = {
             await pb.collection('service_subcategory').create({ name});
             throw redirect(303, '/subcategory');
         } catch (error) {
-            console.error('Error creating post:', error);
-            return fail(500, { message: 'Failed to create post' });
+            console.error('Error creating subcategory:', error);
+            return fail(500, { message: 'Failed to create subcategory' });
         }
     },
 
@@ -39,8 +39,8 @@ export const actions = {
             await pb.collection('service_subcategory').update(id, { name });
             throw redirect(303, '/subcategory');
         } catch (error) {
-            console.error('Error updating post:', error);
-            return fail(500, { message: 'Failed to update post' });
+            console.error('Error updating subcategory:', error);
+            return fail(500, { message: 'Failed to update subcategory' });
         }
     },
 
@@ -48,14 +48,14 @@ export const actions = {
         const formData = await request.formData();
         const id = formData.get('id');
 
-        if (!id) return fail(400, { message: 'Invalid post ID' });
+        if (!id) return fail(400, { message: 'Invalid subcategory ID' });
 
         try {
             await pb.collection('service_subcategory').delete(id);
             throw redirect(303, '/subcategory');
         } catch (error) {
-            console.error('Error deleting post:', error);
-            return fail(500, { message: 'Failed to delete post' });
+            console.error('Error deleting subcategory:', error);
+            return fail(500, { message: 'Failed to delete subcategory' });
         }
     }
 };

@@ -15,17 +15,6 @@
     }
   </script>
   
-  <!-- <form on:submit|preventDefault={login}>
-    <input type="email" bind:value={email} placeholder="Email" required />
-    <input type="password" bind:value={password} placeholder="Password" required />
-    <button type="submit">Login</button>
-    {#if error}
-      <p style="color:red">{error}</p>
-    {/if}
-  </form> -->
-  
-
-  
   <div class="authincation h-100">
     <div class="container h-100">
         <div class="row justify-content-center h-100 align-items-center">

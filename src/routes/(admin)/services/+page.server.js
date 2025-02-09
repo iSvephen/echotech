@@ -23,8 +23,8 @@ export const actions = {
             await pb.collection('services').create({ name});
             throw redirect(303, '/services');
         } catch (error) {
-            console.error('Error creating post:', error);
-            return fail(500, { message: 'Failed to create post' });
+            console.error('Error creating service:', error);
+            return fail(500, { message: 'Failed to create service' });
         }
     },
 
@@ -39,8 +39,8 @@ export const actions = {
             await pb.collection('services').update(id, { name });
             throw redirect(303, '/services');
         } catch (error) {
-            console.error('Error updating post:', error);
-            return fail(500, { message: 'Failed to update post' });
+            console.error('Error updating service:', error);
+            return fail(500, { message: 'Failed to update service' });
         }
     },
 
@@ -48,14 +48,14 @@ export const actions = {
         const formData = await request.formData();
         const id = formData.get('id');
 
-        if (!id) return fail(400, { message: 'Invalid post ID' });
+        if (!id) return fail(400, { message: 'Invalid service ID' });
 
         try {
             await pb.collection('services').delete(id);
             throw redirect(303, '/services');
         } catch (error) {
-            console.error('Error deleting post:', error);
-            return fail(500, { message: 'Failed to delete post' });
+            console.error('Error deleting service:', error);
+            return fail(500, { message: 'Failed to delete service' });
         }
     }
 };
