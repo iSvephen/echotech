@@ -7,7 +7,7 @@
     async function login() {
       try {
         await pb.collection('users').authWithPassword(email, password);
-        goto('/dashboard');
+        goto('/units');
       } catch (err) {
         console.error('Login error:', err);
         error = 'Invalid email or password';

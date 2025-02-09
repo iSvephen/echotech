@@ -1,0 +1,108 @@
+Daily Report - 28-01-24
+
+Hello Angela,
+
+Today I started working.
+
+Thank you
+Stephen
+
+Daily Report - 28-01-25
+
+Hello Angela,
+
+Today I started to design the admin panel and fix database issues. To see the website design I have done today visit https://echo.stephen.vip/
+
+Thank you
+Stephen
+
+
+
+Daily Report - 29-01-25
+
+Hello Angela,
+
+Today, I designed and created the contract form page, and I also added more functionality to the services page and the main page. Below is the link to the contract form page I created today:   
+https://echo.stephen.vip/contracts-add
+
+Thank you
+Stephen
+
+Daily Report - 30/01/25
+
+Hello Angela,
+
+- Designed and created a new database table to meet the requirements.
+- Added service and category data to the database.
+- Started designing the PDF file format for auto-generation.
+- Fixed several issues in the admin panel.
+
+Thank you,
+Stephen
+
+
+Daily Report - 31/01/25
+
+Hello Angela,
+
+- Created a form to save client contact information: Client Add Form
+- Updated design in Contract Form: Contract Add Form
+- Updated database design.
+
+Thank you,
+Stephen
+
+
+Daily Report - 3/02/25
+
+Hello Angela,
+
+- Update Contract Form
+- Testing Library to Generate PDF file
+
+Thank you,
+Stephen
+
+
+Daily Report - 4/02/25
+
+Hello Angela,
+
+Today, I updated the website theme to match with the Echo Brand Guidelines. I’ll also begin connecting the databases shortly. Is there anything you’d like me to add or adjust?
+
+Thank you,
+Stephen
+
+
+Daily Report - 5/02/25
+
+Hello Angela,
+
+Today, I updated the website design and added the Tiering Calculator. https://echo.stephen.vip/tiering.
+
+Thank you,
+Stephen
+
+
+Daily Report - 7/02/25
+
+Hello Angela,
+
+Today, I fixed several issues in the backend and updated the Tiering Calculator. https://echo.stephen.vip/tiering.
+
+Thank you,
+Stephen
+
+
+Daily Report - 10/02/25
+
+Hello Angela,
+
+Today, I worked on:
+
+- Implementing authentication for dashboard access.
+- Connecting with the database for the services, category, and units pages to manage data. To see everything in action, I'll need a domain and server to run the code online.
+
+Thanks,
+Stephen
+

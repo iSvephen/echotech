@@ -20,13 +20,13 @@
 <!--*******************
         Preloader start
     ********************-->
-<div id="preloader">
+<!-- <div id="preloader">
     <div class="sk-three-bounce">
         <div class="sk-child sk-bounce1"></div>
         <div class="sk-child sk-bounce2"></div>
         <div class="sk-child sk-bounce3"></div>
     </div>
-</div>
+</div> -->
 <!--*******************
           Preloader end
       ********************-->
@@ -161,6 +161,7 @@
                   <ul aria-expanded="false">
                     <li><a href="/services">Services</a></li>
                     <li><a href="/category">Category</a></li>
+                    <li><a href="/subcategory">Sub Category</a></li>
                     <li><a href="/units">Units</a></li>
                   </ul>
                 </li>

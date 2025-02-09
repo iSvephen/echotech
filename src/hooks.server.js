@@ -1,4 +1,5 @@
 import { pb } from '$lib/pocketbase';
+import { redirect } from '@sveltejs/kit';
 
 export async function handle({ event, resolve }) {
   try {
@@ -14,8 +15,7 @@ export async function handle({ event, resolve }) {
         console.error('Auth refresh failed:', error);
         pb.authStore.clear();
       }
-    }
-
+    } 
 
     // Process the request
     const response = await resolve(event);

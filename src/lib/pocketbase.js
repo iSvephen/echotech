@@ -15,4 +15,4 @@ if (typeof window !== 'undefined') {
 }
 
 export const currentUser = pb.authStore.model;
-export const isAuthenticated = writable(false);
+export { pb as default };  // Add default export

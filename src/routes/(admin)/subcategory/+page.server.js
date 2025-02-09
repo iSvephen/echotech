@@ -3,7 +3,7 @@ import { fail, redirect } from '@sveltejs/kit';
 
 export async function load() {
     try {
-        const categories = await pb.collection('service_category').getFullList({ sort: '-created' });
+        const categories = await pb.collection('service_subcategory').getFullList({ sort: '-created' });
         // console.log('categories:', categories);
         return { categories };
     } catch (error) {
@@ -20,8 +20,8 @@ export const actions = {
         if (!name) return fail(400, { message: 'Name is required' });
 
         try {
-            await pb.collection('service_category').create({ name});
-            throw redirect(303, '/category');
+            await pb.collection('service_subcategory').create({ name});
+            throw redirect(303, '/subcategory');
         } catch (error) {
             console.error('Error creating post:', error);
             return fail(500, { message: 'Failed to create post' });
@@ -36,8 +36,8 @@ export const actions = {
         if (!id || !name) return fail(400, { message: 'All fields are required' });
 
         try {
-            await pb.collection('service_category').update(id, { name });
-            throw redirect(303, '/category');
+            await pb.collection('service_subcategory').update(id, { name });
+            throw redirect(303, '/subcategory');
         } catch (error) {
             console.error('Error updating post:', error);
             return fail(500, { message: 'Failed to update post' });
@@ -51,8 +51,8 @@ export const actions = {
         if (!id) return fail(400, { message: 'Invalid post ID' });
 
         try {
-            await pb.collection('service_category').delete(id);
-            throw redirect(303, '/category');
+            await pb.collection('service_subcategory').delete(id);
+            throw redirect(303, '/subcategory');
         } catch (error) {
             console.error('Error deleting post:', error);
             return fail(500, { message: 'Failed to delete post' });

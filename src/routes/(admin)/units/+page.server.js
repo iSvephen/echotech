@@ -4,7 +4,7 @@ import { fail, redirect } from '@sveltejs/kit';
 export async function load() {
     try {
         const units = await pb.collection('units').getFullList({ sort: '-created' });
-        console.log('units:', units);
+        // console.log('units:', units);
         return { units };
     } catch (error) {
         console.error('Error loading units:', error);
