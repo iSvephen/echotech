@@ -1,26 +1,26 @@
 <script>
-    import pb from '$lib/pocketbase';
+    import { pb } from '$lib/pocketbase';
+    import { goto } from '$app/navigation';
   
-    let email = '';
-    let password = '';
-    let error = '';
+    let email = '', password = '', error = '';
   
-    async function handleLogin() {
+    async function login() {
       try {
         await pb.collection('users').authWithPassword(email, password);
-        window.location.href = '/'; // Redirect to home page
+        goto('/');
       } catch (err) {
-        error = err.message;
+        console.error('Login error:', err);
+        error = 'Invalid email or password';
       }
     }
   </script>
   
-  <h1>Login</h1>
-  {#if error}
-    <p style="color: red;">{error}sfasf</p>
-  {/if}
-  <form on:submit|preventDefault={handleLogin}>
+  <form on:submit|preventDefault={login}>
     <input type="email" bind:value={email} placeholder="Email" required />
     <input type="password" bind:value={password} placeholder="Password" required />
     <button type="submit">Login</button>
+    {#if error}
+      <p style="color:red">{error}</p>
+    {/if}
   </form>
+  
