@@ -50,7 +50,6 @@
               class="form-inline mr-3"
               method="post"
               action={editingCategory ? "?/update" : "?/create"}
-              use:enhance
             >
               {#if editingCategory}
                 <input type="hidden" name="id" value={editingCategory.id} />
@@ -146,7 +145,7 @@
             Cancel
           </button>
           <!-- Delete form using SvelteKit form enhancement -->
-          <form method="post" action="?/delete" use:enhance>
+          <form method="post" action="?/delete">
             {#if deletingCategory}
               <input type="hidden" name="id" value={deletingCategory.id} />
             {/if}

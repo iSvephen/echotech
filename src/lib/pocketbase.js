@@ -1,4 +1,5 @@
 import PocketBase from 'pocketbase';
+import { writable } from 'svelte/store';
 
 export const pb = new PocketBase('http://127.0.0.1:8090');
 
@@ -14,3 +15,4 @@ if (typeof window !== 'undefined') {
 }
 
 export const currentUser = pb.authStore.model;
+export const isAuthenticated = writable(false);

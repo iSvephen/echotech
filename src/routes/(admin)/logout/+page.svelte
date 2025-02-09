@@ -4,6 +4,6 @@
   
     // Clear the auth store (client-side) and redirect to login
     pb.authStore.clear();
-    goto('/login');
+    goto('/');
   </script>
   

@@ -3,11 +3,11 @@
   import { onMount } from 'svelte';
   export let data;
 
-  // Data coming from the server (array of services)
-  let services = data.services;
+  // Data coming from the server (array of units)
+  let units = data.units;
 
   // For create/update actions
-  let editingService = null;
+  let editingUnit = null;
   let name = '';
 
   // For delete confirmation
@@ -15,13 +15,13 @@
 
   // Resets the form to "create" mode
   function newCategory() {
-    editingService = null;
+    editingUnit = null;
     name = '';
   }
 
   // Fill the form for editing an existing unit
   function editUnit(unit) {
-    editingService = { ...unit };
+    editingUnit = { ...unit };
     name = unit.name;
   }
 
@@ -43,17 +43,16 @@
       <div class="card">
         <!-- Beautiful, responsive card header -->
         <div class="card-header d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-          <h4 class="card-title mb-2 mb-md-0">Services</h4>
+          <h4 class="card-title mb-2 mb-md-0">Units</h4>
           <div class="d-flex align-items-center">
             <!-- Create / Update Form -->
             <form
               class="form-inline mr-3"
               method="post"
-              action={editingService ? "?/update" : "?/create"}
-              use:enhance
+              action={editingUnit ? "?/update" : "?/create"}
             >
-              {#if editingService}
-                <input type="hidden" name="id" value={editingService.id} />
+              {#if editingUnit}
+                <input type="hidden" name="id" value={editingUnit.id} />
               {/if}
               <div class="form-group mb-0 mr-2">
                 <label for="name" class="sr-only">Name:</label>
@@ -63,18 +62,18 @@
                   name="name"
                   bind:value={name}
                   class="form-control"
-                  placeholder="Service name"
+                  placeholder="Unit name"
                   required
                 />
               </div>
               <button type="submit" class="btn btn-echo">
-                {editingService ? 'Update' : 'Create'}
+                {editingUnit ? 'Update' : 'Create'}
               </button>
             </form>
           </div>
         </div>
 
-        <!-- Card body with the services table -->
+        <!-- Card body with the units table -->
         <div class="card-body">
           <div class="table-responsive">
             <table id="example3" class="display min-w850">
@@ -85,7 +84,7 @@
                 </tr>
               </thead>
               <tbody>
-                {#each services as unit}
+                {#each units as unit}
                   <tr>
                     <td>{unit.name}</td>
                     <td>
@@ -146,7 +145,7 @@
             Cancel
           </button>
           <!-- Delete form using SvelteKit form enhancement -->
-          <form method="post" action="?/delete" use:enhance>
+          <form method="post" action="?/delete">
             {#if deletingCategory}
               <input type="hidden" name="id" value={deletingCategory.id} />
             {/if}

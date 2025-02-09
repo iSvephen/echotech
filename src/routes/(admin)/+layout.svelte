@@ -39,7 +39,7 @@
               Nav header start
           ***********************************-->
     <div class="nav-header">
-        <a href="/" class="brand-logo">
+        <a href="/dashboard" class="brand-logo">
             <img class="logo-abbr" src="/images/Echo_Symbol.png" alt="" />
             <!-- <img class="logo-compact" src="/images/Echo_Logomark.png" alt=""> -->
             <img class="brand-title" src="/images/Echo_Logotitle.png" alt="" />
@@ -132,7 +132,7 @@
         <div class="dlabnav-scroll">
             <ul class="metismenu" id="menu">
                 <li>
-                  <a href="/" class="ai-icon" aria-expanded="false">
+                  <a href="/dashboard" class="ai-icon" aria-expanded="false">
                     <i class="flaticon-381-networking"></i>
                     <span class="nav-text">Dashboard</span>
                   </a>
@@ -161,7 +161,7 @@
                   <ul aria-expanded="false">
                     <li><a href="/services">Services</a></li>
                     <li><a href="/category">Category</a></li>
-                    <li><a href="units.html">Units</a></li>
+                    <li><a href="/units">Units</a></li>
                   </ul>
                 </li>
                 <li>
