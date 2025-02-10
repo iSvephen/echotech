@@ -81,13 +81,25 @@
               <thead>
                 <tr>
                   <th>Name</th>
+                  <th>Category</th>
+                  <th>Unit</th>
+                  <th>T1</th>
+                  <th>T2</th>
+                  <th>T3</th>
+                  <th>T4</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                {#each services as unit}
+                {#each services as service}
                   <tr>
-                    <td>{unit.name}</td>
+                    <td>{service.name}</td>
+                    <td>{service.expand.category.name}</td>
+                    <td>{service.expand.unit.name}</td>
+                    <td>{service.t1}</td>
+                    <td>{service.t2}</td>
+                    <td>{service.t3}</td>
+                    <td>{service.t4}</td>
                     <td>
                       <div class="d-flex">
                         <button

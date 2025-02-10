@@ -1,5 +1,13 @@
 <script>
     import { currentUser } from '$lib/pocketbase';
+    import { onMount } from 'svelte';
+
+    let dataTable;
+
+    onMount(() => {
+    // Initialize DataTable (make sure DataTables & jQuery are loaded)
+    globalThis.$('#example3').DataTable();
+  });
   </script>
 
 

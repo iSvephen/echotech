@@ -3,8 +3,11 @@ import { fail, redirect } from '@sveltejs/kit';
 
 export async function load() {
     try {
-        const services = await pb.collection('services').getFullList({ sort: '-created' });
-        // console.log('services:', services);
+        const services = await pb.collection('services').getFullList({ 
+            expand: ['category,unit'],
+            sort: '-created' 
+        });
+        console.log('services:', services);
         return { services };
     } catch (error) {
         console.error('Error loading services:', error);
