@@ -3,12 +3,15 @@
   import { onMount } from 'svelte';
   export let data;
 
+	const { categories, subcategories } = data;
+
   // Data coming from the server (array of categories)
-  let categories = data.categories;
+  // let categories = data.categories;
 
   // For create/update actions
   let editingCategory = null;
-  let name = '';
+  let mainCategoryname = '';
+  let subCategoryname = '';
 
   // For delete confirmation
   let deletingCategory = null;
@@ -22,7 +25,7 @@
   // Fill the form for editing an existing category
   function editCategory(category) {
     editingCategory = { ...category };
-    name = category.name;
+    subCategoryname = category.name;
   }
 
   // Set the category to be deleted and show the modal
@@ -43,7 +46,7 @@
       <div class="card">
         <!-- Beautiful, responsive card header -->
         <div class="card-header d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-          <h4 class="card-title mb-2 mb-md-0">Category</h4>
+          <h4 class="card-title mb-2 mb-md-0">Sub Category</h4>
           <div class="d-flex align-items-center">
             <!-- Create / Update Form -->
             <form
@@ -60,12 +63,21 @@
                   type="text"
                   id="name"
                   name="name"
-                  bind:value={name}
+                  bind:value={subCategoryname}
                   class="form-control"
-                  placeholder="Category name"
+                  placeholder="Sub Category name"
                   required
                 />
               </div>
+
+              <select class="mr-sm-2 default-select form-control" name="categoryId">
+                <option value="" selected>Choose...</option>
+                {#each categories as category}
+                  <option value={category.id} selected={editingCategory && editingCategory.expand.categoryId.id === category.id}>{category.name}</option>
+                  <!-- <option value={category.id} selected={editingService && editingService.categoryId === category.id}>{category.name}</option> -->
+                {/each}
+              </select>
+
               <button type="submit" class="btn btn-echo">
                 {editingCategory ? 'Update' : 'Create'}
               </button>
@@ -80,13 +92,15 @@
               <thead>
                 <tr>
                   <th>Name</th>
+                  <th>Category</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                {#each categories as category}
+                {#each subcategories as category}
                   <tr>
                     <td>{category.name}</td>
+                    <td>{category.expand.categoryId.name}</td>
                     <td>
                       <div class="d-flex">
                         <button

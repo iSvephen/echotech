@@ -8,3 +8,13 @@
 // t3,
 // t4,
 // unitId,
+
+
+
+agreement_term,
+clientId,
+date,
+number,
+prepared_by,
+remark,
+services,

@@ -3,9 +3,13 @@ import { fail, redirect } from '@sveltejs/kit';
 
 export async function load() {
     try {
-        const categories = await pb.collection('service_subcategory').getFullList({ sort: '-created' });
-        // console.log('categories:', categories);
-        return { categories };
+        const categories = await pb.collection('service_category').getFullList({ sort: '-created' });
+        const subcategories = await pb.collection('service_subcategory').getFullList({ 
+            expand: ['categoryId'],
+            sort: '-created',
+         });
+        // console.log('subcategories:', subcategories);
+        return { categories, subcategories };
     } catch (error) {
         console.error('Error loading categories:', error);
         return { categories: [] };
@@ -16,11 +20,12 @@ export const actions = {
     create: async ({ request }) => {
         const formData = await request.formData();
         const name = formData.get('name');
+        const categoryId = formData.get('categoryId');
 
-        if (!name) return fail(400, { message: 'Name is required' });
+        if (!name || !categoryId) return fail(400, { message: 'All fields is required' });
 
         try {
-            await pb.collection('service_subcategory').create({ name});
+            await pb.collection('service_subcategory').create({ name, categoryId });
             throw redirect(303, '/subcategory');
         } catch (error) {
             console.error('Error creating subcategory:', error);
@@ -32,11 +37,12 @@ export const actions = {
         const formData = await request.formData();
         const id = formData.get('id');
         const name = formData.get('name');
+        const categoryId = formData.get('categoryId');
 
-        if (!id || !name) return fail(400, { message: 'All fields are required' });
+        if (!id || !name || !categoryId) return fail(400, { message: 'All fields are required' });
 
         try {
-            await pb.collection('service_subcategory').update(id, { name });
+            await pb.collection('service_subcategory').update(id, { name, categoryId });
             throw redirect(303, '/subcategory');
         } catch (error) {
             console.error('Error updating subcategory:', error);
