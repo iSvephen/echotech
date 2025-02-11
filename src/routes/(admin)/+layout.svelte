@@ -74,7 +74,7 @@
                                 <img src="/images/users/user.png" width="20" alt="" />
                                 <div class="header-info">
                                     <span class="text-black">{currentUser?.name || 'Guest'}</span>
-                                    <p class="fs-12 mb-0">Super Admin</p>
+                                    <p class="fs-12 mb-0">Admin</p>
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
