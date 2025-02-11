@@ -58,8 +58,62 @@
           <a href="javascript:void(0)" data-toggle="modal" data-target="#addServiceModal"  class="add-menu-sidebar">+ New Service</a>
         </div>
 
+
+        {#each categories as category}
+						<div class="card-header">
+							<h4 class="card-title">{category.name}</h4>
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-bordered table-responsive-sm">
+									<thead style="background-color: #224335">
+										<tr style="color: white">
+											<th>Service</th>
+											<th>Unit</th>
+											<th>T1</th>
+											<th>T2</th>
+											<th>T3</th>
+											<th>T4</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody>
+										{#each services.filter(service => service.categoryId === category.id) as service}
+											<tr>
+												<td>{service.name}</td>
+												<td>{units.find(unit => unit.id === service.unitId)?.name}</td>
+												<td>{service.t1}</td>
+												<td>{service.t2}</td>
+												<td>{service.t3}</td>
+												<td>{service.t4}</td>
+                        <td>
+                          <div class="d-flex">
+                            <button
+                              class="btn btn-primary shadow btn-xs sharp mr-1"
+                              on:click={() => editService(service)}
+                              aria-label="Edit Category"
+                            >
+                              <i class="fa fa-pencil"></i>
+                            </button>
+                            <button
+                              class="btn btn-danger shadow btn-xs sharp"
+                              on:click={() => openDeleteModal(service)}
+                              aria-label="Delete Category"
+                            >
+                              <i class="fa fa-trash"></i>
+                            </button>
+                          </div>
+                        </td>         
+											</tr>
+										{/each}
+									</tbody>
+								</table>
+							</div>
+						</div>
+			{/each}
+
         <!-- Card body with the services table -->
-        <div class="card-body">
+        <!-- <div class="card-body">
           <div class="table-responsive">
             <table id="example3" class="display min-w850">
               <thead>
@@ -107,7 +161,10 @@
               </tbody>
             </table>
           </div>
-        </div>
+        </div> -->
+
+
+
       </div>
     </div>
   </div>
