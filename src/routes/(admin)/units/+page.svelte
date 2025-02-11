@@ -13,12 +13,6 @@
   // For delete confirmation
   let deletingCategory = null;
 
-  // Resets the form to "create" mode
-  function newCategory() {
-    editingUnit = null;
-    name = '';
-  }
-
   // Fill the form for editing an existing unit
   function editUnit(unit) {
     editingUnit = { ...unit };

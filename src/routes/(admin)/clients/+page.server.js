@@ -4,7 +4,7 @@ import { fail, redirect } from '@sveltejs/kit';
 export async function load() {
     try {
         const clients = await pb.collection('clients').getFullList({ sort: '-created' });
-        console.log('clients:', clients);
+        // console.log('clients:', clients);
         return { clients };
     } catch (error) {
         console.error('Error loading clients:', error);

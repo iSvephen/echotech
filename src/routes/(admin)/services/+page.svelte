@@ -3,31 +3,42 @@
   import { onMount } from 'svelte';
   export let data;
 
+
+	const { services, categories, units } = data;
+
+    let name = '';
+    let category = '';
+    let unit = '';
+    let t1 = '';
+    let t2 = '';
+    let t3 = '';
+    let t4 = '';
   // Data coming from the server (array of services)
-  let services = data.services;
+  // let services = data.services;
 
   // For create/update actions
   let editingService = null;
-  let name = '';
 
   // For delete confirmation
-  let deletingCategory = null;
-
-  // Resets the form to "create" mode
-  function newCategory() {
-    editingService = null;
-    name = '';
-  }
+  let deletingService = null;
 
   // Fill the form for editing an existing unit
-  function editUnit(unit) {
-    editingService = { ...unit };
-    name = unit.name;
+  function editService(service) {
+    editingService = { ...service };
+    name = service.name;
+    category = service.categoryId;
+    unit = service.unitId;
+    t1 = service.t1;
+    t2 = service.t2;
+    t3 = service.t3;
+    t4 = service.t4;
+    // console.log(categoryId);
+    globalThis.$('#addServiceModal').modal('show');
   }
 
   // Set the unit to be deleted and show the modal
   function openDeleteModal(unit) {
-    deletingCategory = unit;
+    deletingService = unit;
     globalThis.$('#deleteServiceModal').modal('show');
   }
 
@@ -44,34 +55,7 @@
         <!-- Beautiful, responsive card header -->
         <div class="card-header d-flex flex-column flex-md-row justify-content-between align-items-md-center">
           <h4 class="card-title mb-2 mb-md-0">Services</h4>
-          <div class="d-flex align-items-center">
-            <!-- Create / Update Form -->
-            <form
-              class="form-inline mr-3"
-              method="post"
-              action={editingService ? "?/update" : "?/create"}
-              use:enhance
-            >
-              {#if editingService}
-                <input type="hidden" name="id" value={editingService.id} />
-              {/if}
-              <div class="form-group mb-0 mr-2">
-                <label for="name" class="sr-only">Name:</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  bind:value={name}
-                  class="form-control"
-                  placeholder="Service name"
-                  required
-                />
-              </div>
-              <button type="submit" class="btn btn-echo">
-                {editingService ? 'Update' : 'Create'}
-              </button>
-            </form>
-          </div>
+          <a href="javascript:void(0)" data-toggle="modal" data-target="#addServiceModal"  class="add-menu-sidebar">+ New Service</a>
         </div>
 
         <!-- Card body with the services table -->
@@ -104,14 +88,14 @@
                       <div class="d-flex">
                         <button
                           class="btn btn-primary shadow btn-xs sharp mr-1"
-                          on:click={() => editUnit(unit)}
+                          on:click={() => editService(service)}
                           aria-label="Edit Category"
                         >
                           <i class="fa fa-pencil"></i>
                         </button>
                         <button
                           class="btn btn-danger shadow btn-xs sharp"
-                          on:click={() => openDeleteModal(unit)}
+                          on:click={() => openDeleteModal(service)}
                           aria-label="Delete Category"
                         >
                           <i class="fa fa-trash"></i>
@@ -127,6 +111,70 @@
       </div>
     </div>
   </div>
+
+
+  <!--**********************************
+    Add Service Modal
+  ***********************************-->
+  <div class="modal fade" id="addServiceModal">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title">Add Service</h5>
+      <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+      </div>
+      <div class="modal-body">
+      <form method="post" action={editingService ? "?/update" : "?/create"}>
+        {#if editingService}
+          <input type="hidden" name="id" value={editingService.id} />
+        {/if}
+        <div class="form-group">
+        <label class="text-black font-w500" for="name">Name</label>
+        <input type="text" class="form-control" name="name" bind:value={name}>
+        </div>
+        <div class="form-group">
+        <label class="text-black font-w500" for="category">Category</label>
+        <select class="mr-sm-2 default-select form-control" name="categoryId" bind:value={category}>
+          <option value="" selected>Choose...</option>
+          {#each data.categories as category}
+            <option value={category.id} selected={editingService && editingService.categoryId === category.id}>{category.name}</option>
+          {/each}
+        </select>
+        </div>
+        <div class="form-group">
+        <label class="text-black font-w500" for="unit">Unit</label>
+        <select class="mr-sm-2 default-select form-control" name="unitId" bind:value={unit}>
+          <option value="" selected>Choose...</option>
+          {#each data.units as unit}
+            <option value={unit.id} selected={editingService && editingService.unitId === unit.id}>{unit.name}</option>
+          {/each}
+        </select>
+        </div>
+        <div class="form-group">
+        <label class="text-black font-w500" for="t1">T1</label>
+        <input name="t1" type="text" class="form-control" bind:value={t1}>
+        </div>
+        <div class="form-group">
+        <label class="text-black font-w500" for="t2">T2</label>
+        <input name="t2" type="text" class="form-control" bind:value={t2}>
+        </div>
+        <div class="form-group">
+        <label class="text-black font-w500" for="t3">T3</label>
+        <input name="t3" type="text" class="form-control" bind:value={t3}>
+        </div>
+        <div class="form-group">
+        <label class="text-black font-w500" for="t4">T4</label>
+        <input name="t4" type="text" class="form-control" bind:value={t4}>
+        </div>
+        <div class="form-group">
+        <button type="submit" class="btn btn-primary">{editingService ? 'Update' : 'Create'}</button>
+        </div>
+      </form>
+      </div>
+    </div>
+    </div>
+  </div>
+
 
   <!-- Delete Confirmation Modal -->
   <div
@@ -146,10 +194,10 @@
           </button>
         </div>
         <div class="modal-body">
-          {#if deletingCategory}
+          {#if deletingService}
             <p>
               Are you sure you want to delete the unit
-              <strong>{deletingCategory.name}</strong>?
+              <strong>{deletingService.name}</strong>?
             </p>
           {/if}
         </div>
@@ -158,9 +206,9 @@
             Cancel
           </button>
           <!-- Delete form using SvelteKit form enhancement -->
-          <form method="post" action="?/delete" use:enhance>
-            {#if deletingCategory}
-              <input type="hidden" name="id" value={deletingCategory.id} />
+          <form method="post" action="?/delete">
+            {#if deletingService}
+              <input type="hidden" name="id" value={deletingService.id} />
             {/if}
             <button type="submit" class="btn btn-danger">
               Delete
@@ -171,3 +219,4 @@
     </div>
   </div>
 </div>
+
