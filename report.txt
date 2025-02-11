@@ -113,7 +113,8 @@ Hello Angela,
 
 This morning, I worked on the Tech Area. After that, I continued developing the website in the office in the afternoon:
 
-- Set up secure user authentication and protected routes for the admin dashboard
+- Set up secure user authentication and protected routes for the admin dashboard.
+- Connecting with the database for the clients and contracts pages to manage data.
 - Added form validation and security to protect data input
 - Improved UI components and made forms work better
 - Fixed some deployment issues.

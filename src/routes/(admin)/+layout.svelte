@@ -5,21 +5,19 @@
 
 
 <svelte:head>
-        <link href="https://echo.stephen.vip/vendor/chartist/css/chartist.min.css" rel="stylesheet">
-		<link href="https://echo.stephen.vip/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
-		<link href="https://echo.stephen.vip/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
-		<link href="https://echo.stephen.vip/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
-		<link href="https://echo.stephen.vip/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
-        <link href="https://echo.stephen.vip/css/style.css" rel="stylesheet">
-		<link href="https://echo.stephen.vip/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
-        <link href="https://echo.stephen.vip/vendor/select2/css/select2.min.css" rel="stylesheet">
+    <link href="https://echo.stephen.vip/vendor/chartist/css/chartist.min.css" rel="stylesheet">
+    <link href="https://echo.stephen.vip/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
+    <link href="https://echo.stephen.vip/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://echo.stephen.vip/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="https://echo.stephen.vip/css/style.css" rel="stylesheet">
+    <link href="https://echo.stephen.vip/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+    <link href="https://echo.stephen.vip/vendor/select2/css/select2.min.css" rel="stylesheet">
 
-		<script src="https://echo.stephen.vip/vendor/global/global.min.js"></script>
-		<script src="https://echo.stephen.vip/js/custom.min.js"></script>
-		<script src="https://echo.stephen.vip/js/dlabnav-init.js"></script>
-	
-		<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
-        <script src="https://echo.stephen.vip/vendor/select2/js/select2.full.min.js"></script>
+    <script src="https://echo.stephen.vip/vendor/global/global.min.js"></script>
+    <script src="https://echo.stephen.vip/js/custom.min.js"></script>
+    <script src="https://echo.stephen.vip/js/dlabnav-init.js"></script>
+    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+    <script src="https://echo.stephen.vip/vendor/select2/js/select2.full.min.js"></script>
 </svelte:head>
 
 <!--*******************
