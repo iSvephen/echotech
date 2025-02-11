@@ -94,8 +94,8 @@
                 {#each services as service}
                   <tr>
                     <td>{service.name}</td>
-                    <td>{service.expand.category.name}</td>
-                    <td>{service.expand.unit.name}</td>
+                    <td>{service.expand.categoryId.name}</td>
+                    <td>{service.expand.unitId.name}</td>
                     <td>{service.t1}</td>
                     <td>{service.t2}</td>
                     <td>{service.t3}</td>

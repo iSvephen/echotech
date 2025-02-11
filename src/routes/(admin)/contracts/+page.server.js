@@ -3,15 +3,15 @@ import { fail, redirect } from '@sveltejs/kit';
 
 export async function load() {
     try {
-        const services = await pb.collection('services').getFullList({ 
-            expand: ['categoryId,unitId'],
+        const contracts = await pb.collection('contracts').getFullList({ 
+            // expand: ['categoryId,unitId'],
             sort: '-created' 
         });
-        console.log('services:', services);
-        return { services };
+        console.log('contracts:', contracts);
+        return { contracts };
     } catch (error) {
-        console.error('Error loading services:', error);
-        return { services: [] };
+        console.error('Error loading contracts:', error);
+        return { contracts: [] };
     }
 }
 
@@ -23,8 +23,8 @@ export const actions = {
         if (!name) return fail(400, { message: 'Name is required' });
 
         try {
-            await pb.collection('services').create({ name});
-            throw redirect(303, '/services');
+            await pb.collection('contracts').create({ name});
+            throw redirect(303, '/contracts');
         } catch (error) {
             console.error('Error creating service:', error);
             return fail(500, { message: 'Failed to create service' });
@@ -39,8 +39,8 @@ export const actions = {
         if (!id || !name) return fail(400, { message: 'All fields are required' });
 
         try {
-            await pb.collection('services').update(id, { name });
-            throw redirect(303, '/services');
+            await pb.collection('contracts').update(id, { name });
+            throw redirect(303, '/contracts');
         } catch (error) {
             console.error('Error updating service:', error);
             return fail(500, { message: 'Failed to update service' });
@@ -54,8 +54,8 @@ export const actions = {
         if (!id) return fail(400, { message: 'Invalid service ID' });
 
         try {
-            await pb.collection('services').delete(id);
-            throw redirect(303, '/services');
+            await pb.collection('contracts').delete(id);
+            throw redirect(303, '/contracts');
         } catch (error) {
             console.error('Error deleting service:', error);
             return fail(500, { message: 'Failed to delete service' });

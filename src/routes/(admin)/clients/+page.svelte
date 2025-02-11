@@ -1,5 +1,19 @@
 <script>
     import { onMount } from 'svelte';
+  import { enhance } from '$app/forms';
+  export let data;
+
+  // Data coming from the server (array of units)
+  let clients = data.clients;
+
+  // For delete confirmation
+  let deletingClient = null;
+
+// Set the unit to be deleted and show the modal
+function openDeleteModal(client) {
+  deletingClient = client;
+  globalThis.$('#deleteServiceModal').modal('show');
+}
 
     onMount(() => {
         // Initialize DataTable
@@ -53,217 +67,90 @@
                         <table id="example3" class="display min-w850">
                             <thead>
                                 <tr>
-                                    <th></th>
                                     <th>Name</th>
-                                    <th>Email</th>
+                                    <th>NZBN</th>
                                     <th>Phone</th>
                                     <th>Address</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                {#each clients as client}
                                 <tr>
-                                    <td><img class="rounded-circle" width="35" src="./images/profile/small/pic1.jpg" alt=""></td>
-                                    <td>Tech Solutions Ltd.</td>
-                                    <td><a href="javascript:void(0);"><strong>info@techsolutions.com</a></td>
-                                    <td><a href="javascript:void(0);"><strong>987 654 3210</a></td>
-                                    <td>Unit 2, 101 Gracefield Road, Lower Hutt 5010</td>
+                                    <td>{ client.name }</td>
+                                    <td>{ client.nzbn }</td>
+                                    <td><a href="tel:"><strong>{ client.contact_phone }</a></td>
+                                    <td>{ client.address }</td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="#" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                            <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                            <a href="/clients/{ client.id }/edit" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
+                                            <!-- <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a> -->
+
+                                            <button
+                          class="btn btn-danger shadow btn-xs sharp"
+                          on:click={() => openDeleteModal(client)}
+                          aria-label="Delete Category"
+                        >
+                          <i class="fa fa-trash"></i>
+                        </button>
                                         </div>
                                     </td>
                                 </tr>
-                                
-                                <tr>
-                                    <td><img class="rounded-circle" width="35" src="./images/profile/small/pic2.jpg" alt=""></td>
-                                    <td>Green Innovations Inc.</td>
-                                    <td><a href="javascript:void(0);"><strong>contact@greeninnovations.com</a></td>
-                                    <td><a href="javascript:void(0);"><strong>923 748 6598</a></td>
-                                    <td>1204 Seaview Avenue, Christchurch 8013</td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <a href="#" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                            <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td><img class="rounded-circle" width="35" src="./images/profile/small/pic3.jpg" alt=""></td>
-                                    <td>Skyline Enterprises</td>
-                                    <td><a href="javascript:void(0);"><strong>info@skylineenterprises.com</a></td>
-                                    <td><a href="javascript:void(0);"><strong>812 645 3720</a></td>
-                                    <td>24 Winthrop Crescent, Auckland 1010</td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <a href="#" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                            <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td><img class="rounded-circle" width="35" src="./images/profile/small/pic4.jpg" alt=""></td>
-                                    <td>Innovative Systems Co.</td>
-                                    <td><a href="javascript:void(0);"><strong>contact@innovativesystems.com</a></td>
-                                    <td><a href="javascript:void(0);"><strong>923 549 8901</a></td>
-                                    <td>48 Sunrise Drive, Wellington 6011</td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <a href="#" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                            <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td><img class="rounded-circle" width="35" src="./images/profile/small/pic5.jpg" alt=""></td>
-                                    <td>Quantum Technologies Ltd.</td>
-                                    <td><a href="javascript:void(0);"><strong>support@quantumtech.com</a></td>
-                                    <td><a href="javascript:void(0);"><strong>745 892 1356</a></td>
-                                    <td>56 Lakeview Road, Hamilton 3200</td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <a href="#" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                            <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td><img class="rounded-circle" width="35" src="./images/profile/small/pic6.jpg" alt=""></td>
-                                    <td>Digital Horizons</td>
-                                    <td><a href="javascript:void(0);"><strong>contact@digitalhorizons.com</a></td>
-                                    <td><a href="javascript:void(0);"><strong>874 601 2459</a></td>
-                                    <td>23 Birchwood Drive, Tauranga 3110</td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <a href="#" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                            <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td><img class="rounded-circle" width="35" src="./images/profile/small/pic7.jpg" alt=""></td>
-                                    <td>Global Ventures</td>
-                                    <td><a href="javascript:void(0);"><strong>info@globalventures.com</a></td>
-                                    <td><a href="javascript:void(0);"><strong>681 459 2321</a></td>
-                                    <td>93 Carlton Place, Dunedin 9016</td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <a href="#" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                            <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td><img class="rounded-circle" width="35" src="./images/profile/small/pic8.jpg" alt=""></td>
-                                    <td>EcoTech Solutions</td>
-                                    <td><a href="javascript:void(0);"><strong>contact@ecotechsolutions.com</a></td>
-                                    <td><a href="javascript:void(0);"><strong>532 741 8920</a></td>
-                                    <td>14 King Street, Queenstown 9300</td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <a href="#" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                            <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td><img class="rounded-circle" width="35" src="./images/profile/small/pic9.jpg" alt=""></td>
-                                    <td>Alpha Industries</td>
-                                    <td><a href="javascript:void(0);"><strong>contact@alphindustries.com</a></td>
-                                    <td><a href="javascript:void(0);"><strong>651 473 2098</a></td>
-                                    <td>19 Elmwood Road, Napier 4110</td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <a href="#" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                            <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td><img class="rounded-circle" width="35" src="./images/profile/small/pic10.jpg" alt=""></td>
-                                    <td>TechFusion Group</td>
-                                    <td><a href="javascript:void(0);"><strong>support@techfusiongroup.com</a></td>
-                                    <td><a href="javascript:void(0);"><strong>732 485 1923</a></td>
-                                    <td>67 Pinehill Road, Rotorua 3010</td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <a href="#" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                            <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td><img class="rounded-circle" width="35" src="./images/profile/small/pic10.jpg" alt=""></td>
-                                    <td>Pioneers Inc.</td>
-                                    <td><a href="javascript:void(0);"><strong>contact@pioneersinc.com</a></td>
-                                    <td><a href="javascript:void(0);"><strong>984 653 2710</a></td>
-                                    <td>31 Highland Crescent, Palmerston North 4410</td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <a href="#" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                            <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td><img class="rounded-circle" width="35" src="./images/profile/small/pic10.jpg" alt=""></td>
-                                    <td>Dynamic Creations</td>
-                                    <td><a href="javascript:void(0);"><strong>info@dynamiccreations.com</a></td>
-                                    <td><a href="javascript:void(0);"><strong>672 849 5301</a></td>
-                                    <td>89 Crescent Street, Gisborne 4010</td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <a href="#" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                            <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td><img class="rounded-circle" width="35" src="./images/profile/small/pic10.jpg" alt=""></td>
-                                    <td>Fusion Technologies</td>
-                                    <td><a href="javascript:void(0);"><strong>contact@fusiontech.com</a></td>
-                                    <td><a href="javascript:void(0);"><strong>754 123 9876</a></td>
-                                    <td>34 Maple Drive, Invercargill 9810</td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <a href="#" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                            <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td><img class="rounded-circle" width="35" src="./images/profile/small/pic10.jpg" alt=""></td>
-                                    <td>Digital Works</td>
-                                    <td><a href="javascript:void(0);"><strong>contact@digitalworks.com</a></td>
-                                    <td><a href="javascript:void(0);"><strong>812 356 9741</a></td>
-                                    <td>10 Oak Street, Timaru 7910</td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <a href="#" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                            <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
+                                {/each}
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
+
+
+
+
+
+  <!-- Delete Confirmation Modal -->
+  <div
+  class="modal fade"
+  id="deleteServiceModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="deleteServiceModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteServiceModalLabel">Delete Category</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {#if deletingClient}
+          <p>
+            Are you sure you want to delete the client
+            <strong>{deletingClient.name}</strong>?
+          </p>
+        {/if}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Cancel
+        </button>
+        <!-- Delete form using SvelteKit form enhancement -->
+        <form method="post" action="?/delete">
+          {#if deletingClient}
+            <input type="hidden" name="id" value={deletingClient.id} />
+          {/if}
+          <button type="submit" class="btn btn-danger">
+            Delete
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 </div>

@@ -1,4 +1,11 @@
-	<div class="container-fluid">
+<script>
+	  export let data;
+  
+  const { clients, contracts, services, categories, units } = data;
+  // colsole.log(churches)
+</script>
+
+<div class="container-fluid">
 		<!-- Add Order -->
 		<div class="modal fade" id="addOrderModalside">
 			<div class="modal-dialog" role="document">
@@ -42,7 +49,7 @@
 							</span>
 							<div class="media-body text-white text-right">
 								<p class="mb-1">Clients</p>
-								<h3 class="text-white">411</h3>
+								<h3 class="text-white">{clients.length}</h3>
 							</div>
 						</div>
 					</div>
@@ -57,7 +64,7 @@
 							</span>
 							<div class="media-body text-white text-right">
 								<p class="mb-1">Contracts</p>
-								<h3 class="text-white">610</h3>
+								<h3 class="text-white">{contracts.length}</h3>
 							</div>
 						</div>
 					</div>
@@ -72,7 +79,7 @@
 							</span>
 							<div class="media-body text-white text-right">
 								<p class="mb-1">Services</p>
-								<h3 class="text-white">132</h3>
+								<h3 class="text-white">{services.length}</h3>
 							</div>
 						</div>
 					</div>
@@ -96,51 +103,17 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>12</td>
-										<td>HSB Home Appliances</td>
-										<td>Robert Herbert</td>
-										<td>01 August 2024</td>
-										<td>
-											<span class="badge badge-rounded badge-primary">Checkin</span>
-										</td>
-									</tr>
-									<tr>
-										<td>10</td>
-										<td>Echo Tech</td>
-										<td>Robert Herbert</td>
-										<td>31 July 2024</td>
-										<td>
-											<span class="badge badge-rounded badge-warning">Panding</span>
-										</td>
-									</tr>
-									<tr>
-										<td>03</td>
-										<td>ABC Company</td>
-										<td>Robert Herbert</td>
-										<td>30 July 2024</td>
-										<td>
-											<span class="badge badge-rounded badge-danger">Canceled</span>
-										</td>
-									</tr>
-									<tr>
-										<td>05</td>
-										<td>One NZ</td>
-										<td>Robert Herbert</td>
-										<td>29 July 2024</td>
-										<td>
-											<span class="badge badge-rounded badge-success">Checkin</span>
-										</td>
-									</tr>
-									<tr>
-										<td>06</td>
-										<td>Samsung</td>
-										<td>Robert Herbert</td>
-										<td>28 July 2024</td>
-										<td>
-											<span class="badge badge-rounded badge-success">Checkin</span>
-										</td>
-									</tr>
+									{#each contracts.slice(0, 5) as contract, index}
+										<tr>
+											<td>{index + 1}</td>
+											<td>{clients.find(client => client.id === contract.clientId)?.name}</td>
+											<td>{contract.prepared_by}</td>
+											<td>{new Date(contract.date).toLocaleDateString()}</td>
+											<td>
+												<!-- <span class="badge badge-rounded badge-{contract.status.toLowerCase()}">{contract.status}</span> -->
+											</td>
+										</tr>
+									{/each}
 								</tbody>
 							</table>
 						</div>
@@ -148,150 +121,42 @@
 				</div>
 			</div>
 
-			<div class="col-lg-12">
-				<div class="card">
-					<div class="card-header">
-						<h4 class="card-title">Services</h4>
-					</div>
-					<div class="card-body">
-						<div class="table-responsive">
-							<table class="table table-bordered table-responsive-sm">
-								<thead style="background-color: #224335">
-									<tr style="color: white">
-										<th>E-Waste Collection</th>
-										<th>Unit</th>
-										<th>T1</th>
-										<th>T2</th>
-										<th>T3</th>
-										<th>T4</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>General E-Waste Recycling</td>
-										<td>KG</td>
-										<td>0.948</td>
-										<td>1.106</td>
-										<td>1.264</td>
-										<td>1.58</td>
-										
-									</tr>
-									<tr>
-										<td>Smartphone Recycling</td>
-										<td>KG</td>
-										<td>0.541</td>
-										<td>0.623</td>
-										<td>0.712</td>
-										<td>0.803</td>
-										
-									</tr>
-									<tr>
-										<td>Laptop Recycling</td>
-										<td>KG</td>
-										<td>0.832</td>
-										<td>1.045</td>
-										<td>1.246</td>
-										<td>1.523</td>
-										
-									</tr>
-									<tr>
-										<td>Desktop Computers Recycling</td>
-										<td>KG</td>
-										<td>1.125</td>
-										<td>1.263</td>
-										<td>1.499</td>
-										<td>1.786</td>
-										
-									</tr>
-									<tr>
-										<td>CRT Monitors Recycling</td>
-										<td>KG</td>
-										<td>2.003</td>
-										<td>2.352</td>
-										<td>2.598</td>
-										<td>3.009</td>
-										
-									</tr>
-									<tr>
-										<td>LED/LCD TVs Recycling</td>
-										<td>KG</td>
-										<td>1.002</td>
-										<td>1.134</td>
-										<td>1.381</td>
-										<td>1.579</td>
-										
-									</tr>
-								</tbody>
-							</table>
+			{#each categories as category}
+				<div class="col-lg-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">{category.name}</h4>
 						</div>
-					</div>
-
-					<div class="card-body">
-						<div class="table-responsive">
-							<table class="table table-bordered table-responsive-sm">
-								<thead style="background-color: #224335">
-									<tr style="color: white">
-										<th>ITAD - IT Asset Purchasing & Resale</th>
-										<th>Unit</th>
-										<th>T1</th>
-										<th>T2</th>
-										<th>T3</th>
-										<th>T4</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>General E-Waste Recycling</td>
-										<td>Each</td>
-										<td>0.948</td>
-										<td>1.106</td>
-										<td>1.264</td>
-										<td>1.58</td>
-										
-									</tr>
-									<tr>
-										<td>Smartphone Recycling</td>
-										<td>Each</td>
-										<td>0.541</td>
-										<td>0.623</td>
-										<td>0.712</td>
-										<td>0.803</td>
-										
-									</tr>
-									<tr>
-										<td>Laptop Recycling</td>
-										<td>Each</td>
-										<td>0.832</td>
-										<td>1.045</td>
-										<td>1.246</td>
-										<td>1.523</td>
-										
-									</tr>
-									<tr>
-										<td>Desktop Computers Recycling</td>
-										<td>Each</td>
-										<td>1.125</td>
-										<td>1.263</td>
-										<td>1.499</td>
-										<td>1.786</td>
-										
-									</tr>
-									<tr>
-										<td>
-											<div>12 mm non-witnessed</div>
-											<div>Unit price up to 50 drivers</div>
-										</td>
-										<td>Each</td>
-										<td>2.003</td>
-										<td>2.352</td>
-										<td>2.598</td>
-										<td>3.009</td>
-									</tr>
-								</tbody>
-							</table>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-bordered table-responsive-sm">
+									<thead style="background-color: #224335">
+										<tr style="color: white">
+											<th>Service</th>
+											<th>Unit</th>
+											<th>T1</th>
+											<th>T2</th>
+											<th>T3</th>
+											<th>T4</th>
+										</tr>
+									</thead>
+									<tbody>
+										{#each services.filter(service => service.categoryId === category.id) as service}
+											<tr>
+												<td>{service.name}</td>
+												<td>{units.find(unit => unit.id === service.unitId)?.name}</td>
+												<td>{service.t1}</td>
+												<td>{service.t2}</td>
+												<td>{service.t3}</td>
+												<td>{service.t4}</td>
+											</tr>
+										{/each}
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			{/each}
 		</div>
 	</div>

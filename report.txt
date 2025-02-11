@@ -101,8 +101,8 @@ Hello Angela,
 Today, I worked on:
 
 - Implementing authentication for dashboard access.
-- Connecting with the database for the services, category, and units pages to manage data. To see everything in action, I'll need a domain and server to run the code online.
+- Connecting with the database for the services, category, and units pages to manage data. To see everything in action, I'll need a domain and server to run the website online.
 
-Thanks,
+Thank you,
 Stephen
 

@@ -1,7 +1,7 @@
 import PocketBase from 'pocketbase';
 import { writable } from 'svelte/store';
 
-export const pb = new PocketBase('http://127.0.0.1:8090');
+export const pb = new PocketBase('http://134.199.145.118:8090/');
 
 // Only load cookies and set up listeners in the browser environment
 if (typeof window !== 'undefined') {

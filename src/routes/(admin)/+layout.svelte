@@ -1,30 +1,37 @@
 <script>
     import { currentUser } from '$lib/pocketbase';
-    import { onMount } from 'svelte';
 
-    let dataTable;
-
-    onMount(() => {
-    // Initialize DataTable (make sure DataTables & jQuery are loaded)
-    globalThis.$('#example3').DataTable();
-  });
   </script>
 
 
 <svelte:head>
-    <title>Echo Tech</title>
+        <link href="https://echo.stephen.vip/vendor/chartist/css/chartist.min.css" rel="stylesheet">
+		<link href="https://echo.stephen.vip/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
+		<link href="https://echo.stephen.vip/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+		<link href="https://echo.stephen.vip/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
+		<link href="https://echo.stephen.vip/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+        <link href="https://echo.stephen.vip/css/style.css" rel="stylesheet">
+		<link href="https://echo.stephen.vip/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+        <link href="https://echo.stephen.vip/vendor/select2/css/select2.min.css" rel="stylesheet">
+
+		<script src="https://echo.stephen.vip/vendor/global/global.min.js"></script>
+		<script src="https://echo.stephen.vip/js/custom.min.js"></script>
+		<script src="https://echo.stephen.vip/js/dlabnav-init.js"></script>
+	
+		<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+        <script src="https://echo.stephen.vip/vendor/select2/js/select2.full.min.js"></script>
 </svelte:head>
 
 <!--*******************
         Preloader start
     ********************-->
-<!-- <div id="preloader">
+<div id="preloader">
     <div class="sk-three-bounce">
         <div class="sk-child sk-bounce1"></div>
         <div class="sk-child sk-bounce2"></div>
         <div class="sk-child sk-bounce3"></div>
     </div>
-</div> -->
+</div>
 <!--*******************
           Preloader end
       ********************-->
@@ -65,7 +72,7 @@
                     </div>
                     <ul class="navbar-nav header-right">
                         <li class="nav-item dropdown header-profile">
-                            <a class="nav-link" href="javascript:void(0)" role="button" data-toggle="dropdown">
+                            <a class="nav-link" href="/" role="button" data-toggle="dropdown">
                                 <img src="/images/users/user.png" width="20" alt="" />
                                 <div class="header-info">
                                     <span class="text-black">{currentUser?.name || 'Guest'}</span>
@@ -73,7 +80,7 @@
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a href="#" class="dropdown-item ai-icon">
+                                <a href="/" class="dropdown-item ai-icon">
                                     <svg
                                         id="icon-user1"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -150,13 +157,13 @@
                 <li>
                   <a
                     class="has-arrow ai-icon"
-                    href="javascript:void()"
+                    href="/"
                     aria-expanded="false"
                   >
                     <i class="flaticon-381-networking"></i>
                     <span class="nav-text">Services</span>
                   </a>
-                  <ul aria-expanded="false">
+                  <ul>
                     <li><a href="/services">Services</a></li>
                     <li><a href="/category">Category</a></li>
                     <li><a href="/subcategory">Sub Category</a></li>
@@ -182,7 +189,7 @@
                   </a>
                 </li>
               </ul>
-            <a class="add-menu-sidebar d-block" href="contracts-add.html">+ New Contract</a>
+            <a class="add-menu-sidebar d-block" href="/contracts/new">+ New Contract</a>
             <div class="copyright">
                 <p><strong>Echo</strong> © 2025 All Rights Reserved</p>
             </div>

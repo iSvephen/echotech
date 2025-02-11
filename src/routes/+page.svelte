@@ -14,6 +14,13 @@
       }
     }
   </script>
+
+
+<svelte:head>
+    <title>Echo Tech - Login</title>
+		<link href="/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+		<link href="/css/style.css" rel="stylesheet">
+</svelte:head>
   
   <div class="authincation h-100">
     <div class="container h-100">
