@@ -1,8 +1,7 @@
 <script>
-	  export let data;
+	export let data;
   
-  const { clients, contracts, services, categories, units } = data;
-  // colsole.log(churches)
+	const { clients, contracts, services, categories, units } = data;
 </script>
 
 <div class="container-fluid">

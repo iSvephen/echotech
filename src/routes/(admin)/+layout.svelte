@@ -5,34 +5,7 @@
 
 
 <svelte:head>
-    <link href="https://echo.stephen.vip/vendor/chartist/css/chartist.min.css" rel="stylesheet">
-    <link href="https://echo.stephen.vip/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
-    <link href="https://echo.stephen.vip/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link href="https://echo.stephen.vip/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
-    <link href="https://echo.stephen.vip/css/style.css" rel="stylesheet">
-    <link href="https://echo.stephen.vip/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
-    <link href="https://echo.stephen.vip/vendor/select2/css/select2.min.css" rel="stylesheet">
-
-    <script src="https://echo.stephen.vip/vendor/global/global.min.js"></script>
-    <script src="https://echo.stephen.vip/js/custom.min.js"></script>
-    <script src="https://echo.stephen.vip/js/dlabnav-init.js"></script>
-    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
-    <script src="https://echo.stephen.vip/vendor/select2/js/select2.full.min.js"></script>
 </svelte:head>
-
-<!--*******************
-        Preloader start
-    ********************-->
-<div id="preloader">
-    <div class="sk-three-bounce">
-        <div class="sk-child sk-bounce1"></div>
-        <div class="sk-child sk-bounce2"></div>
-        <div class="sk-child sk-bounce3"></div>
-    </div>
-</div>
-<!--*******************
-          Preloader end
-      ********************-->
 
 <!--**********************************
           Main wrapper start
@@ -70,7 +43,7 @@
                     </div>
                     <ul class="navbar-nav header-right">
                         <li class="nav-item dropdown header-profile">
-                            <a class="nav-link" href="/" role="button" data-toggle="dropdown">
+                            <a class="nav-link" href="javascript:void(0)" role="button" data-toggle="dropdown">
                                 <img src="/images/users/user.png" width="20" alt="" />
                                 <div class="header-info">
                                     <span class="text-black">{currentUser?.name || 'Guest'}</span>
