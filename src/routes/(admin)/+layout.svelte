@@ -149,7 +149,7 @@
                   </ul>
                 </li>
                 <li>
-                  <a href="policies.html" class="ai-icon" aria-expanded="false">
+                  <a href="/policies" class="ai-icon" aria-expanded="false">
                     <i class="fa fa-file-text-o"></i>
                     <span class="nav-text">Policies</span>
                   </a>

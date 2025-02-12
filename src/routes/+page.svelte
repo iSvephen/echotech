@@ -5,14 +5,6 @@
     let email = '', password = '', error = '';
   
     async function login() {
-      // try {
-      //   await pb.collection('users').authWithPassword(email, password);
-      //   goto('/dashboard');
-      // } catch (err) {
-      //   console.error('Login error:', err);
-      //   error = 'Invalid email or password';
-      // }
-
       try {
         const authData = await pb.collection('users').authWithPassword(email, password);
         console.log('Login successful:', authData);
@@ -28,8 +20,7 @@
             alert('An unexpected error occurred. Please try again later.');
         }
     }
-
-    }
+}
   </script>
 
 

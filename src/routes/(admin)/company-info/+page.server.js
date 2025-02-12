@@ -23,7 +23,7 @@ export const actions = {
         const address = formData.get('address');
 
         try {
-            await pb.collection('company_info').update(id, { name, nzbn, address, email, phone });
+            await pb.collection('company_info').update(id, {  nzbn, name, email, phone, address });
             throw redirect(303, '/company-info');
         } catch (error) {
             console.error('Error updating company info:', error);
