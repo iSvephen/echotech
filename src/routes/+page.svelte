@@ -5,13 +5,30 @@
     let email = '', password = '', error = '';
   
     async function login() {
+      // try {
+      //   await pb.collection('users').authWithPassword(email, password);
+      //   goto('/dashboard');
+      // } catch (err) {
+      //   console.error('Login error:', err);
+      //   error = 'Invalid email or password';
+      // }
+
       try {
-        await pb.collection('users').authWithPassword(email, password);
+        const authData = await pb.collection('users').authWithPassword(email, password);
+        console.log('Login successful:', authData);
+        // Redirect to the dashboard or another page
         goto('/dashboard');
-      } catch (err) {
-        console.error('Login error:', err);
-        error = 'Invalid email or password';
-      }
+    } catch (error) {
+        console.error('Login error:', error);
+        if (error.status === 400) {
+            alert('Invalid email or password. Please try again.');
+        } else if (error.status === 0) {
+            alert('The request was cancelled. Please check your network connection.');
+        } else {
+            alert('An unexpected error occurred. Please try again later.');
+        }
+    }
+
     }
   </script>
 
