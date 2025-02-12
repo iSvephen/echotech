@@ -53,12 +53,12 @@
                                 <!-- <h4 class="text-center mb-4 text-white">Sign in your account</h4> -->
                                 <form on:submit|preventDefault={login}>
                                     <div class="form-group">
-                                        <label class="mb-1 text-white"><strong>Email</strong></label>
-                                        <input type="email" class="form-control" bind:value={email}>
+                                        <label for="email" class="mb-1 text-white"><strong>Email</strong></label>
+                                        <input id="email" type="email" class="form-control" bind:value={email}>
                                     </div>
                                     <div class="form-group">
-                                        <label class="mb-1 text-white"><strong>Password</strong></label>
-                                        <input type="password" class="form-control" bind:value={password}>
+                                        <label for="password" class="mb-1 text-white"><strong>Password</strong></label>
+                                        <input id="password" type="password" class="form-control" bind:value={password}>
                                     </div>
                                     {#if error}
                                     <p style="color:red">{error}</p>

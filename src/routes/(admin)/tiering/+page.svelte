@@ -88,11 +88,7 @@
 </div>
 
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin-top: 20px;
-        background-color: #f4f4f9;
-    }
+    
     .container {
         max-width: 800px;
         margin: 0 auto;

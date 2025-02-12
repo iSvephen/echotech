@@ -105,11 +105,11 @@
                           </div>
                         </td>         
 											</tr>
-										{/each}
-									</tbody>
-								</table>
-							</div>
-						</div>
+                      {/each}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
 			{/each}
 
         <!-- Card body with the services table -->

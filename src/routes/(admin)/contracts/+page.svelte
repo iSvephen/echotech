@@ -59,7 +59,7 @@
                       <th>Date</th>
                       <th>Terms</th>
                       <th>Prepare By</th>
-                      <th>Action</th>
+                      <!-- <th>Action</th> -->
                   </tr>
               </thead>
               <tbody>
@@ -70,12 +70,12 @@
                         <td>{new Date(contract.date).toLocaleDateString()}</td>
                         <td>{contract.agreement_term}</td>
                         <td>{contract.prepared_by}</td>
-                        <td>
+                        <!-- <td>
                             <div class="d-flex">
-                                <a href="javascript:void(0);" class="btn btn-primary shadow btn-xs sharp mr-1" on:click={() => editUnit(service)}><i class="fa fa-pencil"></i></a>
-                                <a href="javascript:void(0);" class="btn btn-danger shadow btn-xs sharp" on:click={() => openDeleteModal(service)}><i class="fa fa-trash"></i></a>
+                                <a href="#" class="btn btn-primary shadow btn-xs sharp mr-1" on:click={() => editUnit(service)} aria-label="Edit"><i class="fa fa-pencil"></i></a>
+                                <a href="javascript:void(0);" class="btn btn-danger shadow btn-xs sharp" on:click={() => openDeleteModal(service)} aria-label="Delete"><i class="fa fa-trash"></i></a>
                             </div>                                                
-                        </td>                                                
+                        </td>                                                 -->
                     </tr>
                 {/each}
                   

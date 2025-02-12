@@ -1,11 +1,6 @@
 <script>
     import { currentUser } from '$lib/pocketbase';
-
-  </script>
-
-
-<svelte:head>
-</svelte:head>
+</script>
 
 <!--**********************************
           Main wrapper start
@@ -126,20 +121,10 @@
                   </a>
                 </li>
                 <li>
-                  <a
-                    class="has-arrow ai-icon"
-                    href="/"
-                    aria-expanded="false"
-                  >
+                  <a href="/services" class="ai-icon" aria-expanded="false">
                     <i class="flaticon-381-networking"></i>
                     <span class="nav-text">Services</span>
                   </a>
-                  <ul>
-                    <li><a href="/services">Services</a></li>
-                    <li><a href="/category">Category</a></li>
-                    <li><a href="/subcategory">Sub Category</a></li>
-                    <li><a href="/units">Units</a></li>
-                  </ul>
                 </li>
                 <li>
                   <a href="/tiering" class="ai-icon" aria-expanded="false">
@@ -148,10 +133,20 @@
                   </a>
                 </li>
                 <li>
-                  <a href="settings.html" class="ai-icon" aria-expanded="false">
-                    <i class="flaticon-381-controls-3"></i>
-                    <span class="nav-text">Settings</span>
+                  <a
+                    class="has-arrow ai-icon"
+                    href="/"
+                    aria-expanded="false"
+                  >
+                  <i class="flaticon-381-controls-3"></i>
+                  <span class="nav-text">Settings</span>
                   </a>
+                  <ul>
+                    <li><a href="/company-info">Company Info</a></li>
+                    <li><a href="/units">Units</a></li>
+                    <li><a href="/category">Category</a></li>
+                    <li><a href="/subcategory">Sub-Category</a></li>
+                  </ul>
                 </li>
                 <li>
                   <a href="policies.html" class="ai-icon" aria-expanded="false">

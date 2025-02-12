@@ -1,4 +1,3 @@
-// src/routes/blog/new/+page.server.js
 import { pb } from '$lib/pocketbase';
 import { redirect, fail } from '@sveltejs/kit';
 
@@ -9,9 +8,6 @@ export async function load() {
       const services = await pb.collection('services').getFullList({ sort: '-created' });
       const categories = await pb.collection('service_category').getFullList({ sort: '-created' });
       const units = await pb.collection('units').getFullList({ sort: '-created' });
-      // console.log('clients:', clients);
-      // console.log('services:', services);
-      // console.log('categories:', categories);
       return { clients, services, categories, units };
   } catch (error) {
       console.error('Error loading units:', error);
@@ -23,19 +19,36 @@ export async function load() {
 export const actions = {
   default: async ({ request }) => {
     const formData = await request.formData();
-    const title = formData.get('title');
-    const content = formData.get('content');
+    const clientId = formData.get('clientId');
+    const date = formData.get('date');
+    const number = formData.get('number');
+    const prepared_by = formData.get('prepared_by');
+    const agreement_term = formData.get('agreement_term');
+    const services = formData.get('services');
+    const remark = formData.get('remark');
+
+    // Additional fields
+    const categoryId = formData.get('categoryId');
+    const collectionId = formData.get('collectionId');
+    const collectionName = formData.get('collectionName');
+    const name = formData.get('name');
+    const subcategoryId = formData.get('subcategoryId');
+    const t1 = formData.get('t1');
+    const t2 = formData.get('t2');
+    const t3 = formData.get('t3');
+    const t4 = formData.get('t4');
+    const unitId = formData.get('unitId');
 
     try {
-      // Optionally include the current user as the author if authenticated:
-      const author = pb.authStore.model?.id || null;
-
-      const record = await pb.collection('blogposts').create({ title, content, author });
+      const record = await pb.collection('blogposts').create({ 
+        clientId, date, number, prepared_by, agreement_term, services, remark,
+        categoryId, collectionId, collectionName, name, subcategoryId, t1, t2, t3, t4, unitId
+      });
       // Redirect to the newly created post’s detail page
-      throw redirect(303, `/blog/${record.id}`);
+      throw redirect(303, `/contracts`);
     } catch (err) {
-      console.error('Error creating blog post:', err);
-      return fail(500, { message: 'Error creating blog post' });
+      console.error('Error creating contract:', err);
+      return fail(500, { message: 'Error creating contract' });
     }
   }
 };

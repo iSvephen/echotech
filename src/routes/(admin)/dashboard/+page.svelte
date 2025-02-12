@@ -5,39 +5,6 @@
 </script>
 
 <div class="container-fluid">
-		<!-- Add Order -->
-		<div class="modal fade" id="addOrderModalside">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title">Create Contract</h5>
-						<button type="button" class="close" data-dismiss="modal">
-							<span>&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<form>
-							<div class="form-group">
-								<!-- svelte-ignore a11y_label_has_associated_control -->
-								<label class="text-black font-w500">Contract Name</label>
-								<input type="text" class="form-control" />
-							</div>
-							<div class="form-group">
-								<label class="text-black font-w500">Deadline</label>
-								<input type="date" class="form-control" />
-							</div>
-							<div class="form-group">
-								<label class="text-black font-w500">Client Name</label>
-								<input type="text" class="form-control" />
-							</div>
-							<div class="form-group">
-								<button type="button" class="btn btn-primary"> CREATE </button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="row">
 			<div class="col-xl-4 col-lg-6 col-sm-6">
 				<div class="widget-stat card" style="background-color: #224335">
@@ -98,7 +65,6 @@
 										<th scope="col">Client</th>
 										<th scope="col">Prepared by</th>
 										<th scope="col">Date</th>
-										<th scope="col">Status</th>
 									</tr>
 								</thead>
 								<tbody>
