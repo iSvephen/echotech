@@ -18,12 +18,12 @@ export async function GET() {
 
       @font-face {
         font-family: "ABCRepro-Regular";
-        src: url("http://echo.stephen.vip/css/ABCRepro-Regular.otf");
+        src: url("ABCRepro-Regular.otf");
       }
 
       @font-face {
         font-family: "ABCRepro-Medium";
-        src: url("http://echo.stephen.vip/css/ABCRepro-Medium.otf");
+        src: url("ABCRepro-Medium.otf");
       }
 
       /* 2,480 x 3,508 pixels */
@@ -33,7 +33,7 @@ export async function GET() {
         /* width: 2480px;
         height: 3508px; */
         margin: 20px;
-        color: #333;
+        /* color: #333; */
         font-size: 12px;
       }
       h1,
