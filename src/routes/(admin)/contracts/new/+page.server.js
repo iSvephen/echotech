@@ -22,13 +22,20 @@ export const actions = {
     const number = formData.get('number');
     const agreement_term = formData.get('agreement_term');
     const services = formData.get('services');
-    const prepared_by = formData.get('prepared_by');
     const remark = formData.get('remark');
+
+    // Ensure the user is authenticated
+    if (!pb.authStore.isValid) {
+      return fail(401, { message: 'User not authenticated' });
+    }
+
+    const prepared_by = pb.authStore.model.id;
 
     try {
       const record = await pb.collection('contracts').create({ 
         clientId, date, number, prepared_by, agreement_term, services, remark
       });
+      console.log('record:', record);
       throw redirect(303, `/contracts`);
     } catch (err) {
       console.error('Error creating contract:', err);

@@ -69,11 +69,12 @@
                         <td>{contract.expand.clientId.name}</td>
                         <td>{new Date(contract.date).toLocaleDateString()}</td>
                         <td>{contract.agreement_term}</td>
-                        <td>{contract.prepared_by}</td>
+                        <td>{contract.expand.prepared_by?.name}</td>
                         <td>
                             <div class="d-flex">
                                 <a href="/contracts/{contract.id}/edit" class="btn btn-primary shadow btn-xs sharp mr-1" on:click={() => editUnit(service)} aria-label="Edit"><i class="fa fa-pencil"></i></a>
-                                <a href="javascript:void(0);" class="btn btn-danger shadow btn-xs sharp" on:click={() => openDeleteModal(service)} aria-label="Delete"><i class="fa fa-trash"></i></a>
+                                <a href="/contracts/{contract.id}/pdf" class="btn btn-echo shadow btn-xs sharp mr-1" on:click={() => editUnit(service)} aria-label="PDF"><i class="fa fa-file-pdf-o"></i></a>
+                                <!-- <a href="javascript:void(0);" class="btn btn-danger shadow btn-xs sharp" on:click={() => openDeleteModal(service)} aria-label="Delete"><i class="fa fa-trash"></i></a> -->
                             </div>                                                
                         </td>                                                
                     </tr>

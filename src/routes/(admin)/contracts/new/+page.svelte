@@ -118,23 +118,23 @@
                             <div class="form-group">
                                 <label for="agreementTerm" style="color: #224335;">Agreement Term</label>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="term12Months" name="agreement_term" value="12 Months" />
+                                    <input type="radio" class="form-check-input" id="term12Months" name="agreement_term" value="12" />
                                     <label class="form-check-label" for="term12Months">12 Months</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="term24Months" name="agreement_term" value="24 Months" />
+                                    <input type="radio" class="form-check-input" id="term24Months" name="agreement_term" value="24" />
                                     <label class="form-check-label" for="term24Months">24 Months</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="term36Months" name="agreement_term" value="36 Months" />
+                                    <input type="radio" class="form-check-input" id="term36Months" name="agreement_term" value="36" />
                                     <label class="form-check-label" for="term36Months">36 Months</label>
                                 </div>
                             </div>
                             <!-- Display the selected items as JSON -->
-                            <div style="margin-top: 1rem;">
+                            <!-- <div style="margin-top: 1rem;">
                               <h3>Selected Prices JSON</h3>
                               <pre>{JSON.stringify(selectedJson, null, 2)}</pre>
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 {#each categories as category}
                                     <div class="col-lg-12">
