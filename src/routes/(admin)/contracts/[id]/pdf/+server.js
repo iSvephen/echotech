@@ -60,6 +60,10 @@ export async function GET({ params }) {
       p {
       margin-bottom: 10px;
       }
+      a {
+      color: black;
+        text-decoration: none;
+      }
       b {
       font-family: "ABCRepro-Medium";
       }
@@ -85,22 +89,22 @@ export async function GET({ params }) {
       Terms &amp; Conditions</h1></br></br>
 
       <div style="font-size:10px; color: black; width:100%; text-align:left; padding:0px; display: flex; align-items: center;">
-        <p style="padding-right: 150px"><strong>Contract Date:</strong></br>${new Date(contract.date).toLocaleDateString()}</p>
+        <p style="padding-right: 150px"><strong>Contract Date</strong></br>${new Date(contract.date).toLocaleDateString()}</p>
         <p><strong>Contract No</strong></br>${contract.number}</p>
       </div>
 
       </br></br>
 
-      <p>_________________________________</p>
+      <hr style="width:30%;text-align:left;margin-left:0">
       <p>Service Request for </br><strong> ${contract.expand.clientId.name}</strong></p>
 
       </br></br>
-      <p>_________________________________</p>
+      <hr style="width:30%;text-align:left;margin-left:0">
       <p>Prepared by </br><strong> ${contract.expand.prepared_by?.name || ''}</strong></p>
 
 
 
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
       <div style="font-size:10px; color: black; width:100%; text-align:left; padding:0px; display: flex; justify-content: space-between; align-items: center;">
         <b>
         This is a confidential document <br> presenting Echo e-waste recycling <br> quotation and agreement.
@@ -124,8 +128,8 @@ export async function GET({ params }) {
     <div class="section">
       <h2>1.0 Introduction</h2>
       <p>
-      (NZBN ${contract.expand.clientId.nzbn}) (“Customer”) requests ECHO TECH Ltd (NZBN
-      9429046467911) to provide the services set out in sections 3 and 4 of
+      <b>${contract.expand.clientId.name}</b> (NZBN ${contract.expand.clientId.nzbn}) (“Customer”) requests ECHO TECH Ltd (NZBN
+      ${contract.expand.clientId.nzbn}) to provide the services set out in sections 3 and 4 of
       this Service Request Agreement (“Services”) for the fees set out in
       section 5 of this agreement (“Fees”) within the scope and limitations
       set out in this agreement.
@@ -136,18 +140,30 @@ export async function GET({ params }) {
     <div class="section">
       <h2>2.0 Customer Details</h2>
       <hr />
-      <br />
-      <b>Client</b> ${contract.expand.clientId.name}<br /><br />
+      <div style="font-size:10px; color: black; width:100%; text-align:left; padding:0px; display: flex; align-items: center;">
+      <p style="padding-right: 150px">Client</p>
+      <p><b>${contract.expand.clientId.name}</b></p>
+      </div>
       <hr />
-      <br />
-      <b>Client Contact</b> ${contract.expand.clientId.contact_name}<br /><br />
+
+      <div style="font-size:10px; color: black; width:100%; text-align:left; padding:0px; display: flex; align-items: center;">
+      <p style="padding-right: 108px">Client Contact</p>
+      <p>${contract.expand.clientId.contact_name}</p>
+      </div>
       <hr />
-      <br />
-      <b>Address</b> ${contract.expand.clientId.address}<br /><br />
+
+      <div style="font-size:10px; color: black; width:100%; text-align:left; padding:0px; display: flex; align-items: center;">
+      <p style="padding-right: 138px">Address</p>
+      <p>${contract.expand.clientId.address}</p>
+      </div>
       <hr />
-      <br />
-      <b>Agreement Term</b> ${contract.agreement_term} Months<br /><br />
+
+      <div style="font-size:10px; color: black; width:100%; text-align:left; padding:0px; display: flex; align-items: center;">
+      <p style="padding-right: 100px">Agreement Term</p>
+      <p>${contract.agreement_term} Months</p>
+      </div>
       <hr />
+
     </div>
     <div class="page-break"></div>
     
