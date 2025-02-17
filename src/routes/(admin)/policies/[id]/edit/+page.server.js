@@ -3,11 +3,11 @@ import { redirect, fail } from '@sveltejs/kit';
 
 export async function load({ params }) {
   try {
-    const client = await pb.collection('clients').getOne(params.id);
-    return { client };
+    const policy = await pb.collection('policies').getOne(params.id);
+    return { policy };
   } catch (error) {
-    console.error('Error loading client for editing:', error);
-    return { client: null };
+    console.error('Error loading policy for editing:', error);
+    return { policy: null };
   }
 }
 
@@ -15,32 +15,30 @@ export const actions = {
   default: async ({ request, params }) => {
     const formData = await request.formData();
     const name = formData.get('name');
-    const nzbn = formData.get('nzbn');
-    const address = formData.get('address');
-    const contact_name = formData.get('contact_name');
-    const contact_email = formData.get('contact_email');
-    const contact_title = formData.get('contact_title');
-    const contact_phone = formData.get('contact_phone');
-    const contact_address = formData.get('contact_address');
-    const remark = formData.get('remark');
+    const content = formData.get('content');
 
     try {
-      await pb.collection('clients').update(params.id, {
+      const record = await pb.collection('policies').update(params.id, {
         name,
-        nzbn,
-        address,
-        contact_name,
-        contact_email,
-        contact_title,
-        contact_phone,
-        contact_address,
-        remark
+        content
       });
-      // Redirect to the updated client's detail page
-      throw redirect(303, `/clients`);
+      // Redirect to the updated policy's detail page
+      if (record) {
+        // Throw redirect to navigate after success
+        throw redirect(303, `/policies`);
+      }
     } catch (err) {
-      console.error('Error updating client:', err);
-      return fail(500, { message: 'Error updating client' });
+      // Re-throw redirect responses so they aren't treated as errors
+      if (err && err.status && err.location) {
+        throw err;
+      }
+      console.error('Error creating policy:', err);
+      return fail(500, {
+        error: err.message || 'Error creating policy',
+        values: Object.fromEntries(formData)
+      });
     }
   }
 };
+
+

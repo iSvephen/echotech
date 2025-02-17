@@ -28,7 +28,6 @@
             }
         });
     });
-
 </script>
 
 <div class="container-fluid">
@@ -48,13 +47,9 @@
 								</div>
 
 								<div class="form-group col-md-12">
-									<label for="nzbn">Content</label>
+									<label for="content">Content</label>
+									<textarea class="summernote" name="content" bind:value={content}></textarea>
 								</div>
-
-								<textarea class="summernote" name="content" bind:value={content}></textarea>
-
-								
-								<div class="summernote"></div>
 							<div class="form-group row">
 								<div class="ml-auto">
 									<button type="submit" class="add-menu-sidebar">Save</button>

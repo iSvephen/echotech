@@ -6,7 +6,7 @@ export const actions = {
     const formData = await request.formData();
 
     // Required fields validation
-    const requiredFields = ['name', 'nzbn', 'address', 'contact_name', 'contact_email'];
+    const requiredFields = ['name', 'content'];
     const data = {};
 
     for (const field of requiredFields) {
@@ -21,25 +21,25 @@ export const actions = {
     }
 
     // Optional fields
-    const optionalFields = ['contact_title', 'contact_phone', 'contact_address', 'remark'];
+    const optionalFields = ['name', 'content'];
     for (const field of optionalFields) {
       data[field] = formData.get(field)?.trim() || '';
     }
 
     try {
-      const record = await pb.collection('clients').create(data);
+      const record = await pb.collection('policies').create(data);
       if (record) {
         // Throw redirect to navigate after success
-        throw redirect(303, `/contracts/new`);
+        throw redirect(303, `/policies`);
       }
     } catch (err) {
       // Re-throw redirect responses so they aren't treated as errors
       if (err && err.status && err.location) {
         throw err;
       }
-      console.error('Error creating client:', err);
+      console.error('Error creating policy:', err);
       return fail(500, {
-        error: err.message || 'Error creating client',
+        error: err.message || 'Error creating policy',
         values: Object.fromEntries(formData)
       });
     }
