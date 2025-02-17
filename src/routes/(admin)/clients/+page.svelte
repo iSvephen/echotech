@@ -60,7 +60,7 @@ function openDeleteModal(client) {
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Clients</h4>
-                    <a href="clients/add" class="add-menu-sidebar">+ New Client</a>
+                    <a href="clients/add" class="btn btn-echo">+ New Client</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

@@ -11,14 +11,14 @@
 		<div class="col-lg-12">
 			<div class="card">
 				<div class="card-header">
-					<h4 class="card-title">New Client Form</h4>
+					<h4 class="card-title">Edit Client Form</h4>
 				</div>
 				<div class="card-body">
 					<div class="form-validation">
 						<form class="form-valide" method="post">
 							<div class="form-row">
 								<div class="form-group col-md-6">
-									<label for="name">Name</label>
+									<label for="name">Name of Business</label>
 									<input type="text" class="form-control" id="name" name="name"  value={client.name}/>
 								</div>
 
