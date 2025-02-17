@@ -70,9 +70,9 @@
 								<tbody>
 									{#each contracts.slice(0, 5) as contract, index}
 										<tr>
-											<td>{index + 1}</td>
+											<td>{contract.number}</td>
 											<td>{clients.find(client => client.id === contract.clientId)?.name}</td>
-											<td>{contract.prepared_by}</td>
+											<td>{contract.expand.prepared_by?.name || ''}</td>
 											<td>{new Date(contract.date).toLocaleDateString()}</td>
 											<td>
 												<!-- <span class="badge badge-rounded badge-{contract.status.toLowerCase()}">{contract.status}</span> -->
