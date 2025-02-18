@@ -16,19 +16,27 @@ export const actions = {
     const formData = await request.formData();
     const name = formData.get('name');
     const nzbn = formData.get('nzbn');
-    const address = formData.get('address');
+    const address_street = formData.get('address_street');
+    const address_suburb = formData.get('address_suburb');
+    const address_city = formData.get('address_city');
+    const address_postcode = formData.get('address_postcode');
     const contact_name = formData.get('contact_name');
     const contact_email = formData.get('contact_email');
     const contact_title = formData.get('contact_title');
     const contact_phone = formData.get('contact_phone');
     const contact_address = formData.get('contact_address');
     const remark = formData.get('remark');
+    const address = `${address_street}, ${address_suburb}, ${address_city} ${address_postcode}`;
 
     try {
       const record = await  pb.collection('clients').update(params.id, {
         name,
         nzbn,
         address,
+        address_street,
+        address_suburb,
+        address_city,
+        address_postcode,
         contact_name,
         contact_email,
         contact_title,

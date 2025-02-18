@@ -6,7 +6,7 @@ export const actions = {
     const formData = await request.formData();
 
     // Required fields validation
-    const requiredFields = ['name', 'nzbn', 'address', 'contact_name', 'contact_email'];
+    const requiredFields = ['name', 'nzbn', 'address', 'address_suburb', 'address_city', 'address_postcode', 'contact_phone', 'contact_name', 'contact_email'];
     const data = {};
 
     for (const field of requiredFields) {
@@ -21,7 +21,7 @@ export const actions = {
     }
 
     // Optional fields
-    const optionalFields = ['contact_title', 'contact_phone', 'contact_address', 'remark'];
+    const optionalFields = ['contact_title', 'contact_address', 'remark'];
     for (const field of optionalFields) {
       data[field] = formData.get(field)?.trim() || '';
     }

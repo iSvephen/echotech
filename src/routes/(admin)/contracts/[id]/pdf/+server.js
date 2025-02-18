@@ -367,7 +367,7 @@ export async function GET({ params }) {
 			footerTemplate: `
       <div style="font-size:10px; width:100%; text-align:right; padding:10px 20px; display: flex; justify-content: space-between; align-items: center;">
         <img width="50px" src="${FOOTER_LOGO}" alt="Footer Logo" style="margin-right: 10px;">
-        <span style="font-size: 20px" class="pageNumber"></span>
+        <span style="font-size: 15px" class="pageNumber"></span>
       </div>
       `,
 			margin: {

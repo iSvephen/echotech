@@ -1,19 +1,19 @@
 <script>
     import { onMount } from 'svelte';
-  import { enhance } from '$app/forms';
-  export let data;
+    import { enhance } from '$app/forms';
+    export let data;
 
-  // Data coming from the server (array of units)
-  let clients = data.clients;
+    // Data coming from the server (array of units)
+    let clients = data.clients;
 
-  // For delete confirmation
-  let deletingClient = null;
+    // For delete confirmation
+    let deletingClient = null;
 
-// Set the unit to be deleted and show the modal
-function openDeleteModal(client) {
-  deletingClient = client;
-  globalThis.$('#deleteServiceModal').modal('show');
-}
+    // Set the unit to be deleted and show the modal
+    function openDeleteModal(client) {
+        deletingClient = client;
+        globalThis.$('#deleteServiceModal').modal('show');
+    }
 
     onMount(() => {
         // Initialize DataTable
@@ -80,7 +80,9 @@ function openDeleteModal(client) {
                                     <td>{ client.name }</td>
                                     <td>{ client.nzbn }</td>
                                     <td><a href="tel:"><strong>{ client.contact_phone }</a></td>
-                                    <td>{ client.address }</td>
+                                    <td>
+                                      {client.address_city}{client.address_city && client.address_postcode ? ', ' : ''}{client.address_postcode}
+                                    </td>
                                     <td>
                                         <div class="d-flex">
                                             <a href="/clients/{ client.id }/edit" class="btn btn-primary shadow btn-xs sharp mr-1" aria-label="Edit"><i class="fa fa-pencil"></i></a>

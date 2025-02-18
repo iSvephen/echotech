@@ -28,16 +28,16 @@
                                     <label for="address">Address</label>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" id="StreetAddress" name="street_address" placeholder="Street Address"/>
+                                            <input type="text" class="form-control" id="StreetAddress" name="address_street" placeholder="Street Address"/>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" id="Suburb" name="suburb" placeholder="Suburb"/>
+                                            <input type="text" class="form-control" id="Suburb" name="address_suburb" placeholder="Suburb"/>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <input type="text" class="form-control" id="City" name="city" placeholder="City"/>
+                                            <input type="text" class="form-control" id="City" name="address_city" placeholder="City"/>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <input type="number" class="form-control" id="Postcode" name="postcode" placeholder="Postcode"/>
+                                            <input type="number" class="form-control" id="Postcode" name="address_postcode" placeholder="Postcode"/>
                                         </div>
                                     </div>
                                 </div>

@@ -12696,7 +12696,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
       [data-sidebar-style="full"][data-layout="vertical"] .dlabnav .metismenu > li > a {
         padding: 15px 25px;
         font-size: 16px; } }
-    [data-sidebar-style="full"][data-layout="vertical"] .dlabnav .metismenu > li > a:before {
+    /* [data-sidebar-style="full"][data-layout="vertical"] .dlabnav .metismenu > li > a:before {
       position: absolute;
       height: 100%;
       width: 7px;
@@ -12715,7 +12715,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
     [data-sidebar-style="full"][data-layout="vertical"] .dlabnav .metismenu > li.mm-active > a:before {
       left: 0; }
   [data-sidebar-style="full"][data-layout="vertical"] .dlabnav .metismenu > li .has-arrow:after {
-    right: 2.5rem; }
+    right: 2.5rem; } */
     @media only screen and (max-width: 1400px) {
       [data-sidebar-style="full"][data-layout="vertical"] .dlabnav .metismenu > li .has-arrow:after {
         right: 1.5rem; } }

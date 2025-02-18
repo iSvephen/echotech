@@ -44,7 +44,7 @@
       <div class="card">
         <!-- Beautiful, responsive card header -->
         <div class="card-header d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-          <h4 class="card-title mb-2 mb-md-0">Services</h4>
+          <h4 class="card-title mb-2 mb-md-0">Contracts</h4>
           <a href="/contracts/new" class="btn btn-echo">+ New Contract</a>
         </div>
 

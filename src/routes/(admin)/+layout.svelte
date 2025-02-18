@@ -1,35 +1,37 @@
 <script>
     import { currentUser } from '$lib/pocketbase';
-      
-      function calculateTier() {
-            // Get selected values
-            let staffPoints = parseInt(document.getElementById('staffQty').value);
-            let assetPoints = parseInt(document.getElementById('assets').value);
-            let incomePoints = parseInt(document.getElementById('income').value);
-            let weightPoints = parseInt(document.getElementById('weight').value);
-            let reputationPoints = parseInt(document.getElementById('reputation').value);
-            let networkPoints = parseInt(document.getElementById('network').value);
-  
-            // Calculate total points
-            let totalPoints = staffPoints + assetPoints + incomePoints + weightPoints + reputationPoints + networkPoints;
-  
-            // Determine tier based on total points
-            let tier = '';
-            if (totalPoints > 70) {
-                tier = 'Tier 1';
-            } else if (totalPoints >= 50) {
-                tier = 'Tier 2';
-            } else if (totalPoints >= 30) {
-                tier = 'Tier 3';
-            } else {
-                tier = 'Tier 4';
-            }
-  
-            // Display results
-            document.getElementById('totalPoints').textContent = totalPoints;
-            document.getElementById('tier').textContent = tier;
-            document.getElementById('result').style.display = 'block';
+    import { page } from '$app/stores';
+    import { derived } from 'svelte/store';
+    let pageTitle = '';
+    function calculateTier() {
+        // Get selected values
+        let staffPoints = parseInt(document.getElementById('staffQty').value);
+        let assetPoints = parseInt(document.getElementById('assets').value);
+        let incomePoints = parseInt(document.getElementById('income').value);
+        let weightPoints = parseInt(document.getElementById('weight').value);
+        let reputationPoints = parseInt(document.getElementById('reputation').value);
+        let networkPoints = parseInt(document.getElementById('network').value);
+
+        // Calculate total points
+        let totalPoints = staffPoints + assetPoints + incomePoints + weightPoints + reputationPoints + networkPoints;
+
+        // Determine tier based on total points
+        let tier = '';
+        if (totalPoints > 70) {
+            tier = 'Tier 1';
+        } else if (totalPoints >= 50) {
+            tier = 'Tier 2';
+        } else if (totalPoints >= 30) {
+            tier = 'Tier 3';
+        } else {
+            tier = 'Tier 4';
         }
+
+        // Display results
+        document.getElementById('totalPoints').textContent = totalPoints;
+        document.getElementById('tier').textContent = tier;
+        document.getElementById('result').style.display = 'block';
+    }
 </script>
 
 <style>
@@ -74,12 +76,16 @@
     <!--**********************************
               Header start
           ***********************************-->
+
+
     <div class="header">
         <div class="header-content">
             <nav class="navbar navbar-expand">
                 <div class="collapse navbar-collapse justify-content-between">
                     <div class="header-left">
-                        <div class="dashboard_bar">Dashboard</div>
+                        <div class="dashboard_bar">
+                            {pageTitle}
+                        </div>
                     </div>
                     <ul class="navbar-nav header-right">
                         <li class="nav-item dropdown header-profile">
