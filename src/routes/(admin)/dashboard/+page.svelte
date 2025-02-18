@@ -15,7 +15,7 @@
 							</span>
 							<div class="media-body text-white text-right">
 								<p class="mb-1">Clients</p>
-								<h3 class="text-white">{clients.length}</h3>
+								<h1 class="text-white">{clients.length}</h1>
 							</div>
 						</div>
 					</div>
@@ -29,8 +29,8 @@
 								<i class="flaticon-381-notepad text-white"></i>
 							</span>
 							<div class="media-body text-white text-right">
-								<p class="mb-1">Contracts</p>
-								<h3 class="text-white">{contracts.length}</h3>
+								<p class="mb-1">Contracts (Completed)</p>
+								<h1 class="text-white">{contracts.length}</h1>
 							</div>
 						</div>
 					</div>
@@ -45,7 +45,7 @@
 							</span>
 							<div class="media-body text-white text-right">
 								<p class="mb-1">Services</p>
-								<h3 class="text-white">{services.length}</h3>
+								<h1 class="text-white">{services.length}</h1>
 							</div>
 						</div>
 					</div>
@@ -109,12 +109,12 @@
 										{#each services.filter(service => service.categoryId === category.id) as service}
 											<tr>
 												<td>{service.name}</td>
-												<td>{units.find(unit => unit.id === service.unitId)?.name}</td>
-												<td>${service.t1}</td>
-												<td>${service.t2}</td>
-												<td>${service.t3}</td>
-												<td>${service.t4}</td>
-											</tr>
+                                    <td>{units.find(unit => unit.id === service.unitId)?.name}</td>
+                                    <td>${service.t1 % 1 === 0 ? service.t1 : service.t1.toFixed(2)}</td>
+                                    <td>${service.t2 % 1 === 0 ? service.t2 : service.t2.toFixed(2)}</td>
+                                    <td>${service.t3 % 1 === 0 ? service.t3 : service.t3.toFixed(2)}</td>
+                                    <td>${service.t4 % 1 === 0 ? service.t4 : service.t4.toFixed(2)}</td>
+                                </tr>
 										{/each}
 									</tbody>
 								</table>
@@ -125,3 +125,6 @@
 			{/each}
 		</div>
 	</div>
+
+
+	

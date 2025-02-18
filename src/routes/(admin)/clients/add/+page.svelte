@@ -25,9 +25,24 @@
 								</div>
 
 								<div class="form-group col-md-12">
-									<label for="address">Address</label>
-									<input type="text" class="form-control" id="address" name="address" />
-								</div>
+                                    <label for="address">Address</label>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" id="StreetAddress" name="street_address" placeholder="Street Address"/>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" id="Suburb" name="suburb" placeholder="Suburb"/>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" id="City" name="city" placeholder="City"/>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="number" class="form-control" id="Postcode" name="postcode" placeholder="Postcode"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+								
 
 								<div class="form-group col-md-6">
 									<label for="contact_name">Main Contact Name</label>

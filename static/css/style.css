@@ -74,6 +74,44 @@ table th:last-child {
   border-radius: 0 15px 15px 0;
 }
 
+
+
+.table-responsive-sm {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.table-responsive-sm th,
+.table-responsive-sm td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table-responsive-sm th:nth-child(1),
+.table-responsive-sm td:nth-child(1) {
+  width: 30%;
+}
+
+.table-responsive-sm th:nth-child(2),
+.table-responsive-sm td:nth-child(2) {
+  width: 5%;
+}
+
+.table-responsive-sm th:nth-child(3),
+.table-responsive-sm td:nth-child(3),
+.table-responsive-sm th:nth-child(4),
+.table-responsive-sm td:nth-child(4),
+.table-responsive-sm th:nth-child(5),
+.table-responsive-sm td:nth-child(5),
+.table-responsive-sm th:nth-child(6),
+.table-responsive-sm td:nth-child(6),
+.table-responsive-sm th:nth-child(7),
+.table-responsive-sm td:nth-child(7) {
+  width: 5%;
+}
+
+
 .gradient_one {
   background-image: linear-gradient(to right, rgba(186, 1, 181, 0.85) 0%, rgba(103, 25, 255, 0.85) 100%); }
 

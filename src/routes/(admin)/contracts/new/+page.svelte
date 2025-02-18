@@ -197,6 +197,7 @@
                                                                     <td 
                                                                       class:selected={ columnSelections[category.id] ? (columnSelections[category.id] === "custom") : (individualSelections[category.id][i] === "custom") }>
                                                                       <input 
+                                                                      class="form-control"
                                                                         type="number" 
                                                                         bind:value={customValues[category.id][i].custom} 
                                                                         on:click={(e) => {
@@ -229,7 +230,8 @@
 
 <style>
     .selected {
-        background-color: yellow;
+        background-color: #829BA9;
+        color: white;
     }
     th,
     td {
