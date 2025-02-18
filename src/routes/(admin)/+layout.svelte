@@ -1,6 +1,51 @@
 <script>
     import { currentUser } from '$lib/pocketbase';
+      
+      function calculateTier() {
+            // Get selected values
+            let staffPoints = parseInt(document.getElementById('staffQty').value);
+            let assetPoints = parseInt(document.getElementById('assets').value);
+            let incomePoints = parseInt(document.getElementById('income').value);
+            let weightPoints = parseInt(document.getElementById('weight').value);
+            let reputationPoints = parseInt(document.getElementById('reputation').value);
+            let networkPoints = parseInt(document.getElementById('network').value);
+  
+            // Calculate total points
+            let totalPoints = staffPoints + assetPoints + incomePoints + weightPoints + reputationPoints + networkPoints;
+  
+            // Determine tier based on total points
+            let tier = '';
+            if (totalPoints > 70) {
+                tier = 'Tier 1';
+            } else if (totalPoints >= 50) {
+                tier = 'Tier 2';
+            } else if (totalPoints >= 30) {
+                tier = 'Tier 3';
+            } else {
+                tier = 'Tier 4';
+            }
+  
+            // Display results
+            document.getElementById('totalPoints').textContent = totalPoints;
+            document.getElementById('tier').textContent = tier;
+            document.getElementById('result').style.display = 'block';
+        }
 </script>
+
+<style>
+    .result {
+        text-align: center;
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #e7f7e7;
+        border: 1px solid #d1f2d1;
+        border-radius: 4px;
+    }
+    .tier {
+        font-size: 20px;
+        font-weight: bold;
+    }
+</style>
 
 <!--**********************************
           Main wrapper start
@@ -120,22 +165,22 @@
                     <span class="nav-text">Contracts</span>
                   </a>
                 </li>
-                <li>
+                <!-- <li>
                   <a href="/services" class="ai-icon" aria-expanded="false">
                     <i class="flaticon-381-networking"></i>
                     <span class="nav-text">Services</span>
                   </a>
-                </li>
-                <li>
+                </li> -->
+                <!-- <li>
                   <a href="/tiering" class="ai-icon" aria-expanded="false">
                     <i class="fa fa-calculator"></i>
                     <span class="nav-text">Tiering</span>
                   </a>
-                </li>
+                </li> -->
                 <li>
                   <a
                     class="has-arrow ai-icon"
-                    href="/"
+                    href="javascript:void(0)"
                     aria-expanded="false"
                   >
                   <i class="flaticon-381-controls-3"></i>
@@ -143,22 +188,20 @@
                   </a>
                   <ul>
                     <li><a href="/company-info">Company Info</a></li>
+                    <li><a href="/policies">Policies</a></li>
+                    <li><a href="/services">Services</a></li>
                     <li><a href="/units">Units</a></li>
                     <li><a href="/category">Category</a></li>
                     <li><a href="/subcategory">Sub-Category</a></li>
                   </ul>
                 </li>
-                <li>
-                  <a href="/policies" class="ai-icon" aria-expanded="false">
-                    <i class="fa fa-file-text-o"></i>
-                    <span class="nav-text">Policies</span>
-                  </a>
-                </li>
               </ul>
-            <a class="add-menu-sidebar d-block" href="/contracts/new">+ New Contract</a>
-            <div class="copyright">
+            <!-- <a class="add-menu-sidebar d-block" href="/contracts/new">+ New Contract</a> -->
+            
+				<a class="add-menu-sidebar d-block" href="javascript:void(0)"  data-toggle="modal" data-target="#addOrderModalside" ><i class="fa fa-calculator"></i> Tiering Calculator</a>
+            <!-- <div class="copyright">
                 <p><strong>Echo</strong> © 2025 All Rights Reserved</p>
-            </div>
+            </div> -->
         </div>
     </div>
     <!--**********************************
@@ -169,6 +212,95 @@
               Content body start
           ***********************************-->
     <div class="content-body">
+        <!-- Add Order -->
+        <div class="modal fade" id="addOrderModalside">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Tiering Calculator</h5>
+                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="result mt-4" id="result" style="display:none;">
+                        <p class="tier" style="color: #224335;" id="tier"></p>
+                        <p>Total Points: <span id="totalPoints"></span></p>
+                    </div>
+                    <div class="modal-body">
+                        <form id="tierForm">
+                            <div class="mb-3">
+                                <label for="staffQty" class="form-label">Staff Qty</label>
+                                <select id="staffQty" class="form-control">
+                                    <option value="0">Choose</option>
+                                    <option value="10">Below 100</option>
+                                    <option value="20">Above 100</option>
+                                    <option value="25">250 Plus</option>
+                                    <option value="30">500 Plus</option>
+                                </select>
+                            </div>
+                
+                            <div class="mb-3">
+                                <label for="assets" class="form-label">Assets available</label>
+                                <select id="assets" class="form-control">
+                                    <option value="0">Choose</option>
+                                    <option value="10">25 to 50</option>
+                                    <option value="20">50 to 75</option>
+                                    <option value="25">75 to 100</option>
+                                    <option value="30">100 plus</option>
+                                </select>
+                            </div>
+                
+                            <div class="mb-3">
+                                <label for="income" class="form-label">Income</label>
+                                <select id="income" class="form-control">
+                                    <option value="0">Choose</option>
+                                    <option value="5">Monthly &lt; $100</option>
+                                    <option value="10">Monthly &lt; $1000</option>
+                                    <option value="15">Monthly &lt; $5000</option>
+                                    <option value="20">Monthly &lt; $10000</option>
+                                    <option value="25">Monthly &gt; $25000</option>
+                                </select>
+                            </div>
+                
+                            <div class="mb-3">
+                                <label for="weight" class="form-label">Weight of Product</label>
+                                <select id="weight" class="form-control">
+                                  <option value="0">Choose</option>
+                                    <option value="5">Monthly &lt; 1 Ton</option>
+                                    <option value="10">Monthly &lt; 2.5 Ton</option>
+                                    <option value="15">Monthly &lt; 5 Ton</option>
+                                    <option value="20">Monthly &lt; 10 Ton</option>
+                                    <option value="25">Monthly &gt; 10 Ton</option>
+                                </select>
+                            </div>
+                
+                            <div class="mb-3">
+                                <label for="reputation" class="form-label">Reputation</label>
+                                <select id="reputation" class="form-control">
+                                  <option value="0">Choose</option>
+                                    <option value="2">Local SME</option>
+                                    <option value="4">Charity</option>
+                                    <option value="6">Govt</option>
+                                    <option value="8">Multi-national</option>
+                                    <option value="10">Global</option>
+                                </select>
+                            </div>
+                
+                            <div class="mb-3">
+                                <label for="network" class="form-label">Network</label>
+                                <select id="network" class="form-control">
+                                    <option value="0">Choose</option>
+                                    <option value="10">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                
+                            <button type="button" class="btn w-100 text-white" style="background-color: #224335;" on:click={calculateTier}>Calculate</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
         <slot />
     </div>
     <!--**********************************
@@ -189,6 +321,8 @@
     <!--**********************************
               Footer end
           ***********************************-->
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">^<i class="bi bi-arrow-up-short"></i></a>
 </div>
 <!--**********************************
           Main wrapper end

@@ -29,7 +29,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Policies</h4>
-                    <a href="policies/add" class="add-menu-sidebar">+ New Policy</a>
+                    <!-- <a href="policies/add" class="btn btn-echo">+ New Policy</a> -->
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -49,13 +49,13 @@
                                             <a href="/policies/{ policy.id }/edit" class="btn btn-primary shadow btn-xs sharp mr-1" aria-label="Edit"><i class="fa fa-pencil"></i></a>
                                             <!-- <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a> -->
 
-                                            <button
+                                            <!-- <button
                                               class="btn btn-danger shadow btn-xs sharp"
                                               on:click={() => openDeleteModal(policy)}
                                               aria-label="Delete Category"
                                             >
                                               <i class="fa fa-trash"></i>
-                                            </button>
+                                            </button> -->
                                         </div>
                                     </td>
                                 </tr>

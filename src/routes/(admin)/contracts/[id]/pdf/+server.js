@@ -15,7 +15,7 @@ export async function GET({ params }) {
 		const TermsAndConditionsOfService = await pb.collection('policies').getOne('a036c1mqmthn8w8');
 
 		const htmlContent = `
-    <!DOCTYPE html>
+<!DOCTYPE html>
   <html lang="en">
     <head>
     <meta charset="UTF-8" />
@@ -74,6 +74,12 @@ export async function GET({ params }) {
       font-style: normal;
       line-height: 1.5;
       }
+
+      #rectangle{
+        width:20px;
+        height:20px;
+        border: 1px solid black;
+    }
       .section {
       margin-bottom: 5px;
       }
@@ -84,8 +90,8 @@ export async function GET({ params }) {
     </head>
     <body>
     <!-- Cover / Header Section -->
-    <div class="section" style="background-image: url("https://echo.stephen.vip/images/Echo_Symbol.png")">
-      <h1 style="font-size: 50px;">Echo Service Contract</br>
+    <div class="section">
+      <h1 style="font-size: 50px">Echo Service Contract</br>
       Terms &amp; Conditions</h1></br></br>
 
       <div style="font-size:10px; color: black; width:100%; text-align:left; padding:0px; display: flex; align-items: center;">
@@ -277,6 +283,61 @@ export async function GET({ params }) {
     </div>
     <div class="page-break"></div>
 
+    <div class="section">
+        <h2>ACCOUNT APPLICATION FORM &amp; AGREEMENT</h2>
+        <H3>CUSTOMER DETAILS</H3>
+        <p>Company Name: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${contract.expand.clientId?.name || ''}</p>
+        <p>Trading As (if applicable):</p>
+        <p>Address (Physical): &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${contract.expand.clientId?.address || ''}</p>
+        <p>Address (Postal):</p>
+
+        <h3>ACCOUNTS PAYABLE CONTACT DETAILS</h3>
+        <p>Name:</p>
+        <p>Email:</p>
+        <p>Phone:</p>
+        <p>Remittance Email:</p>
+
+        <h3>PAYMENT TERMS (Please select one)</h3>
+        <div style="display: flex;">
+            <div style="display: flex;">
+                <div id="rectangle"></div> &nbsp; COD (Eftpos/Credit Card/Bank Transfer)
+            </div>
+            <div style="display: flex; margin-left: 25px;">
+                <div id="rectangle"></div> &nbsp; 20<sub>th</sub> &nbsp; of Month Following Invoice Date
+            </div>
+        </div>
+        <br>
+        <div style="display: flex;">
+            <div style="display: flex;">
+                Do you require POs on invoice?
+            </div>
+            <div style="display: flex; margin-left: 110px;">
+                <div id="rectangle"></div> &nbsp; Yes
+                <div id="rectangle" style="margin-left: 10px;"></div> &nbsp; No
+            </div>
+        </div>
+
+        <h3>FINANCE DETAILS</h3>
+        <p>GST Number:</p>
+        <p>Bank Name:</p>
+        <p>Bank Acc. Number:</p>
+        <p>NZBN: ${contract.expand.clientId?.nzbn || ''}</p>
+
+        <br>
+
+        <div style="display: flex;">
+            <div id="rectangle"></div> &nbsp;&nbsp; <b>THE AGREEMENT TERMS PROVIDED WITH THIS APPLICATION HAVE BEEN READ AND UNDERSTOOD</b>
+        </div>
+
+        
+        <P>By signing this account application you agree to service contracts terms &amp; conditions.</P>
+        <br><br>
+        <p>Signed</p>
+        <p>Name &amp; Position</p>
+        <p>Date</p>
+    </div>
+    <div class="page-break"></div>
+
     <!-- Terms and Conditions -->
     <div class="section">
       ${TermsAndConditionsOfService.content}
@@ -306,7 +367,7 @@ export async function GET({ params }) {
 			footerTemplate: `
       <div style="font-size:10px; width:100%; text-align:right; padding:10px 20px; display: flex; justify-content: space-between; align-items: center;">
         <img width="50px" src="${FOOTER_LOGO}" alt="Footer Logo" style="margin-right: 10px;">
-        <span class="pageNumber"></span>
+        <span style="font-size: 20px" class="pageNumber"></span>
       </div>
       `,
 			margin: {

@@ -2,6 +2,7 @@
 	export let data;
   
 	const { clients, contracts, services, categories, units } = data;
+	console.log(contracts);
 </script>
 
 <div class="container-fluid">
@@ -29,7 +30,7 @@
 								<i class="flaticon-381-notepad text-white"></i>
 							</span>
 							<div class="media-body text-white text-right">
-								<p class="mb-1">Contracts (Completed)</p>
+								<p class="mb-1">Completed Contracts</p>
 								<h1 class="text-white">{contracts.length}</h1>
 							</div>
 						</div>
@@ -41,10 +42,10 @@
 					<div class="card-body p-4">
 						<div class="media">
 							<span class="mr-3">
-								<i class="flaticon-381-networking text-white"></i>
+								<i class="fa fa-list-alt text-white"></i>
 							</span>
 							<div class="media-body text-white text-right">
-								<p class="mb-1">Services</p>
+								<p class="mb-1">Pending Contracts</p>
 								<h1 class="text-white">{services.length}</h1>
 							</div>
 						</div>
@@ -109,12 +110,12 @@
 										{#each services.filter(service => service.categoryId === category.id) as service}
 											<tr>
 												<td>{service.name}</td>
-                                    <td>{units.find(unit => unit.id === service.unitId)?.name}</td>
-                                    <td>${service.t1 % 1 === 0 ? service.t1 : service.t1.toFixed(2)}</td>
-                                    <td>${service.t2 % 1 === 0 ? service.t2 : service.t2.toFixed(2)}</td>
-                                    <td>${service.t3 % 1 === 0 ? service.t3 : service.t3.toFixed(2)}</td>
-                                    <td>${service.t4 % 1 === 0 ? service.t4 : service.t4.toFixed(2)}</td>
-                                </tr>
+												<td>{units.find(unit => unit.id === service.unitId)?.name}</td>
+												<td>${service.t1.toFixed(2)}</td>
+												<td>${service.t2.toFixed(2)}</td>
+												<td>${service.t3.toFixed(2)}</td>
+												<td>${service.t4.toFixed(2)}</td>
+											</tr>
 										{/each}
 									</tbody>
 								</table>

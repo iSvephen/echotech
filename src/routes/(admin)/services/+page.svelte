@@ -55,7 +55,7 @@
         <!-- Beautiful, responsive card header -->
         <div class="card-header d-flex flex-column flex-md-row justify-content-between align-items-md-center">
           <h4 class="card-title mb-2 mb-md-0">Services</h4>
-          <a href="javascript:void(0)" data-toggle="modal" data-target="#addServiceModal"  class="add-menu-sidebar">+ New Service</a>
+          <a href="javascript:void(0)" data-toggle="modal" data-target="#addServiceModal"  class="btn btn-echo">+ New Service</a>
         </div>
 
 
