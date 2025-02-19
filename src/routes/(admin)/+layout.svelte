@@ -39,10 +39,10 @@
         const path = $page.url.pathname;
         // Remove leading slash and split into segments
         const segments = path.slice(1).split('/');
-        // Get the last non-empty segment
-        const lastSegment = segments.filter(Boolean).pop() || 'dashboard';
+        // Get the first non-empty segment
+        const baseRoute = segments.filter(Boolean)[0] || 'dashboard';
         // Convert to title case and replace hyphens with spaces
-        return lastSegment
+        return baseRoute
             .split('-')
             .map(word => word.charAt(0).toUpperCase() + word.slice(1))
             .join(' ');

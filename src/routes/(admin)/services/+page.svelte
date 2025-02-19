@@ -82,10 +82,10 @@
 											<tr>
 												<td>{service.name}</td>
 												<td>{units.find(unit => unit.id === service.unitId)?.name}</td>
-												<td>{service.t1}</td>
-												<td>{service.t2}</td>
-												<td>{service.t3}</td>
-												<td>{service.t4}</td>
+												<td>$ {service.t1.toFixed(2)}</td>
+												<td>$ {service.t2.toFixed(2)}</td>
+												<td>$ {service.t3.toFixed(2)}</td>
+												<td>$ {service.t4.toFixed(2)}</td>
                         <td>
                           <div class="d-flex">
                             <button

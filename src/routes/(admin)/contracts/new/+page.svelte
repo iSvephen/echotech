@@ -43,32 +43,51 @@
 
     $: selectedJson = categories.flatMap(category => {
         const categoryId = category.id;
-        return columnSelections[categoryId]
-            ? services.filter(service => service.categoryId === categoryId).map((service, rowIndex) => ({
-                    serviceId: service.id,
-                    categoryId: category.id,
-                    service: service.name,
-                    unit: units.find((unit) => unit.id === service.unitId)?.name,
-                    column: columnSelections[categoryId],
-                    price: columnSelections[categoryId] === 'custom' ? customValues[categoryId][rowIndex].custom : service[columnSelections[categoryId].toLowerCase()]
-                }))
-            : Object.entries(individualSelections[categoryId]).map(([rowIndex, col]) => {
-                    const service = services.filter(service => service.categoryId === categoryId)[rowIndex];
+        const categoryServices = services.filter(service => service.categoryId === categoryId);
+        
+        if (columnSelections[categoryId]) {
+            // Handle column-wide selections
+            return categoryServices.map(service => ({
+                serviceId: service.id,
+                categoryId: category.id,
+                service: service.name,
+                unit: units.find(unit => unit.id === service.unitId)?.name,
+                column: columnSelections[categoryId],
+                price: columnSelections[categoryId] === 'custom' 
+                    ? parseFloat(customValues[category.id][categoryServices.indexOf(service)].custom) || 0
+                    : parseFloat(service[columnSelections[categoryId].toLowerCase()]) || 0
+            }));
+        } else {
+            // Handle individual cell selections
+            return Object.entries(individualSelections[categoryId])
+                .filter(([_, col]) => col) // Only include selected cells
+                .map(([rowIndex, col]) => {
+                    const service = categoryServices[parseInt(rowIndex)];
                     return {
                         serviceId: service.id,
                         categoryId: category.id,
                         service: service.name,
-                        unit: units.find((unit) => unit.id === service.unitId)?.name,
+                        unit: units.find(unit => unit.id === service.unitId)?.name,
                         column: col,
-                        price: col === 'custom' ? customValues[categoryId][rowIndex].custom : service[col.toLowerCase()]
+                        price: col === 'custom'
+                            ? parseFloat(customValues[category.id][parseInt(rowIndex)].custom) || 0
+                            : parseFloat(service[col.toLowerCase()]) || 0
                     };
                 });
+        }
     });
 
     async function handleSubmit(event) {
         event.preventDefault();
         const formData = new FormData(event.target);
-        formData.append('services', JSON.stringify(selectedJson));
+        
+        // Ensure agreement_term is a number
+        const agreementTerm = formData.get('agreement_term');
+        formData.set('agreement_term', Number(agreementTerm));
+        
+        // Filter out services with empty or zero prices
+        const validServices = selectedJson.filter(service => service.price && service.price !== 0);
+        formData.set('services', JSON.stringify(validServices));
 
         const response = await fetch('/contracts/new', {
             method: 'POST',
@@ -135,10 +154,10 @@
                                 </div>
                             </div>
                             <!-- Display the selected items as JSON -->
-                            <div style="margin-top: 1rem;">
+                            <!-- <div style="margin-top: 1rem;">
                               <h3>Selected Prices JSON</h3>
                               <pre>{JSON.stringify(selectedJson, null, 2)}</pre>
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 {#each categories as category}
                                     <div class="col-lg-12">
