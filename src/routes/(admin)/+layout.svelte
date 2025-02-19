@@ -2,7 +2,7 @@
     import { currentUser } from '$lib/pocketbase';
     import { page } from '$app/stores';
     import { derived } from 'svelte/store';
-    export let data;
+
     function calculateTier() {
         // Get selected values
         let staffPoints = parseInt(document.getElementById('staffQty').value);
@@ -94,7 +94,7 @@
                                 <img src="/images/users/user.png" width="20" alt="" />
                                 <div class="header-info">
                                     <span class="text-black">{currentUser?.name || 'Guest'}</span>
-                                    <p class="fs-12 mb-0">Admin</p>
+                                    <p class="fs-12 mb-0">{currentUser?.admin ? 'Admin' : 'Commercial Team'}</p>
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
@@ -184,6 +184,7 @@
                     <span class="nav-text">Tiering</span>
                   </a>
                 </li> -->
+                {#if currentUser?.admin}
                 <li>
                   <a
                     class="has-arrow ai-icon"
@@ -194,14 +195,15 @@
                   <span class="nav-text">Settings</span>
                   </a>
                   <ul>
-                    <li><a href="/company-info">Company Info</a></li>
-                    <li><a href="/policies">Policies</a></li>
-                    <li><a href="/services">Services</a></li>
-                    <li><a href="/units">Units</a></li>
-                    <li><a href="/category">Category</a></li>
-                    <li><a href="/subcategory">Sub-Category</a></li>
+                      <li><a href="/units">Units</a></li>
+                      <li><a href="/policies">Policies</a></li>
+                      <li><a href="/services">Services</a></li>
+                      <li><a href="/category">Category</a></li>
+                      <li><a href="/company-info">Company Info</a></li>
+                    <!-- <li><a href="/subcategory">Sub-Category</a></li> -->
                   </ul>
                 </li>
+                {/if}
               </ul>
             <!-- <a class="add-menu-sidebar d-block" href="/contracts/new">+ New Contract</a> -->
             
