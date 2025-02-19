@@ -10,6 +10,7 @@ export async function GET({ params }) {
 			.getOne(id, { expand: ['clientId,prepared_by'] });
       const services = await pb.collection('services').getFullList({ sort: '-created' });
       const categories = await pb.collection('service_category').getFullList({ sort: '-created' });
+      const company_info = await pb.collection('company_info').getOne('42bdrgj33m496a7');
       const units = await pb.collection('units').getFullList({ sort: '-created' });
 		const ServiceOverviewAndRequirements = await pb
 			.collection('policies')
@@ -18,12 +19,15 @@ export async function GET({ params }) {
 		const TermsAndConditionsOfService = await pb.collection('policies').getOne('a036c1mqmthn8w8');
 
 		// Helper function to format price
-		function formatPrice(price) {
-			return new Intl.NumberFormat('en-NZ', {
-				style: 'currency',
-				currency: 'NZD'
-			}).format(price);
-		}
+    function formatPrice(price) {
+      if (typeof price === 'number') {
+        return `$${price.toFixed(2)}`; // Adds $ and ensures 2 decimal places
+      }
+      if (typeof price === 'string' && !isNaN(price)) {
+        return `$${parseFloat(price).toFixed(2)}`;
+      }
+      return price;
+    }
 
 		// Generate pricing summary HTML
 		let pricingSummaryHtml = '';
@@ -47,27 +51,20 @@ if (contract.services) {
             ${Object.entries(servicesByCategory).map(([categoryId, services]) => {
                 const category = categories.find(c => c.id === categoryId);
                 return `
-                    <div class="category-section">
-                        <h3>${category?.name || 'Other Services'}</h3>
-                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-                            <thead>
-                                <tr style="background-color: #f5f5f5;">
-                                    <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Service</th>
-                                    <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Unit</th>
-                                    <th style="padding: 8px; border: 1px solid #ddd; text-align: right;">Price (${contract.agreement_term} Months)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${services.map(service => `
-                                    <tr>
-                                        <td style="padding: 8px; border: 1px solid #ddd;">${service.service}</td>
-                                        <td style="padding: 8px; border: 1px solid #ddd;">${service.unit}</td>
-                                        <td style="padding: 8px; border: 1px solid #ddd; text-align: right;">${formatPrice(service.price)}</td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                    </div>
+                    <h3>${category?.name || 'Other Services'}</h3>
+      <ul>
+      ${services.map(service => `
+      <li>
+      <div style="font-size:10px; color: black; width:100%; text-align:left; padding:0px; display: flex; justify-content: space-between; align-items: center;">
+
+        <p>${service.service}</p>
+        <p>${formatPrice(service.price)} ${service.unit}</p>
+        
+        </div>
+        </li>
+        `).join('')}
+        </ul>
+      </div>
                 `;
             }).join('')}
         </div>
@@ -178,8 +175,9 @@ if (contract.services) {
         </b>
 
         <b>
-        5 Southpark Place, Penrose, Auckland, 1061<br />
-        Unit 2/101 Gracefield Rd, Gracefield, Lower Hutt, 5010
+        ${company_info?.address_auckland || ''}<br />
+        ${company_info?.address_wellington || ''}<br />
+        ${company_info?.address_christchurch || ''}
         </b>
 
         <b>

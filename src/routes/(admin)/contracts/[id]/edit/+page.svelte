@@ -270,7 +270,7 @@
                                                                   class:selected={ columnSelections[category.id] ? (columnSelections[category.id] === "custom") : (individualSelections[category.id][i] === "custom") }>
                                                                   <input 
                                                                   class="form-control"
-                                                                    type="number" 
+                                                                    type="text" 
                                                                     bind:value={customValues[category.id][i].custom} 
                                                                     on:click={(e) => {
                                                                       e.stopPropagation();

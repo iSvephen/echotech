@@ -4,7 +4,7 @@ import { fail, redirect } from '@sveltejs/kit';
 export async function load() {
     try {
         const company_info = await pb.collection('company_info').getOne('42bdrgj33m496a7');
-        console.log('company_info:', company_info);
+        // console.log('company_info:', company_info);
         return { company_info };
     } catch (error) {
         console.error('Error loading company_info:', error);
@@ -20,10 +20,12 @@ export const actions = {
         const name = formData.get('name');
         const email = formData.get('email');
         const phone = formData.get('phone');
-        const address = formData.get('address');
+        const address_auckland = formData.get('address_auckland');
+        const address_wellington = formData.get('address_wellington');
+        const address_christchurch = formData.get('address_christchurch');
 
         try {
-            await pb.collection('company_info').update(id, {  nzbn, name, email, phone, address });
+            await pb.collection('company_info').update(id, {  nzbn, name, email, phone, address_auckland, address_wellington, address_christchurch });
             throw redirect(303, '/company-info');
         } catch (error) {
             console.error('Error updating company info:', error);

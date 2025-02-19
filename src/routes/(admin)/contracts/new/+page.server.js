@@ -35,7 +35,7 @@ export const actions = {
       const record = await pb.collection('contracts').create({ 
         clientId, date, number, prepared_by, agreement_term, services, remark
       });
-      console.log('record:', record);
+      // console.log('record:', record);
       throw redirect(303, `/contracts`);
     } catch (err) {
       console.error('Error creating contract:', err);

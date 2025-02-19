@@ -8,8 +8,6 @@ export async function GET({ params }) {
     const contract = await pb.collection('contracts').getOne(id, { expand: ['clientId', 'prepared_by'] });
     const ServiceOverviewAndRequirements = await pb.collection('policies').getOne('w0z90zj72w5cule');
 
-    console.log(ServiceOverviewAndRequirements)
-
     // Define categories, services, and allServices for testing
     const services = [
       { serviceId: 'srv1', price: 100 },

@@ -7,7 +7,7 @@ export async function load() {
             expand: ['clientId'],
             sort: '-created' 
         });
-        console.log('contracts:', contracts);
+        // console.log('contracts:', contracts);
         return { contracts };
     } catch (error) {
         console.error('Error loading contracts:', error);

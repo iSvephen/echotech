@@ -7,7 +7,7 @@
     async function login() {
       try {
         const authData = await pb.collection('users').authWithPassword(email, password);
-        console.log('Login successful:', authData);
+        // console.log('Login successful:', authData);
         // Redirect to the dashboard or another page
         goto('/dashboard');
     } catch (error) {

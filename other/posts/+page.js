@@ -8,7 +8,7 @@ export async function load() {
 
     try {
         const posts = await pb.collection('posts').getFullList({ expand: 'user' });
-        console.log('Fetched posts:', posts);
+        // console.log('Fetched posts:', posts);
         return { posts };
     } catch (error) {
         console.error('Error fetching data:', error);

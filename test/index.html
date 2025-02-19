@@ -321,64 +321,14 @@
         a POA (price on application) basis with applicable service fees.
       </p>
 
-      <h3>E-Waste Collection</h3>
-      <ul>
-        <li>
-          <strong>Category 1:</strong> PCs, servers, laptops, tablets, mobile
-          phones, network devices, etc. – priced per kg.
-        </li>
-        <li>
-          <strong>Category 2:</strong> Lead acid batteries – $1.05 per kg.
-        </li>
-        <li>
-          <strong>Category 3:</strong> Other loose batteries (including Lithium)
-          – $5.25 per kg.
-        </li>
-        <li>
-          <strong>Category 4:</strong> Non-IT equipment, packaging waste – $1.05
-          per kg.
-        </li>
-        <li>
-          <strong>Category 5:</strong> Ink and Toner cartridges – $3.15 each.
-        </li>
-        <li>
-          <strong>Category 6:</strong> Fluorescent tubes and halogen lighting –
-          $2.10 each.
-        </li>
-      </ul>
+      <h3>${category?.name || 'Other Services'}</h3>
+      ${services.map(service => `
+      <div style="font-size:10px; color: black; width:100%; text-align:left; padding:0px; display: flex; justify-content: space-between; align-items: center;">
+        <p>${service.service}</p>
+        <p>${formatPrice(service.price)} ${service.unit}</p>
+      </div>
+      `).join('')}
 
-      <h3>IT Asset Purchasing &amp; Resale / ITAD Services</h3>
-      <p>
-        Service fees for IT Asset Disposition (ITAD) including asset auditing,
-        degaussing, shredding, and Blancco wipe are charged per asset or as
-        specified by asset volume.
-      </p>
-
-      <h3>Reporting &amp; Additional Services</h3>
-      <ul>
-        <li>Certificates of Destruction and Audit Reports</li>
-        <li>Mass Balance and Sustainability Reporting</li>
-        <li>
-          Data Security &amp; Sanitisation services via mobile shredding and Blu
-          Box shredding units
-        </li>
-        <li>
-          Miscellaneous services including phone, tape, USB, and CD/DVD
-          shredding
-        </li>
-      </ul>
-
-      <h3>E-Waste Recycling Services</h3>
-      <ul>
-        <li>
-          Recycling bin hire for various sizes (120L, 240L, 660L, 1100L) –
-          one-off or recurring monthly rates apply.
-        </li>
-        <li>
-          Mail-back boxes for e-waste – with pricing including return freight.
-        </li>
-      </ul>
-      <p>All prices are in New Zealand Dollars (NZD) and exclude GST (15%).</p>
     </div>
     <div class="page-break"></div>
 
@@ -701,3 +651,28 @@
     <div class="page-break"></div>
   </body>
 </html>
+
+
+
+
+<div class="category-section">
+  <h3>${category?.name || 'Other Services'}</h3>
+  <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+      <thead>
+          <tr style="background-color: #f5f5f5;">
+              <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Service</th>
+              <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Unit</th>
+              <th style="padding: 8px; border: 1px solid #ddd; text-align: right;">Price (${contract.agreement_term} Months)</th>
+          </tr>
+      </thead>
+      <tbody>
+          ${services.map(service => `
+              <tr>
+                  <td style="padding: 8px; border: 1px solid #ddd;">${service.service}</td>
+                  <td style="padding: 8px; border: 1px solid #ddd;">${service.unit}</td>
+                  <td style="padding: 8px; border: 1px solid #ddd; text-align: right;">${formatPrice(service.price)}</td>
+              </tr>
+          `).join('')}
+      </tbody>
+  </table>
+</div>

@@ -32,11 +32,14 @@
           <button on:click={generatePDF} class="btn btn-echo">Generate PDF</button>
         </div>
         <div class="card-body">
-          <p><strong>Client:</strong> {contract.expand.clientId.name}</p>
+          <p><strong>Client:</strong> <a href="/clients/{contract.expand.clientId.id}/edit">{contract.expand.clientId.name}</a></p>
           <p><strong>Date:</strong> {new Date(contract.date).toLocaleDateString()}</p>
-          <p><strong>Terms:</strong> {contract.agreement_term}</p>
+          <p><strong>Terms:</strong> {contract.agreement_term} Months</p>
           <p><strong>Prepared By:</strong> {contract.expand.prepared_by?.name}</p>
-          <p><strong>Services:</strong> {contract.services}</p>
+          <p><strong>Services:</strong></p>
+          {#each contract.services as service}
+            <p>{service.service}</p>
+          {/each}
           <p><strong>Remark:</strong> {contract.remark}</p>
         </div>
       </div>

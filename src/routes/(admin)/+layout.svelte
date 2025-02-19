@@ -2,7 +2,7 @@
     import { currentUser } from '$lib/pocketbase';
     import { page } from '$app/stores';
     import { derived } from 'svelte/store';
-
+    let pageTitle = '';
     function calculateTier() {
         // Get selected values
         let staffPoints = parseInt(document.getElementById('staffQty').value);
@@ -32,23 +32,22 @@
         document.getElementById('tier').textContent = tier;
         document.getElementById('result').style.display = 'block';
     }
-
-
-    // Create a derived store for the page title based on route
-    const pageTitle = derived(page, $page => {
-        const path = $page.url.pathname;
-        // Remove leading slash and split into segments
-        const segments = path.slice(1).split('/');
-        // Get the first non-empty segment
-        const baseRoute = segments.filter(Boolean)[0] || 'dashboard';
-        // Convert to title case and replace hyphens with spaces
-        return baseRoute
-            .split('-')
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(' ');
-    });
 </script>
 
+<style>
+    .result {
+        text-align: center;
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #e7f7e7;
+        border: 1px solid #d1f2d1;
+        border-radius: 4px;
+    }
+    .tier {
+        font-size: 20px;
+        font-weight: bold;
+    }
+</style>
 
 <!--**********************************
           Main wrapper start
@@ -85,7 +84,7 @@
                 <div class="collapse navbar-collapse justify-content-between">
                     <div class="header-left">
                         <div class="dashboard_bar">
-                            {$pageTitle}
+                            {pageTitle}
                         </div>
                     </div>
                     <ul class="navbar-nav header-right">
@@ -161,11 +160,25 @@
                   </a>
                 </li>
                 <li>
+                    <a
+                      class="has-arrow ai-icon"
+                      href="/clients"
+                      aria-expanded="false"
+                    >
+                    <i class="fa fa-users"></i>
+                    <span class="nav-text">Clients</span>
+                    </a>
+                    <ul>
+                      <li><a href="/clients">Active Clients</a></li>
+                      <li><a href="/clients/archive">Archive</a></li>
+                    </ul>
+                  </li>
+                <!-- <li>
                   <a href="/clients" class="ai-icon" aria-expanded="false">
                     <i class="fa fa-users"></i>
                     <span class="nav-text">Clients</span>
                   </a>
-                </li>
+                </li> -->
                 <li>
                   <a href="/contracts" class="ai-icon" aria-expanded="false">
                     <i class="flaticon-381-notepad"></i>
@@ -184,25 +197,25 @@
                     <span class="nav-text">Tiering</span>
                   </a>
                 </li> -->
-                {#if currentUser?.admin}
+                {#if currentUser?.admin === true}
                 <li>
-                  <a
-                    class="has-arrow ai-icon"
-                    href="javascript:void(0)"
-                    aria-expanded="false"
-                  >
-                  <i class="flaticon-381-controls-3"></i>
-                  <span class="nav-text">Settings</span>
-                  </a>
-                  <ul>
-                      <li><a href="/units">Units</a></li>
+                    <a
+                      class="has-arrow ai-icon"
+                      href="javascript:void(0)"
+                      aria-expanded="false"
+                    >
+                    <i class="flaticon-381-controls-3"></i>
+                    <span class="nav-text">Settings</span>
+                    </a>
+                    <ul>
+                      <li><a href="/company-info">Company Info</a></li>
                       <li><a href="/policies">Policies</a></li>
                       <li><a href="/services">Services</a></li>
+                      <li><a href="/units">Units</a></li>
                       <li><a href="/category">Category</a></li>
-                      <li><a href="/company-info">Company Info</a></li>
-                    <!-- <li><a href="/subcategory">Sub-Category</a></li> -->
-                  </ul>
-                </li>
+                      <li><a href="/subcategory">Sub-Category</a></li>
+                    </ul>
+                  </li>
                 {/if}
               </ul>
             <!-- <a class="add-menu-sidebar d-block" href="/contracts/new">+ New Contract</a> -->
@@ -230,7 +243,7 @@
                         <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                         </button>
                     </div>
-                    <div class="tier-result mt-4" id="result" style="display:none;">
+                    <div class="result mt-4" id="result" style="display:none;">
                         <p class="tier" style="color: #224335;" id="tier"></p>
                         <p>Total Points: <span id="totalPoints"></span></p>
                     </div>

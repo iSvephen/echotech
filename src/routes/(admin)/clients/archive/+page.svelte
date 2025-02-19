@@ -108,28 +108,28 @@
                             </thead>
                             <tbody>
                                 {#each clients as client}
-                                  {#if !client.archive}
-                                  <tr>
-                                      <td>{ client.name }</td>
-                                      <td>{ client.nzbn }</td>
-                                      <td><a href="tel:"><strong>{ client.contact_phone }</a></td>
-                                      <td>
-                                        {client.address_city}{client.address_city && client.address_postcode ? ', ' : ''}{client.address_postcode}
-                                      </td>
-                                      <td>
-                                          <div class="d-flex">
-                                              <a href="/clients/{ client.id }/edit" class="btn btn-primary shadow btn-xs sharp mr-1" aria-label="Edit"><i class="fa fa-pencil"></i></a>
-                                              <button
-                                                  class="btn btn-echo shadow btn-xs sharp"
-                                                  on:click={() => client.archive ? openUnarchiveModal(client) : openDeleteModal(client)}
-                                                  aria-label="Toggle Archive Status"
-                                              >
-                                                  <i class="fa {client.archive ? 'fa-undo' : 'fa-archive'}"></i>
-                                              </button>
-                                          </div>
-                                      </td>
-                                  </tr>
-                                  {/if}
+                                {#if client.archive}
+                                <tr>
+                                    <td>{ client.name }</td>
+                                    <td>{ client.nzbn }</td>
+                                    <td><a href="tel:"><strong>{ client.contact_phone }</a></td>
+                                    <td>
+                                      {client.address_city}{client.address_city && client.address_postcode ? ', ' : ''}{client.address_postcode}
+                                    </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <a href="/clients/{ client.id }/edit" class="btn btn-primary shadow btn-xs sharp mr-1" aria-label="Edit"><i class="fa fa-pencil"></i></a>
+                                            <button
+                                                class="btn btn-echo shadow btn-xs sharp"
+                                                on:click={() => client.archive ? openUnarchiveModal(client) : openDeleteModal(client)}
+                                                aria-label="Toggle Archive Status"
+                                            >
+                                                <i class="fa {client.archive ? 'fa-undo' : 'fa-archive'}"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {/if}
                                 {/each}
                             </tbody>
                         </table>

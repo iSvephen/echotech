@@ -31,8 +31,18 @@
                           </div>
           
                           <div class="form-group col-md-12">
-                            <label for="address">Address</label>
-                            <input type="text" class="form-control" id="address" name="address"  value={company_info.address}/>
+                            <label for="address_auckland">Auckland</label>
+                            <input type="text" class="form-control" id="address_auckland" name="address_auckland"  value={company_info.address_auckland}/>
+                          </div>
+          
+                          <div class="form-group col-md-12">
+                            <label for="address_wellington">Wellington</label>
+                            <input type="text" class="form-control" id="address_wellington" name="address_wellington"  value={company_info.address_wellington}/>
+                          </div>
+          
+                          <div class="form-group col-md-12">
+                            <label for="address_christchurch">Christchurch</label>
+                            <input type="text" class="form-control" id="address_christchurch" name="address_christchurch"  value={company_info.address_christchurch}/>
                           </div>
           
                           <div class="form-group col-md-6">

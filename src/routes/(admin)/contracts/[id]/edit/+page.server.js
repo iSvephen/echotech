@@ -47,11 +47,18 @@ export const actions = {
                 remark
             });
             
-            console.log('Updated contract:', record);
+            // console.log('Updated contract:', record);
             throw redirect(303, `/contracts/${params.id}`);
         } catch (err) {
+            // Re-throw redirect responses so they aren't treated as errors
+            if (err && err.status && err.location) {
+              throw err;
+            }
             console.error('Error updating contract:', err);
-            return fail(500, { message: 'Error updating contract' });
+            return fail(500, {
+              error: err.message || 'Error updating contract',
+              values: Object.fromEntries(formData)
+            });
+          }
         }
-    }
-}; 
+      };
