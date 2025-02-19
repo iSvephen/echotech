@@ -8,9 +8,6 @@ export async function GET({ params }) {
 		const contract = await pb
 			.collection('contracts')
 			.getOne(id, { expand: ['clientId,prepared_by'] });
-      const services = await pb.collection('services').getFullList({ sort: '-created' });
-      const categories = await pb.collection('service_category').getFullList({ sort: '-created' });
-      const units = await pb.collection('units').getFullList({ sort: '-created' });
 		const ServiceOverviewAndRequirements = await pb
 			.collection('policies')
 			.getOne('r637mn910m9k975');
@@ -27,53 +24,55 @@ export async function GET({ params }) {
 
 		// Generate pricing summary HTML
 		let pricingSummaryHtml = '';
-if (contract.services) {
-    const contractServices = typeof contract.services === 'string' 
-        ? JSON.parse(contract.services) 
-        : contract.services;
+		if (contract.services) {
+			const services = typeof contract.services === 'string' 
+				? JSON.parse(contract.services) 
+				: contract.services;
 
-    // Group services by category
-    const servicesByCategory = {};
-    contractServices.forEach(service => {
-        if (!servicesByCategory[service.categoryId]) {
-            servicesByCategory[service.categoryId] = [];
-        }
-        servicesByCategory[service.categoryId].push(service);
-    });
+			// Group services by category
+			const servicesByCategory = {};
+			services.forEach(service => {
+				if (!servicesByCategory[service.categoryId]) {
+					servicesByCategory[service.categoryId] = [];
+				}
+				servicesByCategory[service.categoryId].push(service);
+			});
 
-    pricingSummaryHtml = `
-        <div class="section">
-            <h2>5.0 Pricing Summary</h2>
-            ${Object.entries(servicesByCategory).map(([categoryId, services]) => {
-                const category = categories.find(c => c.id === categoryId);
-                return `
-                    <div class="category-section">
-                        <h3>${category?.name || 'Other Services'}</h3>
-                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-                            <thead>
-                                <tr style="background-color: #f5f5f5;">
-                                    <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Service</th>
-                                    <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Unit</th>
-                                    <th style="padding: 8px; border: 1px solid #ddd; text-align: right;">Price (${contract.agreement_term} Months)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${services.map(service => `
-                                    <tr>
-                                        <td style="padding: 8px; border: 1px solid #ddd;">${service.service}</td>
-                                        <td style="padding: 8px; border: 1px solid #ddd;">${service.unit}</td>
-                                        <td style="padding: 8px; border: 1px solid #ddd; text-align: right;">${formatPrice(service.price)}</td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                    </div>
-                `;
-            }).join('')}
-        </div>
-    `;
-}
-
+			pricingSummaryHtml = `
+				<div class="section">
+					<h2>5.0 Pricing Summary</h2>
+					${Object.entries(servicesByCategory).map(([categoryId, services]) => {
+						const category = categories.find(c => c.id === categoryId);
+						return `
+							<div class="category-section">
+								<h3>${category?.name || 'Other Services'}</h3>
+								<table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+									<thead>
+										<tr style="background-color: #f5f5f5;">
+											<th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Service</th>
+											<th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Unit</th>
+											<th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Tier</th>
+											<th style="padding: 8px; border: 1px solid #ddd; text-align: right;">Price</th>
+										</tr>
+									</thead>
+									<tbody>
+										${services.map(service => `
+											<tr>
+												<td style="padding: 8px; border: 1px solid #ddd;">${service.service}</td>
+												<td style="padding: 8px; border: 1px solid #ddd;">${service.unit}</td>
+												<td style="padding: 8px; border: 1px solid #ddd;">${service.column}</td>
+												<td style="padding: 8px; border: 1px solid #ddd; text-align: right;">${formatPrice(service.price)}</td>
+											</tr>
+										`).join('')}
+									</tbody>
+								</table>
+							</div>
+						`;
+					}).join('')}
+				</div>
+				<div class="page-break"></div>
+			`;
+		}
 
 		const htmlContent = `
 <!DOCTYPE html>
@@ -246,10 +245,8 @@ if (contract.services) {
     </div>
     <div class="page-break"></div>
 
-    <!-- 5.0 Pricing Summary -->
+    <!-- Add Pricing Summary before Terms and Conditions -->
     ${pricingSummaryHtml}
-
-    <div class="page-break"></div>
 
     <!-- Agreement Execution -->
     <div class="section">

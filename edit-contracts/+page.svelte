@@ -2,23 +2,46 @@
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
 
-    let error = null;
-
     export let data;
-
-    const { clients, services, categories, units } = data;
+    let { contract, clients, services, categories, units } = data;
 
     let selectedData = [];
-
     let columnSelections = {};
     let individualSelections = {};
     let customValues = {};
 
-    categories.forEach(category => {
-        customValues[category.id] = services.filter(service => service.categoryId === category.id).map(() => ({ custom: '' }));
-        individualSelections[category.id] = {};
-        columnSelections[category.id] = null;
-    });
+    // Initialize selections based on contract data
+    function initializeSelections() {
+        categories.forEach(category => {
+            customValues[category.id] = services
+                .filter(service => service.categoryId === category.id)
+                .map(() => ({ custom: '' }));
+            individualSelections[category.id] = {};
+            columnSelections[category.id] = null;
+
+            // Check contract services and set selections
+            if (contract.services) {
+                const contractServices = contract.services;
+                contractServices.forEach(contractService => {
+                    if (contractService.categoryId === category.id) {
+                        const serviceIndex = services
+                            .filter(s => s.categoryId === category.id)
+                            .findIndex(s => s.id === contractService.serviceId);
+                        
+                        if (serviceIndex !== -1) {
+                            if (contractService.column === 'custom') {
+                                customValues[category.id][serviceIndex].custom = contractService.price;
+                                individualSelections[category.id][serviceIndex] = 'custom';
+                            } else {
+                                individualSelections[category.id][serviceIndex] = contractService.column;
+                            }
+                        }
+                    }
+                });
+            }
+        });
+        individualSelections = { ...individualSelections };
+    }
 
     function selectColumn(categoryId, column) {
         if (columnSelections[categoryId] === column) {
@@ -70,20 +93,21 @@
         const formData = new FormData(event.target);
         formData.append('services', JSON.stringify(selectedJson));
 
-        const response = await fetch('/contracts/new', {
+        const response = await fetch(`/contracts/${contract.id}/edit`, {
             method: 'POST',
             body: formData
         });
 
         if (response.ok) {
-            goto('/contracts');
+            goto(`/contracts/${contract.id}`);
         } else {
-            error = 'Error creating contract';
+            error = 'Error updating contract';
         }
     }
 
     onMount(() => {
         globalThis.$('#single-select').select2();
+        initializeSelections();
     });
 </script>
 
@@ -92,7 +116,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">New Contract Form</h4>
+                    <h4 class="card-title">Edit Contract Form</h4>
                 </div>
                 <div class="card-body">
                     <div class="form-validation">
@@ -103,7 +127,7 @@
                                         >Clients
                                         <a href="/clients/add" style="color: #224335;">+ Add Client</a>
                                     </label>
-                                    <select id="single-select" class="form-control" name="clientId">
+                                    <select id="single-select" class="form-control" name="clientId" bind:value={contract.clientId}>
                                         <option value="">Select Client</option>
                                         {#each clients as client}
                                             <option value={client.id}>{client.name}</option>
@@ -112,25 +136,25 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="inputContractNumber">Contract Number</label>
-                                    <input type="number" class="form-control" id="inputContractNumber" name="number" />
+                                    <input type="number" class="form-control" id="inputContractNumber" name="number" bind:value={contract.number} />
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="contractDate">Contract Date</label>
-                                    <input type="date" class="form-control" id="contractDate" name="date" />
+                                    <input type="date" class="form-control" id="contractDate" name="date" bind:value={contract.date} />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="agreementTerm" style="color: #224335;">Agreement Term</label>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="term12Months" name="agreement_term" value="12" />
+                                    <input type="radio" class="form-check-input" id="term12Months" name="agreement_term" value="12 Months" bind:group={contract.agreement_term} />
                                     <label class="form-check-label" for="term12Months">12 Months</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="term24Months" name="agreement_term" value="24" />
+                                    <input type="radio" class="form-check-input" id="term24Months" name="agreement_term" value="24 Months" bind:group={contract.agreement_term} />
                                     <label class="form-check-label" for="term24Months">24 Months</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" class="form-check-input" id="term36Months" name="agreement_term" value="36" />
+                                    <input type="radio" class="form-check-input" id="term36Months" name="agreement_term" value="36 Months" bind:group={contract.agreement_term} />
                                     <label class="form-check-label" for="term36Months">36 Months</label>
                                 </div>
                             </div>
@@ -201,7 +225,6 @@
                                                                     <td 
                                                                       class:selected={ columnSelections[category.id] ? (columnSelections[category.id] === "custom") : (individualSelections[category.id][i] === "custom") }>
                                                                       <input 
-                                                                      class="form-control"
                                                                         type="number" 
                                                                         bind:value={customValues[category.id][i].custom} 
                                                                         on:click={(e) => {
@@ -234,8 +257,7 @@
 
 <style>
     .selected {
-        background-color: #829BA9;
-        color: white;
+        background-color: yellow;
     }
     th,
     td {
