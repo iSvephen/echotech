@@ -2,7 +2,7 @@
     import { currentUser } from '$lib/pocketbase';
     import { page } from '$app/stores';
     import { derived } from 'svelte/store';
-    let pageTitle = '';
+    export let data;
     function calculateTier() {
         // Get selected values
         let staffPoints = parseInt(document.getElementById('staffQty').value);
@@ -32,22 +32,23 @@
         document.getElementById('tier').textContent = tier;
         document.getElementById('result').style.display = 'block';
     }
+
+
+    // Create a derived store for the page title based on route
+    const pageTitle = derived(page, $page => {
+        const path = $page.url.pathname;
+        // Remove leading slash and split into segments
+        const segments = path.slice(1).split('/');
+        // Get the last non-empty segment
+        const lastSegment = segments.filter(Boolean).pop() || 'dashboard';
+        // Convert to title case and replace hyphens with spaces
+        return lastSegment
+            .split('-')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    });
 </script>
 
-<style>
-    .result {
-        text-align: center;
-        margin-top: 20px;
-        padding: 15px;
-        background-color: #e7f7e7;
-        border: 1px solid #d1f2d1;
-        border-radius: 4px;
-    }
-    .tier {
-        font-size: 20px;
-        font-weight: bold;
-    }
-</style>
 
 <!--**********************************
           Main wrapper start
@@ -84,7 +85,7 @@
                 <div class="collapse navbar-collapse justify-content-between">
                     <div class="header-left">
                         <div class="dashboard_bar">
-                            {pageTitle}
+                            {$pageTitle}
                         </div>
                     </div>
                     <ul class="navbar-nav header-right">
@@ -227,7 +228,7 @@
                         <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                         </button>
                     </div>
-                    <div class="result mt-4" id="result" style="display:none;">
+                    <div class="tier-result mt-4" id="result" style="display:none;">
                         <p class="tier" style="color: #224335;" id="tier"></p>
                         <p>Total Points: <span id="totalPoints"></span></p>
                     </div>

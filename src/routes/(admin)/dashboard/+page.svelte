@@ -2,9 +2,6 @@
 	export let data;
   
 	const { clients, contracts, services, categories, units } = data;
-	console.log(contracts);
-
-    export const pageTitle = 'Dashboard';
 </script>
 
 <div class="container-fluid">
