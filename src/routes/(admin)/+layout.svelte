@@ -169,7 +169,7 @@
                     <span class="nav-text">Clients</span>
                     </a>
                     <ul>
-                      <li><a href="/clients">Active Clients</a></li>
+                      <!-- <li><a href="/clients">Active Clients</a></li> -->
                       <li><a href="/clients/archive">Archive</a></li>
                     </ul>
                   </li>

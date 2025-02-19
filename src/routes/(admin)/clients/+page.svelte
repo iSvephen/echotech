@@ -103,6 +103,7 @@
                                     <th>NZBN</th>
                                     <th>Phone</th>
                                     <th>Address</th>
+                                    <th>Postcode</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -114,8 +115,9 @@
                                       <td>{ client.nzbn }</td>
                                       <td><a href="tel:"><strong>{ client.contact_phone }</a></td>
                                       <td>
-                                        {client.address_city}{client.address_city && client.address_postcode ? ', ' : ''}{client.address_postcode}
+                                        {client.address_city}{client.address_city && client.address_postcode ? ', ' : ''}
                                       </td>
+                                      <td>{client.address_postcode}</td>
                                       <td>
                                           <div class="d-flex">
                                               <a href="/clients/{ client.id }/edit" class="btn btn-primary shadow btn-xs sharp mr-1" aria-label="Edit"><i class="fa fa-pencil"></i></a>
