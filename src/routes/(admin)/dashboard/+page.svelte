@@ -2,6 +2,11 @@
 	export let data;
   
 	const { clients, contracts, services, categories, units } = data;
+
+	// Calculate completed and pending contracts
+	$: completedContracts = contracts.filter(contract => contract.complete).length;
+    $: pendingContracts = contracts.filter(contract => !contract.complete).length;
+
 </script>
 
 <div class="container-fluid">
@@ -30,7 +35,7 @@
 							</span>
 							<div class="media-body text-white text-right">
 								<p class="mb-1">Completed Contracts</p>
-								<h1 class="text-white">{contracts.length}</h1>
+								<h1 class="text-white">{completedContracts}</h1>
 							</div>
 						</div>
 					</div>
@@ -45,7 +50,7 @@
 							</span>
 							<div class="media-body text-white text-right">
 								<p class="mb-1">Pending Contracts</p>
-								<h1 class="text-white">{services.length}</h1>
+								<h1 class="text-white">{pendingContracts}</h1>
 							</div>
 						</div>
 					</div>
@@ -64,6 +69,7 @@
 										<th scope="col">No.</th>
 										<th scope="col">Client</th>
 										<th scope="col">Prepared by</th>
+										<th scope="col">Status</th>
 										<th scope="col">Date</th>
 									</tr>
 								</thead>
@@ -73,10 +79,12 @@
 											<td>{contract.number}</td>
 											<td>{clients.find(client => client.id === contract.clientId)?.name}</td>
 											<td>{contract.expand.prepared_by?.name || ''}</td>
-											<td>{new Date(contract.date).toLocaleDateString()}</td>
 											<td>
-												<!-- <span class="badge badge-rounded badge-{contract.status.toLowerCase()}">{contract.status}</span> -->
+												<span class="badge badge-rounded {contract.complete ? 'badge-completed' : 'badge-warning'}">
+													{contract.complete ? 'Completed' : 'Pending'}
+												</span>
 											</td>
+											<td>{new Date(contract.date).toLocaleDateString()}</td>
 										</tr>
 									{/each}
 								</tbody>
@@ -125,6 +133,3 @@
 			{/each}
 		</div>
 	</div>
-
-
-	

@@ -2,6 +2,21 @@
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
 
+    // ...existing imports...
+    import { pb } from '$lib/pocketbase';
+
+    // Add toggle function
+    async function toggleStatus() {
+      try {
+        const updatedContract = await pb.collection('contracts').update(contract.id, {
+          complete: !contract.complete
+        });
+        contract.complete = updatedContract.complete;
+      } catch (error) {
+        console.error('Error updating contract status:', error);
+      }
+    }
+
   export let data;
 
   const { contract, categories } = data;
@@ -70,6 +85,20 @@
                 <span class="no-user">Not assigned</span>
             {/if}
           </p>
+          <p class="status-container">
+            <strong>Status:</strong> 
+            <label class="toggle-switch">
+                <input 
+                    type="checkbox" 
+                    checked={contract.complete} 
+                    on:change={toggleStatus}
+                >
+                <span class="slider"></span>
+                <span class="status-label {contract.complete ? 'completed' : 'pending'}">
+                    {contract.complete ? 'Completed' : 'Pending'}
+                </span>
+            </label>
+        </p>
           <p><strong>Services:</strong></p>
           <div class="services-section">
             {#each Object.entries(servicesByCategory) as [categoryId, services]}
@@ -262,5 +291,82 @@
         color: #6c757d;
         font-style: italic;
     }
+
+
+    /* Status Toggle Styles */
+    .status-container {
+        display: flex;
+        align-items: center;
+        /* gap: 0.5rem; */
+    }
+
+    .toggle-switch {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+        gap: 0.5rem;
+    }
+
+    .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 26px;
+        background-color: #e9ecef;
+        border-radius: 34px;
+        transition: .4s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 20px;
+        width: 20px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        border-radius: 50%;
+        transition: .4s;
+    }
+
+    input:checked + .slider {
+        background-color: #28a745;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #28a745;
+    }
+
+    input:checked + .slider:before {
+        transform: translateX(24px);
+    }
+
+    .status-label {
+        font-weight: 500;
+        font-size: 0.875rem;
+        min-width: 70px;
+    }
+
+    .status-label.completed {
+        color: #28a745;
+    }
+
+    .status-label.pending {
+        color: #ffc107;
+    }
+
+    /* Optional animation for status change */
+    .status-label {
+        transition: color 0.3s ease;
+    }
+
+
 
 </style>

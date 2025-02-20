@@ -71,8 +71,7 @@ if (contract.services) {
     `;
 }
 
-
-		const htmlContent = `
+const htmlContent = `
 <!DOCTYPE html>
   <html lang="en">
     <head>
