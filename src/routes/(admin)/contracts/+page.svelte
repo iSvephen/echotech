@@ -59,6 +59,7 @@
                       <th>Date</th>
                       <th>Terms</th>
                       <th>Prepare By</th>
+                      <th>Status</th>
                       <th>Action</th>
                   </tr>
               </thead>
@@ -70,6 +71,11 @@
                         <td>{new Date(contract.date).toLocaleDateString()}</td>
                         <td>{contract.agreement_term} Months</td>
                         <td>{contract.expand.prepared_by?.name}</td>
+                        <td>
+                          <span class="badge badge-rounded {contract.complete ? 'badge-success' : 'badge-warning'}">
+                              {contract.complete ? 'Completed' : 'Pending'}
+                          </span>
+                        </td>
                         <td>
                             <div class="d-flex">
                                 <a href="/contracts/{contract.id}/edit" class="btn btn-primary shadow btn-xs sharp mr-1" on:click={() => editUnit(service)} aria-label="Edit"><i class="fa fa-pencil"></i></a>
