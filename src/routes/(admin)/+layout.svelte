@@ -234,7 +234,7 @@ function handleClientClick(event) {
                     <ul>
                       <!-- <li><a href="/clients">Active Clients</a></li> -->
                       <li><a href="/clients/archive">Clients</a></li>
-                      <li><a href="/clients/archive">Contracts</a></li>
+                      <li><a href="/contracts/archive">Contracts</a></li>
                     </ul>
                   </li>
                 <!-- <li>

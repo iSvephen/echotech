@@ -88,9 +88,12 @@
                             <div class="d-flex">
                                 <a href="/contracts/{contract.id}/edit" class="btn btn-primary shadow btn-xs sharp mr-1" on:click={() => editUnit(service)} aria-label="Edit"><i class="fa fa-pencil"></i></a>
                                 <!-- <a href="/contracts/{contract.id}/pdf" class="btn btn-echo shadow btn-xs sharp mr-1" on:click={() => editUnit(service)} aria-label="PDF"><i class="fa fa-file-pdf-o"></i></a> -->
-                                <button class="btn btn-echo shadow btn-xs sharp" on:click={() => openArchiveModal(contract)} aria-label="Archive">
-                                  <i class="fa fa-archive"></i>
-                              </button>
+                                <form method="post" action="?/unarchive">
+                                    <input type="hidden" name="id" value={contract.id} />
+                                    <button type="submit" class="btn btn-echo shadow btn-xs sharp" aria-label="Unarchive">
+                                        <i class="fa fa-undo"></i>
+                                    </button>
+                                </form>
                                 <!-- <a href="javascript:void(0);" class="btn btn-danger shadow btn-xs sharp" on:click={() => openDeleteModal(service)} aria-label="Delete"><i class="fa fa-trash"></i></a> -->
                             </div>                                                
                         </td>                                                
@@ -161,7 +164,7 @@ aria-hidden="true"
 <div class="modal-dialog modal-dialog-centered" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title" id="archiveContractModalLabel">Archive Contract</h5>
+      <h5 class="modal-title" id="archiveContractModalLabel">Unarchive Contract</h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -169,7 +172,7 @@ aria-hidden="true"
     <div class="modal-body">
       {#if archivingContract}
         <p>
-          Are you sure you want to archive contract
+          Are you sure you want to unarchive contract
           <strong>{archivingContract.number}</strong>?
         </p>
       {/if}
@@ -178,12 +181,12 @@ aria-hidden="true"
       <button type="button" class="btn btn-secondary" data-dismiss="modal">
         Cancel
       </button>
-      <form method="post" action="?/archive">
+      <form method="post" action="?/unarchive">
         {#if archivingContract}
           <input type="hidden" name="id" value={archivingContract.id} />
         {/if}
         <button type="submit" class="btn btn-warning">
-          Archive
+          Unarchive
         </button>
       </form>
     </div>

@@ -62,8 +62,6 @@
       servicesByCategory[service.categoryId].push(service);
     });
   }
-
-
 </script>
 
 <div class="container-fluid">
@@ -72,7 +70,9 @@
       <div class="card">
         <div class="card-header">
           <h4 class="card-title">Contract Details</h4>
-          <button on:click={generatePDF} class="btn btn-echo">Generate PDF</button>
+          <button on:click={generatePDF} class="btn btn-echo">
+            <i class="fa fa-download" aria-hidden="true"></i>&nbsp; Download Contract
+            </button>
         </div>
         <div class="card-body">
           <p><strong>Client:</strong> <a href="/clients/{contract.expand.clientId.id}/edit">{contract.expand.clientId.name}</a></p>

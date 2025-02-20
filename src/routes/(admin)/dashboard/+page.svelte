@@ -93,6 +93,39 @@
 					</div>
 				</div>
 			</div>
+			<div class="col-xl-12 col-lg-12 col-xxl-12 col-sm-12">
+				<div class="card">
+					<div class="card-header">
+						<h4 class="card-title">Recent Clients</h4>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive recentOrderTable">
+							<table class="table verticle-middle table-responsive-md">
+								<thead>
+									<tr>
+										<th scope="col">Name</th>
+										<th scope="col">Email</th>
+										<th scope="col">Phone</th>
+										<th scope="col">City</th>
+										<th scope="col">Postcode</th>
+									</tr>
+								</thead>
+								<tbody>
+									{#each clients.slice(0, 5) as client, index}
+										<tr>
+											<td>{client.name}</td>
+											<td>{client.contact_email}</td>
+											<td>{client.contact_phone}</td>
+											<td>{client.address_city}</td>
+											<td>{client.address_postcode}</td>
+										</tr>
+									{/each}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
 
 			{#each categories as category}
 				<div class="col-lg-12">

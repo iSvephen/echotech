@@ -4,7 +4,7 @@ import { fail, redirect } from '@sveltejs/kit';
 export async function load() {
     try {
         const contracts = await pb.collection('contracts').getFullList({ 
-            filter: 'archived = false',
+            filter: 'archived = true',
             expand: ['clientId,prepared_by'],
             sort: '-created' 
         });
@@ -63,18 +63,18 @@ export const actions = {
         }
     },
 
-    archive: async ({ request }) => {
+    unarchive: async ({ request }) => {
         const formData = await request.formData();
         const id = formData.get('id');
 
         if (!id) return fail(400, { message: 'Invalid contract ID' });
 
         try {
-            await pb.collection('contracts').update(id, { archived: true });
+            await pb.collection('contracts').update(id, { archived: false });
             throw redirect(303, '/contracts');
         } catch (error) {
-            console.error('Error archiving contract:', error);
-            return fail(500, { message: 'Failed to archive contract' });
+            console.error('Error unarchiving contract:', error);
+            return fail(500, { message: 'Failed to unarchive contract' });
         }
     },
 
