@@ -2,7 +2,7 @@
     import { currentUser } from '$lib/pocketbase';
     import { page } from '$app/stores';
     import { derived } from 'svelte/store';
-    let pageTitle = '';
+
     function calculateTier() {
         // Get selected values
         let staffPoints = parseInt(document.getElementById('staffQty').value);
@@ -32,6 +32,30 @@
         document.getElementById('tier').textContent = tier;
         document.getElementById('result').style.display = 'block';
     }
+
+        // Create a derived store for the page title based on route
+        const pageTitle = derived(page, $page => {
+    const path = $page.url.pathname;
+    // Remove leading slash and split into segments
+    const segments = path.slice(1).split('/');
+    // Get the first non-empty segment after (admin)
+    const baseRoute = segments.filter(Boolean)[0] || 'dashboard';
+    
+    // Handle special cases
+    if (baseRoute === 'clients' && segments.includes('archive')) {
+        return 'Client Archive';
+    }
+    if (baseRoute === 'company-info') {
+        return 'Company Info';
+    }
+    
+    // Convert to title case and replace hyphens with spaces
+    return baseRoute
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+});
+
 </script>
 
 <style>
@@ -84,7 +108,7 @@
                 <div class="collapse navbar-collapse justify-content-between">
                     <div class="header-left">
                         <div class="dashboard_bar">
-                            {pageTitle}
+                            {$pageTitle}
                         </div>
                     </div>
                     <ul class="navbar-nav header-right">
