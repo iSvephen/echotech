@@ -72,7 +72,7 @@
 
 								<div class="form-group col-md-12">
 									<label for="remark">Remark</label>
-									<input type="text" class="form-control" id="remark" name="remark"  value={client.remark}/>
+									<textarea type="text" class="form-control" id="remark" name="remark" style="height: 200px">{client.remark}</textarea>
 								</div>
 							</div>
 

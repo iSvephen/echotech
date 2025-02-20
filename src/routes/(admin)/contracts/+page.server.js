@@ -4,7 +4,7 @@ import { fail, redirect } from '@sveltejs/kit';
 export async function load() {
     try {
         const contracts = await pb.collection('contracts').getFullList({ 
-            expand: ['clientId'],
+            expand: ['clientId,prepared_by'],
             sort: '-created' 
         });
         // console.log('contracts:', contracts);

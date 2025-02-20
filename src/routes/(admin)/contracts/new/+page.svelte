@@ -190,7 +190,7 @@
                                                                             : individualSelections[category.id][i] === 'T1'}
                                                                         on:click={() => toggleCell(category.id, i, 'T1')}
                                                                     >
-                                                                        {service.t1}
+                                                                        ${service.t1.toFixed(2)}
                                                                     </td>
                                                                     <td
                                                                         class:selected={columnSelections[category.id]
@@ -198,7 +198,7 @@
                                                                             : individualSelections[category.id][i] === 'T2'}
                                                                         on:click={() => toggleCell(category.id, i, 'T2')}
                                                                     >
-                                                                        {service.t2}
+                                                                        ${service.t2.toFixed(2)}
                                                                     </td>
                                                                     <td
                                                                         class:selected={columnSelections[category.id]
@@ -206,7 +206,7 @@
                                                                             : individualSelections[category.id][i] === 'T3'}
                                                                         on:click={() => toggleCell(category.id, i, 'T3')}
                                                                     >
-                                                                        {service.t3}
+                                                                        ${service.t3.toFixed(2)}
                                                                     </td>
                                                                     <td
                                                                         class:selected={columnSelections[category.id]
@@ -214,7 +214,7 @@
                                                                             : individualSelections[category.id][i] === 'T4'}
                                                                         on:click={() => toggleCell(category.id, i, 'T4')}
                                                                     >
-                                                                        {service.t4}
+                                                                        ${service.t4.toFixed(2)}
                                                                     </td>
                                                                     <!-- For the "custom" column, which uses an input -->
                                                                     <td 

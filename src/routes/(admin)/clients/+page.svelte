@@ -102,7 +102,7 @@
                                     <th>Name</th>
                                     <th>NZBN</th>
                                     <th>Phone</th>
-                                    <th>Address</th>
+                                    <th>City</th>
                                     <th>Postcode</th>
                                     <th>Action</th>
                                 </tr>
@@ -115,7 +115,7 @@
                                       <td>{ client.nzbn }</td>
                                       <td><a href="tel:"><strong>{ client.contact_phone }</a></td>
                                       <td>
-                                        {client.address_city}{client.address_city && client.address_postcode ? ', ' : ''}
+                                        {client.address_city}
                                       </td>
                                       <td>{client.address_postcode}</td>
                                       <td>

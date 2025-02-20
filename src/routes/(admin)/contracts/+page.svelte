@@ -68,7 +68,7 @@
                         <td><a href="/contracts/{contract.id}">{contract.number}</a></td>
                         <td><a href="/clients/{contract.expand.clientId.id}/edit">{contract.expand.clientId.name}</a></td>
                         <td>{new Date(contract.date).toLocaleDateString()}</td>
-                        <td>{contract.agreement_term}</td>
+                        <td>{contract.agreement_term} Months</td>
                         <td>{contract.expand.prepared_by?.name}</td>
                         <td>
                             <div class="d-flex">

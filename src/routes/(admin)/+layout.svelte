@@ -2,6 +2,7 @@
     import { currentUser } from '$lib/pocketbase';
     import { page } from '$app/stores';
     import { derived } from 'svelte/store';
+    import { onMount } from 'svelte';
 
     function calculateTier() {
         // Get selected values
@@ -33,8 +34,8 @@
         document.getElementById('result').style.display = 'block';
     }
 
-        // Create a derived store for the page title based on route
-        const pageTitle = derived(page, $page => {
+    // Create a derived store for the page title based on route
+    const pageTitle = derived(page, $page => {
     const path = $page.url.pathname;
     // Remove leading slash and split into segments
     const segments = path.slice(1).split('/');
@@ -56,7 +57,33 @@
         .join(' ');
 });
 
+function handleClientClick(event) {
+        // Prevent default link behavior
+        event.preventDefault();
+        // Navigate to clients page
+        goto('/clients');
+    }
+
 </script>
+<svelte:head>
+    <link href="https://echo.stephen.vip/vendor/chartist/css/chartist.min.css" rel="stylesheet">
+    <link href="https://echo.stephen.vip/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
+    <link href="https://echo.stephen.vip/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://echo.stephen.vip/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="https://echo.stephen.vip/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+    <link href="https://echo.stephen.vip/vendor/select2/css/select2.min.css" rel="stylesheet">
+    <link href="https://echo.stephen.vip/vendor/summernote/summernote.css" rel="stylesheet">
+
+
+    <script src="https://echo.stephen.vip/vendor/global/global.min.js"></script>
+    <script src="/js/custom.js"></script>
+    <script src="https://echo.stephen.vip/js/dlabnav-init.js"></script>
+    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+    <script src="https://echo.stephen.vip/vendor/select2/js/select2.full.min.js"></script>
+    <script src="/vendor/summernote/js/summernote.min.js"></script>
+</svelte:head>
+
 
 <style>
     .result {
@@ -184,31 +211,32 @@
                   </a>
                 </li>
                 <li>
-                    <a
-                      class="has-arrow ai-icon"
-                      href="/clients"
-                      aria-expanded="false"
-                    >
-                    <i class="fa fa-users"></i>
-                    <span class="nav-text">Clients</span>
-                    </a>
-                    <ul>
-                      <!-- <li><a href="/clients">Active Clients</a></li> -->
-                      <li><a href="/clients/archive">Archive</a></li>
-                    </ul>
-                  </li>
-                <!-- <li>
                   <a href="/clients" class="ai-icon" aria-expanded="false">
                     <i class="fa fa-users"></i>
                     <span class="nav-text">Clients</span>
                   </a>
-                </li> -->
+                </li>
                 <li>
                   <a href="/contracts" class="ai-icon" aria-expanded="false">
                     <i class="flaticon-381-notepad"></i>
                     <span class="nav-text">Contracts</span>
                   </a>
                 </li>
+                <li>
+                    <a
+                      class="has-arrow ai-icon"
+                      href="javascript:void(0)"
+                      aria-expanded="false"
+                    >
+                    <i class="fa fa-archive"></i>
+                    <span class="nav-text">Archives</span>
+                    </a>
+                    <ul>
+                      <!-- <li><a href="/clients">Active Clients</a></li> -->
+                      <li><a href="/clients/archive">Clients</a></li>
+                      <li><a href="/clients/archive">Contracts</a></li>
+                    </ul>
+                  </li>
                 <!-- <li>
                   <a href="/services" class="ai-icon" aria-expanded="false">
                     <i class="flaticon-381-networking"></i>

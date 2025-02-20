@@ -80,7 +80,7 @@ export const actions = {
       });
 
       if (record) {
-        throw redirect(303, '/clients');
+        throw redirect(303, '/contracts/new');
       }
     } catch (err) {
       if (err && err.status && err.location) {
