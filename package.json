@@ -33,9 +33,13 @@
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
+
 		"@sveltejs/adapter-node": "^5.2.12",
 		"datatables.net": "^1.10.18",
 		"pocketbase": "^0.25.1",
-		"puppeteer": "^24.2.0"
+		"puppeteer": "^24.2.0",
+		"puppeteer-core": "^21.5.0",
+		"@sparticuz/chromium": "^119.0.0"
+
 	}
 }
