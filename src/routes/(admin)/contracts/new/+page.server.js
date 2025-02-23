@@ -38,10 +38,13 @@ export const actions = {
       // Redirect to contract detail page instead of list
       throw redirect(303, `/contracts/${record.id}`);
     } catch (err) {
-      if (err instanceof redirect) throw err;
-      console.error('Error creating contract:', err);
+      // Re-throw redirect responses so they aren't treated as errors
+      if (err && err.status && err.location) {
+        throw err;
+      }
+      console.error('Error updating contract:', err);
       return fail(500, {
-        error: err.message || 'Error creating contract',
+        error: err.message || 'Error updating contract',
         values: Object.fromEntries(formData)
       });
     }

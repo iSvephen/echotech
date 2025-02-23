@@ -102,7 +102,7 @@
             const result = await response.json();
             if (result.success && result.id) {
                 // await goto(`/contracts/${result.id}`);
-                await redirect(303, `/contracts/${result.id}`);
+                 redirect(307, `/contracts/${result.id}`);
             } else {
                 error = result.message || 'Failed to create contract';
             }
@@ -126,17 +126,6 @@
                             class="form-valide" 
                             method="post" 
                             action="?/create"
-                            use:enhance={({ form }) => {
-                                return async ({ result }) => {
-                                    if (result.type === 'failure') {
-                                        error = result.data?.message || 'An error occurred';
-                                        return;
-                                    }
-                                    if (result.type === 'redirect') {
-                                        window.location.href = result.location;
-                                    }
-                                };
-                            }}
                         >
                             <div class="form-row">
                                 <div class="form-group col-md-12">
