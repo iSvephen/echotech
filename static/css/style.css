@@ -31195,7 +31195,21 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 }
 
 
-.tier-result {
+/* .tier-result {
+  text-align: center;
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #e7f7e7;
+  border: 1px solid #d1f2d1;
+  border-radius: 4px;
+}
+.tier {
+  font-size: 20px;
+  font-weight: bold;
+} */
+
+
+.result {
   text-align: center;
   margin-top: 20px;
   padding: 15px;

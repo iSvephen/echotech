@@ -4,6 +4,20 @@
     export let data;
     import { enhance } from '$app/forms';
     let client = data.client;
+
+    let showDeleteConfirm = false;
+
+    function toggleDeleteConfirm() {
+        showDeleteConfirm = !showDeleteConfirm;
+    }
+
+    function handleSubmit() {
+        return async ({ result }) => {
+            if (result.type === 'redirect') {
+                window.location.href = result.location;
+            }
+        };
+    }
 </script>
 
 <div class="container-fluid">
@@ -15,7 +29,7 @@
 				</div>
 				<div class="card-body">
 					<div class="form-validation">
-						<form class="form-valide" method="post">
+						<form id="editForm" class="form-valide" method="post" action="?/update" use:enhance={handleSubmit}>
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<label for="name">Name of Business</label>
@@ -75,13 +89,40 @@
 									<textarea type="text" class="form-control" id="remark" name="remark" style="height: 200px">{client.remark}</textarea>
 								</div>
 							</div>
-
-							<div class="form-group row">
-								<div class="ml-auto">
-									<button type="submit" class="add-menu-sidebar">Save</button>
-								</div>
-							</div>
 						</form>
+
+						<div class="form-group row">
+							<div class="mr-auto">
+								{#if !showDeleteConfirm}
+									<button type="button" class="btn btn-danger" on:click={toggleDeleteConfirm}>
+										<i class="fa fa-trash mr-1"></i> Delete
+									</button>
+								{:else}
+									<div class="d-flex align-items-center">
+										<span class="text-danger mr-2">Are you sure?</span>
+										<form 
+											method="post" 
+											action="?/delete" 
+											use:enhance={() => {
+												return async () => {
+													window.location.href = '/clients';
+												};
+											}}
+										>
+											<button type="submit" class="btn btn-danger">
+												<i class="fa fa-check mr-1"></i> Yes, Delete
+											</button>
+										</form>
+										<button type="button" class="btn btn-secondary ms-2" on:click={toggleDeleteConfirm}>
+											<i class="fa fa-times mr-1"></i> Cancel
+										</button>
+									</div>
+								{/if}
+							</div>
+							<div class="ml-auto">
+								<button type="submit" form="editForm" class="btn btn-echo">Save</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -57,12 +57,18 @@
         .join(' ');
 });
 
-function handleClientClick(event) {
-        // Prevent default link behavior
+async function handleLogout(event) {
         event.preventDefault();
-        // Navigate to clients page
-        goto('/clients');
+        try {
+            // Clear any client-side auth state
+            $currentUser = null;
+            // Navigate to logout endpoint
+            await goto('/logout');
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
     }
+
 
 </script>
 <svelte:head>
@@ -86,18 +92,6 @@ function handleClientClick(event) {
 
 
 <style>
-    .result {
-        text-align: center;
-        margin-top: 20px;
-        padding: 15px;
-        background-color: #e7f7e7;
-        border: 1px solid #d1f2d1;
-        border-radius: 4px;
-    }
-    .tier {
-        font-size: 20px;
-        font-weight: bold;
-    }
 </style>
 
 <!--**********************************
@@ -140,7 +134,12 @@ function handleClientClick(event) {
                     </div>
                     <ul class="navbar-nav header-right">
                         <li class="nav-item dropdown header-profile">
-                            <a class="nav-link" href="javascript:void(0)" role="button" data-toggle="dropdown">
+                            <a 
+                            class="nav-link"
+                            href="javascript:void(0)"
+                            role="button"
+                            data-toggle="dropdown"
+                            >
                                 <img src="/images/users/user.png" width="20" alt="" />
                                 <div class="header-info">
                                     <span class="text-black">{currentUser?.name || 'Guest'}</span>
@@ -167,6 +166,7 @@ function handleClientClick(event) {
                                     </svg>
                                     <span class="ml-2">Profile </span>
                                 </a>
+                                
                                 <a href="/logout" class="dropdown-item ai-icon">
                                     <svg
                                         id="icon-logout"
@@ -261,11 +261,12 @@ function handleClientClick(event) {
                     </a>
                     <ul>
                       <li><a href="/company-info">Company Info</a></li>
-                      <li><a href="/policies">Policies</a></li>
-                      <li><a href="/services">Services</a></li>
-                      <li><a href="/units">Units</a></li>
                       <li><a href="/category">Category</a></li>
-                      <li><a href="/subcategory">Sub-Category</a></li>
+                      <li><a href="/services">Services</a></li>
+                      <li><a href="/policies">Policies</a></li>
+                      <li><a href="/users">Users</a></li>
+                      <li><a href="/units">Units</a></li>
+                      <!-- <li><a href="/subcategory">Sub-Category</a></li> -->
                     </ul>
                   </li>
                 {/if}

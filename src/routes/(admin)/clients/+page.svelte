@@ -1,6 +1,9 @@
 <script>
     import { onMount } from 'svelte';
     import { enhance } from '$app/forms';
+    import Notification from '$lib/components/Notification.svelte';
+    import { showNotification } from '$lib/stores/notification';
+    import { page } from '$app/stores';
     export let data;
 
     // Data coming from the server (array of units)
@@ -14,6 +17,11 @@
 
     // Toggle to show/hide archived clients
     let showArchived = false;
+
+    // Show notification if redirected with success message
+    $: if ($page.url.searchParams.get('success')) {
+        showNotification($page.url.searchParams.get('message'), 'success');
+    }
 
     // Set the unit to be deleted and show the modal
     function openDeleteModal(client) {
@@ -47,6 +55,7 @@
     });
 </script>
 
+<Notification />
 
 <div class="container-fluid">
     <!-- Add Order -->

@@ -15,7 +15,7 @@ export async function load() {
 }
 
 export const actions = {
-  default: async ({ request }) => {
+  create: async ({ request }) => {
     const formData = await request.formData();
     const clientId = formData.get('clientId');
     const date = formData.get('date');
@@ -24,7 +24,6 @@ export const actions = {
     const services = formData.get('services');
     const remark = formData.get('remark');
 
-    // Ensure the user is authenticated
     if (!pb.authStore.isValid) {
       return fail(401, { message: 'User not authenticated' });
     }
@@ -35,11 +34,16 @@ export const actions = {
       const record = await pb.collection('contracts').create({ 
         clientId, date, number, prepared_by, agreement_term, services, remark
       });
-      // console.log('record:', record);
-      throw redirect(303, `/contracts`);
+
+      // Redirect to contract detail page instead of list
+      throw redirect(303, `/contracts/${record.id}`);
     } catch (err) {
+      if (err instanceof redirect) throw err;
       console.error('Error creating contract:', err);
-      return fail(500, { message: 'Error creating contract' });
+      return fail(500, {
+        error: err.message || 'Error creating contract',
+        values: Object.fromEntries(formData)
+      });
     }
   }
 };

@@ -1,6 +1,8 @@
 <script>
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
+    import { enhance } from '$app/forms';
+    import { showNotification } from '$lib/stores/notification';
 
     let error = null;
 
@@ -79,6 +81,8 @@
 
     async function handleSubmit(event) {
         event.preventDefault();
+        
+        // Process form data before submission
         const formData = new FormData(event.target);
         
         // Ensure agreement_term is a number
@@ -89,21 +93,24 @@
         const validServices = selectedJson.filter(service => service.price && service.price !== 0);
         formData.set('services', JSON.stringify(validServices));
 
-        const response = await fetch('/contracts/new', {
-            method: 'POST',
-            body: formData
-        });
+        try {
+            const response = await fetch('?/create', {
+                method: 'POST',
+                body: formData
+            });
 
-        if (response.ok) {
-            goto('/contracts');
-        } else {
+            const result = await response.json();
+            if (result.success && result.id) {
+                // await goto(`/contracts/${result.id}`);
+                await redirect(303, `/contracts/${result.id}`);
+            } else {
+                error = result.message || 'Failed to create contract';
+            }
+        } catch (err) {
             error = 'Error creating contract';
+            console.error(err);
         }
     }
-
-    onMount(() => {
-        globalThis.$('#single-select').select2();
-    });
 </script>
 
 <div class="container-fluid">
@@ -115,7 +122,22 @@
                 </div>
                 <div class="card-body">
                     <div class="form-validation">
-                        <form class="form-valide" on:submit={handleSubmit}>
+                        <form 
+                            class="form-valide" 
+                            method="post" 
+                            action="?/create"
+                            use:enhance={({ form }) => {
+                                return async ({ result }) => {
+                                    if (result.type === 'failure') {
+                                        error = result.data?.message || 'An error occurred';
+                                        return;
+                                    }
+                                    if (result.type === 'redirect') {
+                                        window.location.href = result.location;
+                                    }
+                                };
+                            }}
+                        >
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="inputClient"

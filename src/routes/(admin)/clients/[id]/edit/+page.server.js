@@ -12,7 +12,7 @@ export async function load({ params }) {
 }
 
 export const actions = {
-  default: async ({ request, params }) => {
+  update: async ({ request, params }) => {
     const formData = await request.formData();
     const name = formData.get('name');
     const nzbn = formData.get('nzbn');
@@ -44,13 +44,17 @@ export const actions = {
         contact_address,
         remark
       });
-      // Redirect to the updated policy's detail page
       if (record) {
-        // Throw redirect to navigate after success
-        throw redirect(303, `/clients`);
+        return {
+          status: 303,
+          headers: {
+            location: '/clients'
+          },
+          success: true,
+          message: 'Client updated successfully'
+        };
       }
     } catch (err) {
-      // Re-throw redirect responses so they aren't treated as errors
       if (err && err.status && err.location) {
         throw err;
       }
@@ -58,6 +62,26 @@ export const actions = {
       return fail(500, {
         error: err.message || 'Error creating client',
         values: Object.fromEntries(formData)
+      });
+    }
+  },
+
+  delete: async ({ params }) => {
+    try {
+      await pb.collection('clients').delete(params.id);
+      return {
+        status: 303,
+        headers: {
+          location: '/clients'
+        },
+        success: true,
+        message: 'Client deleted successfully'
+      };
+    } catch (err) {
+      if (err instanceof redirect) throw err;
+      console.error('Error deleting client:', err);
+      return fail(500, {
+        error: err.message || 'Error deleting client'
       });
     }
   }
