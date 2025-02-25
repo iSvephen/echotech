@@ -72,10 +72,23 @@ async function handleLogout(event) {
         }
     }
 
+    function toggleMenu() {
+        const body = document.querySelector('body');
+        body.classList.toggle('nav-toggle');
+        body.classList.toggle('menu-toggle');
+    }
+
+    
+    onMount(() => {     
+        // Initialize MetisMenu
+        if (typeof window !== 'undefined' && window.jQuery) {
+            window.jQuery('.metismenu').metisMenu();
+        }
+    });
+
 
 </script>
 <svelte:head>
-
 </svelte:head>
 
 
@@ -109,7 +122,6 @@ async function handleLogout(event) {
     <!--**********************************
               Header start
           ***********************************-->
-
 
     <div class="header">
         <div class="header-content">
@@ -224,19 +236,7 @@ async function handleLogout(event) {
                       <li><a href="/clients/archive">Clients</a></li>
                       <li><a href="/contracts/archive">Contracts</a></li>
                     </ul>
-                  </li>
-                <!-- <li>
-                  <a href="/services" class="ai-icon" aria-expanded="false">
-                    <i class="flaticon-381-networking"></i>
-                    <span class="nav-text">Services</span>
-                  </a>
-                </li> -->
-                <!-- <li>
-                  <a href="/tiering" class="ai-icon" aria-expanded="false">
-                    <i class="fa fa-calculator"></i>
-                    <span class="nav-text">Tiering</span>
-                  </a>
-                </li> -->
+                </li>
                 {#if currentUser?.admin === true}
                 <li>
                     <a
