@@ -314,7 +314,8 @@ body {
   line-height: 1.5;
   color: #7e7e7e;
   text-align: left;
-  background-color: #F4F4F4; }
+  background-color: #F4F4F4; 
+}
 
 [tabindex="-1"]:focus:not(:focus-visible) {
   outline: 0 !important; }
@@ -325,10 +326,12 @@ hr {
   overflow: visible; }
 
 h1, h2, h3, h4, h5, h6 {
+  font-family: "ABCRepro";
   margin-top: 0;
   margin-bottom: 0.5rem; }
 
 p {
+  font-family: "ABCRepro";
   margin-top: 0;
   margin-bottom: 1rem; }
 
