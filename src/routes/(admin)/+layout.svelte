@@ -46,6 +46,9 @@
     if (baseRoute === 'clients' && segments.includes('archive')) {
         return 'Client Archive';
     }
+    if (baseRoute === 'contracts' && segments.includes('archive')) {
+        return 'Contract Archive';
+    }
     if (baseRoute === 'company-info') {
         return 'Company Info';
     }
