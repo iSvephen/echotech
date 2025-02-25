@@ -1,8 +1,6 @@
 <script>
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
-    import { enhance } from '$app/forms';
-    import { showNotification } from '$lib/stores/notification';
 
     let error = null;
 
@@ -81,8 +79,6 @@
 
     async function handleSubmit(event) {
         event.preventDefault();
-        
-        // Process form data before submission
         const formData = new FormData(event.target);
         
         // Ensure agreement_term is a number
@@ -94,23 +90,28 @@
         formData.set('services', JSON.stringify(validServices));
 
         try {
-            const response = await fetch('?/create', {
-                method: 'POST',
-                body: formData
-            });
+        const response = await fetch('/contracts/new', {
+            method: 'POST',
+            body: formData
+        });
 
-            const result = await response.json();
-            if (result.success && result.id) {
-                // await goto(`/contracts/${result.id}`);
-                 redirect(307, `/contracts/${result.id}`);
-            } else {
-                error = result.message || 'Failed to create contract';
-            }
-        } catch (err) {
+        const result = await response.json();
+        
+        if (result.type === 'redirect') {
+            goto(result.location);
+        } else {
             error = 'Error creating contract';
-            console.error(err);
         }
+    } catch (err) {
+        error = 'Error creating contract';
+        console.error(err);
     }
+}
+
+
+    onMount(() => {
+        globalThis.$('#single-select').select2();
+    });
 </script>
 
 <div class="container-fluid">
@@ -122,13 +123,7 @@
                 </div>
                 <div class="card-body">
                     <div class="form-validation">
-                        <form 
-                            class="form-valide" 
-                            method="post" 
-                            action="?/create"
-                        >
-                        <!-- Add a hidden input for services -->
-<input type="hidden" name="services" value={JSON.stringify(selectedJson)} />
+                        <form class="form-valide" on:submit={handleSubmit}>
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="inputClient"
@@ -172,11 +167,6 @@
                               <pre>{JSON.stringify(selectedJson, null, 2)}</pre>
                             </div> -->
                             <div class="form-group">
-                                <label for="remark">Remark</label>
-                                <textarea type="text" class="form-control" id="remark" name="remark" style="height: 200px"></textarea>
-                            </div>
-
-                            <div class="form-group">
                                 {#each categories as category}
                                     <div class="col-lg-12">
                                         <div class="card">
@@ -208,7 +198,7 @@
                                                                             : individualSelections[category.id][i] === 'T1'}
                                                                         on:click={() => toggleCell(category.id, i, 'T1')}
                                                                     >
-                                                                        ${service.t1.toFixed(2)}
+                                                                        {service.t1}
                                                                     </td>
                                                                     <td
                                                                         class:selected={columnSelections[category.id]
@@ -216,7 +206,7 @@
                                                                             : individualSelections[category.id][i] === 'T2'}
                                                                         on:click={() => toggleCell(category.id, i, 'T2')}
                                                                     >
-                                                                        ${service.t2.toFixed(2)}
+                                                                        {service.t2}
                                                                     </td>
                                                                     <td
                                                                         class:selected={columnSelections[category.id]
@@ -224,7 +214,7 @@
                                                                             : individualSelections[category.id][i] === 'T3'}
                                                                         on:click={() => toggleCell(category.id, i, 'T3')}
                                                                     >
-                                                                        ${service.t3.toFixed(2)}
+                                                                        {service.t3}
                                                                     </td>
                                                                     <td
                                                                         class:selected={columnSelections[category.id]
@@ -232,7 +222,7 @@
                                                                             : individualSelections[category.id][i] === 'T4'}
                                                                         on:click={() => toggleCell(category.id, i, 'T4')}
                                                                     >
-                                                                        ${service.t4.toFixed(2)}
+                                                                        {service.t4}
                                                                     </td>
                                                                     <!-- For the "custom" column, which uses an input -->
                                                                     <td 

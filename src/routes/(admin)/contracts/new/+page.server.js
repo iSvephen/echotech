@@ -1,6 +1,6 @@
 import { pb } from '$lib/pocketbase';
-import { redirect, fail } from '@sveltejs/kit';
-
+import { redirect, fail } from '@sveltejs/kit'; 
+import { goto } from '$app/navigation';
 export async function load() {
   try {
       const clients = await pb.collection('clients').getFullList({ sort: '-created' });
@@ -15,7 +15,7 @@ export async function load() {
 }
 
 export const actions = {
-  create: async ({ request }) => {
+  default: async ({ request }) => {
     const formData = await request.formData();
     const clientId = formData.get('clientId');
     const date = formData.get('date');
@@ -24,8 +24,7 @@ export const actions = {
     const services = formData.get('services');
     const remark = formData.get('remark');
 
-    console.log('Services:', services);
-
+    // Ensure the user is authenticated
     if (!pb.authStore.isValid) {
       return fail(401, { message: 'User not authenticated' });
     }
@@ -33,24 +32,25 @@ export const actions = {
     const prepared_by = pb.authStore.model.id;
 
     try {
-      const record = await pb.collection('contracts').create({ 
-        clientId, date, number, prepared_by, agreement_term, services, remark
-      });
+        const record = await pb.collection('contracts').create({ 
+          clientId, date, number, prepared_by, agreement_term, services, remark
+        });
+  
+        console.log('Contract created:', record);
+  
+        // Redirect to contract detail page instead of list        
+        throw redirect(303, `/contracts/${record.id}`);
 
-      console.log('Contract created:', record);
-
-      // Redirect to contract detail page instead of list
-      throw redirect(303, `/contracts/${record.id}`);
-    } catch (err) {
-      // Re-throw redirect responses so they aren't treated as errors
-      if (err && err.status && err.location) {
-        throw err;
+      } catch (err) {
+        // Re-throw redirect responses so they aren't treated as errors
+        if (err && err.status && err.location) {
+          throw err;
+        }
+        console.error('Error updating contract:', err);
+        return fail(500, {
+          error: err.message || 'Error updating contract',
+          values: Object.fromEntries(formData)
+        });
       }
-      console.error('Error updating contract:', err);
-      return fail(500, {
-        error: err.message || 'Error updating contract',
-        values: Object.fromEntries(formData)
-      });
     }
-  }
-};
+  };
