@@ -5,11 +5,20 @@ export async function load() {
     try {
         const contracts = await pb.collection('contracts').getFullList({ 
             filter: 'archived = true',
-            expand: ['clientId,prepared_by'],
+            expand: 'clientId,prepared_by',
             sort: '-created' 
         });
-        // console.log('contracts:', contracts);
-        return { contracts };
+
+        // Clean up contracts with deleted clients
+        const cleanContracts = contracts.map(contract => ({
+            ...contract,
+            expand: {
+                ...contract.expand,
+                clientId: contract.expand?.clientId || { name: 'Deleted Client' }
+            }
+        }));
+
+        return { contracts: cleanContracts };
     } catch (error) {
         console.error('Error loading contracts:', error);
         return { contracts: [] };
