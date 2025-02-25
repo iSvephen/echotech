@@ -24,6 +24,8 @@ export const actions = {
     const services = formData.get('services');
     const remark = formData.get('remark');
 
+    console.log('Services:', services);
+
     if (!pb.authStore.isValid) {
       return fail(401, { message: 'User not authenticated' });
     }
@@ -34,6 +36,8 @@ export const actions = {
       const record = await pb.collection('contracts').create({ 
         clientId, date, number, prepared_by, agreement_term, services, remark
       });
+
+      console.log('Contract created:', record);
 
       // Redirect to contract detail page instead of list
       throw redirect(303, `/contracts/${record.id}`);

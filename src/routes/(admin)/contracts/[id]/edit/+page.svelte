@@ -203,6 +203,11 @@
                                     <label class="form-check-label" for="term36Months">36 Months</label>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label for="remark">Remark</label>
+                                <textarea type="text" class="form-control" id="remark" name="remark" style="height: 200px">{contract.remark}</textarea>
+                            </div>
                             
 
                             <input type="hidden" name="services" value={JSON.stringify(selectedJson)} />

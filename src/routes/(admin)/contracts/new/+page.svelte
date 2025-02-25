@@ -127,6 +127,8 @@
                             method="post" 
                             action="?/create"
                         >
+                        <!-- Add a hidden input for services -->
+<input type="hidden" name="services" value={JSON.stringify(selectedJson)} />
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="inputClient"
@@ -169,6 +171,11 @@
                               <h3>Selected Prices JSON</h3>
                               <pre>{JSON.stringify(selectedJson, null, 2)}</pre>
                             </div> -->
+                            <div class="form-group">
+                                <label for="remark">Remark</label>
+                                <textarea type="text" class="form-control" id="remark" name="remark" style="height: 200px"></textarea>
+                            </div>
+
                             <div class="form-group">
                                 {#each categories as category}
                                     <div class="col-lg-12">

@@ -87,12 +87,12 @@ const htmlContent = `
 
       @font-face {
       font-family: "ABCRepro-Regular";
-      src: url("https://echo.stephen.vip/css/ABCRepro-Regular.otf");
+      src: url("https://eho.stephen.vip/css/ABCRepro-Regular.otf");
       }
 
       @font-face {
       font-family: "ABCRepro-Medium";
-      src: url("https://echo.stephen.vip/css/ABCRepro-Medium.otf");
+      src: url("https://ec.stephen.vip/css/ABCRepro-Medium.otf");
       }
 
       /* 2,480 x 3,508 pixels */

@@ -2,6 +2,8 @@ import PocketBase from 'pocketbase';
 import { writable } from 'svelte/store';
 
 export const pb = new PocketBase('https://echopb.stephen.vip');
+// Disable auto-cancellation
+pb.autoCancellation(false);
 
 // Only load cookies and set up listeners in the browser environment
 if (typeof window !== 'undefined') {
