@@ -48,6 +48,41 @@ if (contract.services) {
     pricingSummaryHtml = `
         <div class="section">
             <h2>5.0 Pricing Summary</h2>
+            <div style="color: #224335; width:100%; text-align:left; padding:0px; display: flex; justify-content: space-between; align-items: center;">
+              <h3>Logistics Services – Collection of assets if required </h3>
+              <h3>NZD$ ex GST per item</h3>
+            </div>
+            <ul>
+              <li>
+                <div style="font-size:10px; color: black; width:100%; text-align:left; padding:0px; display: flex; justify-content: space-between; align-items: center;">
+                  <p>Echo Van Transportation - Timberly A Warehouse 10 pallets max - for collection.</p>
+                  <p>$200.00</p>
+                  </div>
+              </li>
+
+              <li>
+                <div style="font-size:10px; color: black; width:100%; text-align:left; padding:0px; display: flex; justify-content: space-between; align-items: center;">
+                  <p>Echo Truck Transportation</p>
+                  <p>POA</p>
+                  </div>
+              </li>
+
+              <li>
+                <div style="font-size:10px; color: black; width:100%; text-align:left; padding:0px; display: flex; justify-content: space-between; align-items: center;">
+                  <p>Echo Dangerous Goods Truck Transport</p>
+                  <p>POA</p>
+                  </div>
+              </li>
+
+              <li>
+                <div style="font-size:10px; color: black; width:100%; text-align:left; padding:0px; display: flex; justify-content: space-between; align-items: center;">
+                  <p>External Freight Providers (arranged by Echo)</p>
+                  <p>POA + 15% service fee</p>
+                  </div>
+              </li>
+
+            </ul>
+            
             ${Object.entries(servicesByCategory).map(([categoryId, services]) => {
                 const category = categories.find(c => c.id === categoryId);
                 return `
@@ -87,12 +122,12 @@ const htmlContent = `
 
       @font-face {
       font-family: "ABCRepro-Regular";
-      src: url("https://eho.stephen.vip/css/ABCRepro-Regular.otf");
+      src: url("https://echotech.pages.dev/css/ABCRepro-Regular.otf");
       }
 
       @font-face {
       font-family: "ABCRepro-Medium";
-      src: url("https://ec.stephen.vip/css/ABCRepro-Medium.otf");
+      src: url("https://echotech.pages.dev/css/ABCRepro-Medium.otf");
       }
 
       /* 2,480 x 3,508 pixels */
@@ -110,16 +145,19 @@ const htmlContent = `
       h2,
       h3,
       h4 {
+      font-family: "ABCRepro-Regular";
       margin-top: 20px;
       margin-bottom: 10px;
       color: var(--forest);
       }
       p {
       margin-bottom: 10px;
+      font-family: "ABCRepro-Regular";
       }
       a {
       color: black;
-        text-decoration: none;
+      font-family: "ABCRepro-Regular";
+      text-decoration: none;
       }
       b {
       font-family: "ABCRepro-Medium";
@@ -374,7 +412,10 @@ const htmlContent = `
 		return new Response(pdfBuffer, {
 			headers: {
 				'Content-Type': 'application/pdf',
-				'Content-Disposition': `attachment; filename="contract-${contract.number}.pdf"`
+				'Content-Disposition': `attachment; filename="ECHO-Service Contract and TC ${contract.expand.clientId.name}.pdf"`,
+				'Cache-Control': 'no-cache, no-store, must-revalidate',
+				'Pragma': 'no-cache',
+				'Expires': '0'
 			}
 		});
 	} catch (error) {

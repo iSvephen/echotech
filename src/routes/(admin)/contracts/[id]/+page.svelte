@@ -70,9 +70,12 @@
       <div class="card">
         <div class="card-header">
           <h4 class="card-title">Contract Details</h4>
-          <button on:click={generatePDF} class="btn btn-echo">
+          <!-- <button on:click={generatePDF} class="btn btn-echo">
             <i class="fa fa-download" aria-hidden="true"></i>&nbsp; Download Contract
-            </button>
+            </button> -->
+            <a href="/contracts/{contract.id}/pdf" class="btn btn-echo">
+              <i class="fa fa-download" aria-hidden="true"></i>&nbsp; Download Contract
+            </a>    
         </div>
         <div class="card-body">
           <p><strong>Client:</strong> <a href="/clients/{contract.expand.clientId.id}/edit">{contract.expand.clientId.name}</a></p>
