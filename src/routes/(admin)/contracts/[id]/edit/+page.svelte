@@ -129,6 +129,12 @@
         }
     }
 
+    let showDeleteConfirm = false;
+
+    function toggleDeleteConfirm() {
+        showDeleteConfirm = !showDeleteConfirm;
+    }
+
     onMount(() => {
         globalThis.$('#single-select').select2();
         initializeSelections();
@@ -144,7 +150,7 @@
                 </div>
                 <div class="card-body">
                     <div class="form-validation">
-                        <form class="form-valide" method="POST">
+                        <form class="form-valide" id="editForm" method="POST" action="?/update">
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="inputClient">
@@ -293,12 +299,40 @@
                             {/each}
                             </div>
 
-                            <div class="form-group row">
-                                <div class="ml-auto">
-                                    <button type="submit" class="add-menu-sidebar">Update Contract</button>
-                                </div>
-                            </div>
+                            
                         </form>
+                        <div class="form-group row">
+							<div class="mr-auto">
+								{#if !showDeleteConfirm}
+									<button type="button" class="btn btn-danger" on:click={toggleDeleteConfirm}>
+										<i class="fa fa-trash mr-1"></i> Delete
+									</button>
+								{:else}
+									<div class="d-flex align-items-center">
+										<span class="text-danger mr-2">Are you sure?</span>
+										<form 
+											method="post" 
+											action="?/delete" 
+											use:enhance={() => {
+												return async () => {
+													window.location.href = '/contracts';
+												};
+											}}
+										>
+											<button type="submit" class="btn btn-danger">
+												<i class="fa fa-check mr-1"></i> Yes, Delete
+											</button>
+										</form>
+										<button type="button" class="btn btn-secondary ms-2" on:click={toggleDeleteConfirm}>
+											<i class="fa fa-times mr-1"></i> Cancel
+										</button>
+									</div>
+								{/if}
+							</div>
+							<div class="ml-auto">
+								<button type="submit" form="editForm" class="btn btn-echo">Save</button>
+							</div>
+						</div>
                     </div>
                 </div>
             </div>

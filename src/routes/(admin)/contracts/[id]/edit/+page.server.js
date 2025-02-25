@@ -23,7 +23,7 @@ export async function load({ params }) {
 }
 
 export const actions = {
-    default: async ({ request, params }) => {
+    update: async ({ request, params }) => {
         const formData = await request.formData();
         const clientId = formData.get('clientId');
         const date = formData.get('date');
@@ -60,5 +60,25 @@ export const actions = {
               values: Object.fromEntries(formData)
             });
           }
+        },
+
+    delete: async ({ params }) => {
+        try {
+            await pb.collection('contracts').delete(params.id);
+            return {
+            status: 303,
+            headers: {
+                location: '/contracts'
+            },
+            success: true,
+            message: 'Contract deleted successfully'
+            };
+        } catch (err) {
+            if (err instanceof redirect) throw err;
+            console.error('Error deleting Contract:', err);
+            return fail(500, {
+            error: err.message || 'Error deleting Contract'
+            });
         }
-      };
+    }
+};

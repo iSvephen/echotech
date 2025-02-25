@@ -11,10 +11,11 @@
         showDeleteConfirm = !showDeleteConfirm;
     }
 
-    function handleSubmit() {
+	function handleSubmit() {
+        event.preventDefault();
         return async ({ result }) => {
-            if (result.type === 'redirect') {
-                window.location.href = result.location;
+            if (result.data?.headers?.location) {
+                window.location.href = result.data.headers.location;
             }
         };
     }

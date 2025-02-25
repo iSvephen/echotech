@@ -99,8 +99,14 @@
                 </span>
             </label>
         </p>
-          <p><strong>Services:</strong></p>
-          <div class="services-section">
+        {#if contract.remark}
+            <div class="remarks mt-4">
+              <p class="mb-3"><strong>Remarks</strong></p>
+              <span>{contract.remark}</span>
+            </div>
+          {/if}
+        <p><strong>Services:</strong></p>
+        <div class="services-section">
             {#each Object.entries(servicesByCategory) as [categoryId, services]}
                 {@const category = categories.find(c => c.id === categoryId)}
                 <div class="category-section mb-4">
@@ -129,12 +135,7 @@
             {/each}
         </div>
 
-          {#if contract.remark}
-            <div class="remarks mt-4">
-              <h5 class="mb-3">Remarks</h5>
-              <p>{contract.remark}</p>
-            </div>
-          {/if}
+          
 
         </div>
       </div>
