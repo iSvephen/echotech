@@ -4,9 +4,10 @@
     import { pb } from '$lib/pocketbase';
     import { goto } from '$app/navigation';
     import { toast } from '$lib/utils/toast';
-    import { currentUser } from '$lib/pocketbase';
+    import { currentUser } from '$lib/stores/userStore';
     import { derived } from 'svelte/store';
     import Toast from '$lib/components/Toast.svelte';
+    import { slide } from 'svelte/transition';
 
     function calculateTier() {
         // Get selected values
@@ -64,18 +65,6 @@
         .join(' ');
 });
 
-async function handleLogout(event) {
-        event.preventDefault();
-        try {
-            // Clear any client-side auth state
-            $currentUser = null;
-            // Navigate to logout endpoint
-            await goto('/logout');
-        } catch (error) {
-            console.error('Logout failed:', error);
-        }
-    }
-
     let menuCollapsed = false;
     let isMobile = false;
 
@@ -93,7 +82,24 @@ async function handleLogout(event) {
         }
     }
 
+    let dropdownEl;
+
+    function hideDropdown() {
+        if (dropdownEl) {
+            const bsDropdown = bootstrap.Dropdown.getInstance(dropdownEl);
+            if (bsDropdown) {
+                bsDropdown.hide();
+            }
+        }
+    }
+
+    // Watch for page changes to hide dropdown
+    $: if ($page) {
+        hideDropdown();
+    }
+
     onMount(() => {
+        dropdownEl = document.querySelector('.dropdown-toggle');
         checkMobile();
         window.addEventListener('resize', checkMobile);
 
@@ -150,6 +156,48 @@ async function handleLogout(event) {
         body.classList.toggle('nav-toggle');
         body.classList.toggle('menu-toggle');
     }
+
+    $: userAvatar = $currentUser?.avatar ? pb.files.getUrl($currentUser, $currentUser.avatar) : '/images/users/user.png';
+
+    let showDropdown = false;
+
+    let dropdown;
+
+    onMount(() => {
+        // Initialize Bootstrap dropdown
+        if (typeof window !== 'undefined') {
+            const bootstrap = window.bootstrap;
+            if (bootstrap) {
+                dropdown = new bootstrap.Dropdown(document.querySelector('.dropdown-toggle'));
+            }
+        }
+    });
+
+    async function handleLogout() {
+        try {
+            pb.authStore.clear();
+            $currentUser = null;
+            window.location.href = '/';
+        } catch (error) {
+            console.error('Logout failed:', error);
+            window.location.href = '/';
+        }
+    }
+
+    // Close dropdown when clicking outside
+    function handleClickOutside(event) {
+        const dropdown = document.querySelector('.header-profile');
+        if (dropdown && !dropdown.contains(event.target)) {
+            showDropdown = false;
+        }
+    }
+
+    onMount(() => {
+        document.addEventListener('click', handleClickOutside);
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    });
 </script>
 <svelte:head>
     <link rel="stylesheet" href="/css/nav.css">
@@ -256,6 +304,137 @@ async function handleLogout(event) {
     .hamburger.is-active .line:nth-child(3) {
         transform: translateY(-9px) rotate(-45deg);
     }
+
+    .header-profile {
+        position: relative;
+    }
+
+    .profile-btn {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.5rem 1rem;
+        border: none;
+        background: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .profile-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .header-info {
+        text-align: right;
+        margin-right: 0.5rem;
+    }
+
+    .header-info small {
+        display: block;
+        font-size: 0.875rem;
+        color: #6c757d;
+    }
+
+    .header-info span {
+        display: block;
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
+    .profile-image {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 2px solid #fff;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .profile-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .profile-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #3b7ddd;
+        color: white;
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+
+    .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        min-width: 200px;
+        padding: 0.5rem 0;
+        margin-top: 0.5rem;
+        background: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        z-index: 1000;
+    }
+
+    .dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 1rem;
+        color: #444;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    .dropdown-item:hover {
+        background: #f8f9fa;
+    }
+
+    .dropdown-item svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .dropdown-item span {
+        font-size: 0.95rem;
+    }
+
+    /* Animation for dropdown */
+    .dropdown-menu {
+        transform-origin: top right;
+        animation: dropdownIn 0.2s ease;
+    }
+
+    @keyframes dropdownIn {
+        from {
+            opacity: 0;
+            transform: scale(0.95) translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    }
+
+    @media (max-width: 576px) {
+        .profile-btn {
+            padding: 0.25rem;
+        }
+
+        .header-info {
+            display: none;
+        }
+
+        .profile-image {
+            width: 32px;
+            height: 32px;
+        }
+    }
 </style>
 
 <!--**********************************
@@ -311,62 +490,86 @@ async function handleLogout(event) {
                     </div>
                     <ul class="navbar-nav header-right">
                         <li class="nav-item dropdown header-profile">
-                            <a 
+                          <a
                             class="nav-link"
                             href="javascript:void(0)"
                             role="button"
                             data-toggle="dropdown"
-                            >
-                                <img src="/images/users/user.png" width="20" alt="" />
-                                <div class="header-info">
-                                    <span class="text-black">{currentUser?.name || 'Guest'}</span>
-                                    <p class="fs-12 mb-0">{currentUser?.admin ? 'Admin' : 'Commercial Team'}</p>
-                                </div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a href="/" class="dropdown-item ai-icon">
-                                    <svg
-                                        id="icon-user1"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="text-primary"
-                                        width="18"
-                                        height="18"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="2"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    >
-                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                        <circle cx="12" cy="7" r="4"></circle>
-                                    </svg>
-                                    <span class="ml-2">Profile </span>
-                                </a>
-                                
-                                <a href="/logout" class="dropdown-item ai-icon">
-                                    <svg
-                                        id="icon-logout"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="text-danger"
-                                        width="18"
-                                        height="18"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="2"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    >
-                                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                                        <polyline points="16 17 21 12 16 7"></polyline>
-                                        <line x1="21" y1="12" x2="9" y2="12"></line>
-                                    </svg>
-                                    <span class="ml-2">Logout </span>
-                                </a>
+                          >
+                            <!-- <img src="images/users/user.png" width="20" alt="" /> -->
+                            {#if $currentUser?.avatar}
+                                        <img src={pb.files.getUrl($currentUser, $currentUser.avatar)} 
+                                             alt="Profile" />
+                                    {:else}
+                                        <div class="profile-placeholder">
+                                            {$currentUser?.name?.[0]?.toUpperCase() || 'U'}
+                                        </div>
+                                    {/if}
+
+                            <div class="header-info">
+                              <span class="text-black">{$currentUser?.name || 'User'}</span>
+                              <p class="fs-12 mb-0">{$currentUser?.title || 'No title'}</p>
                             </div>
+                          </a>
+                          <div class="dropdown-menu dropdown-menu-right">
+                            <a href="/profile" class="dropdown-item ai-icon">
+                              <svg
+                                id="icon-user1"
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="text-primary"
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              >
+                                <path
+                                  d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+                                ></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                              </svg>
+                              <span class="ml-2">Profile </span>
+                            </a>
+                            <button class="dropdown-item ai-icon" on:click={handleLogout}>
+                              <svg
+                                id="icon-logout"
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="text-danger"
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              >
+                                <path
+                                  d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"
+                                ></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                              </svg>
+                              <span class="ml-2">Logout </span>
+                            </button>
+                          </div>
                         </li>
-                    </ul>
+                      </ul>
+                    
+
+
+                      
+
+
+
+
+
+
+
+
                 </div>
             </nav>
         </div>
@@ -414,7 +617,7 @@ async function handleLogout(event) {
                       <li><a href="/contracts/archive">Contracts</a></li>
                     </ul>
                 </li>
-                {#if currentUser?.admin === true}
+                {#if $currentUser?.admin === true}
                 <li>
                     <a
                       class="has-arrow ai-icon"
