@@ -161,6 +161,11 @@
                                     <label class="form-check-label" for="term36Months">36 Months</label>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label for="remark">Remark</label>
+                                <textarea type="text" class="form-control" id="remark" name="remark" style="height: 200px"></textarea>
+                            </div>
                             <!-- Display the selected items as JSON -->
                             <!-- <div style="margin-top: 1rem;">
                               <h3>Selected Prices JSON</h3>
