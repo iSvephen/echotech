@@ -1,13 +1,31 @@
 <script>
     import { pb } from '$lib/pocketbase';
     import { goto } from '$app/navigation';
+    import ReCaptcha from '$lib/components/ReCaptcha.svelte';
+    import { onMount } from 'svelte';
   
     let email = '', password = '', error = '', loading = false;
+    let recaptchaResponse = '';
+    
+    // Replace this with your actual reCAPTCHA site key from Google
+    const RECAPTCHA_SITE_KEY = '6LefKeMqAAAAABuqgV2olNJiHpYQtyB8Vkh32QVp';
+  
+    onMount(() => {
+        if (pb.authStore.isValid) {
+            goto('/dashboard');
+        }
+    });
   
     async function login() {
+        if (!recaptchaResponse) {
+            error = 'Please complete the reCAPTCHA';
+            return;
+        }
+        
         loading = true;
         error = '';
         try {
+            // You might want to send recaptchaResponse to your backend for verification
             await pb.collection('users').authWithPassword(email, password);
             goto('/dashboard');
         } catch (err) {
@@ -21,12 +39,21 @@
             loading = false;
         }
     }
+
+    function handleRecaptchaVerify(event) {
+        recaptchaResponse = event.detail.response;
+    }
+
+    function handleRecaptchaExpire() {
+        recaptchaResponse = '';
+    }
 </script>
 
 <svelte:head>
     <title>Echo Tech - Login</title>
     <link href="/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
+    <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad" async defer></script>
 </svelte:head>
   
 <div class="login-wrapper">
@@ -80,6 +107,14 @@
                             required
                         >
                     </div>
+                </div>
+
+                <div class="form-group mb-4">
+                    <ReCaptcha 
+                        siteKey={RECAPTCHA_SITE_KEY}
+                        on:verify={handleRecaptchaVerify}
+                        on:expire={handleRecaptchaExpire}
+                    />
                 </div>
 
                 <button 
