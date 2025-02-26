@@ -1,8 +1,11 @@
 <script>
-    import { currentUser } from '$lib/pocketbase';
-    import { page } from '$app/stores';
-    import { derived } from 'svelte/store';
     import { onMount } from 'svelte';
+    import { page } from '$app/stores';
+    import { pb } from '$lib/pocketbase';
+    import { goto } from '$app/navigation';
+    import { toast } from '$lib/utils/toast';
+    import { currentUser } from '$lib/pocketbase';
+    import { derived } from 'svelte/store';
     import Toast from '$lib/components/Toast.svelte';
 
     function calculateTier() {
@@ -73,33 +76,205 @@ async function handleLogout(event) {
         }
     }
 
+    let menuCollapsed = false;
+    let isMobile = false;
+
+    function checkMobile() {
+        isMobile = window.innerWidth <= 767;
+    }
+
+    function closeMobileMenu() {
+        if (isMobile) {
+            const body = document.querySelector('body');
+            const hamburger = document.querySelector('.hamburger');
+            body.classList.remove('show-sidebar');
+            hamburger?.classList.remove('is-active');
+            menuCollapsed = false;
+        }
+    }
+
+    onMount(() => {
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+
+        // Initialize hamburger menu click handler
+        const hamburger = document.querySelector('.hamburger');
+        const body = document.querySelector('body');
+        
+        if (hamburger && body) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('is-active');
+                if (isMobile) {
+                    body.classList.toggle('show-sidebar');
+                } else {
+                    body.classList.toggle('menu-toggle');
+                }
+                menuCollapsed = !menuCollapsed;
+            });
+
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', (e) => {
+                if (isMobile && body.classList.contains('show-sidebar')) {
+                    const nav = document.querySelector('.dlabnav');
+                    const hamburgerEl = document.querySelector('.hamburger');
+                    if (nav && !nav.contains(e.target) && !hamburgerEl.contains(e.target)) {
+                        closeMobileMenu();
+                    }
+                }
+            });
+
+            // Add click handler to navigation links, but exclude dropdown toggles
+            const navLinks = document.querySelectorAll('.dlabnav a:not(.has-arrow)');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    // Only close if it's a real link (has href) and not a dropdown toggle
+                    if (link.getAttribute('href') && !link.classList.contains('has-arrow')) {
+                        closeMobileMenu();
+                    }
+                });
+            });
+        }
+
+        // Initialize MetisMenu
+        if (typeof window !== 'undefined' && window.jQuery) {
+            window.jQuery('.metismenu').metisMenu();
+        }
+
+        return () => {
+            window.removeEventListener('resize', checkMobile);
+        };
+    });
+
     function toggleMenu() {
         const body = document.querySelector('body');
         body.classList.toggle('nav-toggle');
         body.classList.toggle('menu-toggle');
     }
-
-    
-    onMount(() => {     
-        // Initialize MetisMenu
-        if (typeof window !== 'undefined' && window.jQuery) {
-            window.jQuery('.metismenu').metisMenu();
-        }
-    });
-
-
 </script>
 <svelte:head>
+    <link rel="stylesheet" href="/css/nav.css">
 </svelte:head>
 
-
 <style>
+    /* Mobile styles */
+    @media (max-width: 767px) {
+        :global(body.show-sidebar) {
+            overflow: hidden;
+        }
+        
+        :global(body.show-sidebar .dlabnav) {
+            left: 0;
+            z-index: 1002;
+        }
+        
+        :global(body.show-sidebar .nav-header) {
+            left: 0;
+            z-index: 1002;
+        }
+
+        :global(.dlabnav) {
+            z-index: 1002;
+            width: 18rem !important;
+            padding: 0 0.5rem;
+        }
+
+        :global(.nav-header) {
+            z-index: 1002;
+            width: 18rem !important;
+            padding: 0 1rem;
+        }
+
+        :global(.brand-logo) {
+            justify-content: flex-start !important;
+            padding: 0 !important;
+        }
+
+        :global(.metismenu > li) {
+            padding: 0 !important;
+        }
+
+        :global(.metismenu > li > a) {
+            padding: 0.8rem 1.25rem !important;
+            font-size: 1rem !important;
+            border-radius: 0.5rem;
+        }
+
+        :global(.metismenu > li > a.has-arrow::after) {
+            right: 1.25rem !important;
+        }
+
+        :global(.metismenu ul a) {
+            padding: 0.5rem 1.25rem 0.5rem 3rem !important;
+            font-size: 0.95rem !important;
+        }
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1001;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s;
+    }
+
+    .overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .hamburger {
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .hamburger .line {
+        background: #464a53;
+        display: block;
+        height: 3px;
+        margin: 6px auto;
+        transition: all 0.3s ease-in-out;
+        width: 30px;
+    }
+
+    .hamburger:hover {
+        opacity: 0.7;
+    }
+
+    .hamburger.is-active .line:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+
+    .hamburger.is-active .line:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.is-active .line:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+    }
 </style>
 
 <!--**********************************
           Main wrapper start
       ***********************************-->
 <Toast />
+{#if isMobile}
+    <div 
+        class="overlay" 
+        class:active={menuCollapsed} 
+        on:click={() => {
+            const body = document.querySelector('body');
+            const hamburger = document.querySelector('.hamburger');
+            body.classList.remove('show-sidebar');
+            hamburger.classList.remove('is-active');
+            menuCollapsed = false;
+        }}
+    ></div>
+{/if}
 <div id="main-wrapper">
     <!--**********************************
               Nav header start
@@ -112,7 +287,7 @@ async function handleLogout(event) {
         </a>
 
         <div class="nav-control">
-            <div class="hamburger">
+            <div class="hamburger" class:is-active={menuCollapsed}>
                 <span class="line"></span><span class="line"></span><span class="line"></span>
             </div>
         </div>

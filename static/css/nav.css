@@ -1,0 +1,35 @@
+/* Navigation toggle styles */
+body.nav-toggle {
+    --nav-width: 5.5rem;
+}
+
+body.nav-toggle .nav-header {
+    width: var(--nav-width);
+}
+
+body.nav-toggle .header {
+    padding-left: var(--nav-width);
+}
+
+body.nav-toggle .content-body {
+    margin-left: var(--nav-width);
+}
+
+body.nav-toggle .nav-text {
+    display: none;
+}
+
+body.nav-toggle .nav-header .brand-title {
+    display: none;
+}
+
+body.nav-toggle .nav-header .brand-logo {
+    margin: 0 auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    body.nav-toggle .nav-header {
+        left: -100%;
+    }
+}
