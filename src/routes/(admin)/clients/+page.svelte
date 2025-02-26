@@ -4,6 +4,9 @@
     import Notification from '$lib/components/Notification.svelte';
     import { showNotification } from '$lib/stores/notification';
     import { page } from '$app/stores';
+    import Toast from '$lib/components/Toast.svelte';
+    import { toast } from '$lib/utils/toast';
+
     export let data;
 
     // Data coming from the server (array of units)
@@ -17,11 +20,6 @@
 
     // Toggle to show/hide archived clients
     let showArchived = false;
-
-    // Show notification if redirected with success message
-    $: if ($page.url.searchParams.get('success')) {
-        showNotification($page.url.searchParams.get('message'), 'success');
-    }
 
     // Set the unit to be deleted and show the modal
     function openDeleteModal(client) {
@@ -52,10 +50,46 @@
     onMount(() => {
         // Initialize DataTable
         globalThis.$('#example3').DataTable();
+
+        // Handle success messages
+        const success = $page.url.searchParams.get('success');
+        if (success) {
+            switch (success) {
+                case 'true':
+                    toast.success('Client created successfully!', 'Success');
+                    break;
+                case 'archived':
+                    toast.success('Client archived successfully!', 'Success');
+                    break;
+                case 'updated':
+                    toast.success('Client updated successfully!', 'Success');
+                    break;
+            }
+        }
+
+        // Handle error messages
+        const error = $page.url.searchParams.get('error');
+        if (error) {
+            switch (error) {
+                case 'archive-failed':
+                    toast.error('Failed to archive client', 'Error');
+                    break;
+                case 'update-failed':
+                    toast.error('Failed to update client', 'Error');
+                    break;
+            }
+        }
+
+        // Clean up URL parameters
+        const url = new URL(window.location);
+        url.searchParams.delete('success');
+        url.searchParams.delete('error');
+        window.history.replaceState({}, '', url);
     });
 </script>
 
 <Notification />
+<Toast />
 
 <div class="container-fluid">
     <!-- Add Order -->

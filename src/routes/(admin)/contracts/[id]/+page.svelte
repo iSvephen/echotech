@@ -1,6 +1,8 @@
 <script>
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
+  import { toast } from '$lib/utils/toast';
+  import LoadingOverlay from '$lib/components/LoadingOverlay.svelte';
 
     // ...existing imports...
     import { pb } from '$lib/pocketbase';
@@ -21,19 +23,36 @@
 
   const { contract, categories } = data;
 
-  async function generatePDF() {
-    const response = await fetch(`/contracts/${contract.id}/pdf`);
-    if (response.ok) {
+  let isDownloading = false;
+    
+  async function downloadPdf() {
+    try {
+      isDownloading = true;
+      const response = await fetch(`/contracts/${contract.id}/pdf`);
+      if (!response.ok) throw new Error('Failed to generate PDF');
+      
+      // Get the blob from the response
       const blob = await response.blob();
+      
+      // Create a URL for the blob
       const url = window.URL.createObjectURL(blob);
+      
+      // Create a temporary link and click it
       const a = document.createElement('a');
       a.href = url;
-      a.download = `contract-${contract.number}.pdf`;
+      a.download = `ECHO-Service Contract and TC ${contract.expand.clientId.name}.pdf`;
       document.body.appendChild(a);
       a.click();
-      a.remove();
-    } else {
-      console.error('Error generating PDF');
+      
+      // Clean up
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+      toast.success('PDF downloaded successfully');
+    } catch (error) {
+      console.error('Error downloading PDF:', error);
+      toast.error('Failed to download PDF');
+    } finally {
+      isDownloading = false;
     }
   }
 
@@ -62,7 +81,23 @@
       servicesByCategory[service.categoryId].push(service);
     });
   }
+
+  onMount(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // Success notifications
+    if (urlParams.get('success') === 'created') {
+      toast.success('Contract created successfully');
+    } else if (urlParams.get('success') === 'updated') {
+      toast.success('Contract updated successfully');
+    }
+  });
 </script>
+
+<!-- <LoadingOverlay 
+    show={isDownloading} 
+    message="Generating PDF document... Please wait" 
+/> -->
 
 <div class="container-fluid">
   <div class="row">
@@ -70,12 +105,14 @@
       <div class="card">
         <div class="card-header">
           <h4 class="card-title">Contract Details</h4>
-          <!-- <button on:click={generatePDF} class="btn btn-echo">
-            <i class="fa fa-download" aria-hidden="true"></i>&nbsp; Download Contract
-            </button> -->
-            <a href="/contracts/{contract.id}/pdf" class="btn btn-echo">
-              <i class="fa fa-download" aria-hidden="true"></i>&nbsp; Download Contract
-            </a>    
+          <button class="btn btn-echo" on:click={downloadPdf} disabled={isDownloading}>
+            {#if isDownloading}
+            <span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>
+                Generating PDF...
+            {:else}
+                <i class="fa fa-download mr-2"></i> Download Contract
+            {/if}
+          </button>    
         </div>
         <div class="card-body">
           <p><strong>Client:</strong> <a href="/clients/{contract.expand.clientId.id}/edit">{contract.expand.clientId.name}</a></p>

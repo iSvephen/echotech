@@ -1,56 +1,79 @@
 import { pb } from '$lib/pocketbase';
-import { redirect, fail } from '@sveltejs/kit'; 
-import { goto } from '$app/navigation';
+import { fail, redirect } from '@sveltejs/kit';
+
 export async function load() {
-  try {
-      const clients = await pb.collection('clients').getFullList({ sort: '-created' });
-      const services = await pb.collection('services').getFullList({ sort: '-created' });
-      const categories = await pb.collection('service_category').getFullList({ sort: '-created' });
-      const units = await pb.collection('units').getFullList({ sort: '-created' });
-      return { clients, services, categories, units };
-  } catch (error) {
-      console.error('Error loading units:', error);
-      return { units: [] };
-  }
+    try {
+        const clients = await pb.collection('clients').getFullList({ sort: '-created' });
+        const services = await pb.collection('services').getFullList({ sort: '-created' });
+        const categories = await pb.collection('service_category').getFullList({ sort: '-created' });
+        const units = await pb.collection('units').getFullList({ sort: '-created' });
+        
+        console.log('Load data:', { clients, services, categories, units });
+        
+        return { 
+            clients, 
+            services, 
+            categories, 
+            units 
+        };
+    } catch (error) {
+        console.error('Error loading data:', error);
+        throw redirect(303, '/contracts');
+    }
 }
 
 export const actions = {
-  default: async ({ request }) => {
-    const formData = await request.formData();
-    const clientId = formData.get('clientId');
-    const date = formData.get('date');
-    const number = formData.get('number');
-    const agreement_term = formData.get('agreement_term');
-    const services = formData.get('services');
-    const remark = formData.get('remark');
+    create: async ({ request }) => {
+        const formData = await request.formData();
+        console.log('Form data received:', Object.fromEntries(formData));
 
-    // Ensure the user is authenticated
-    if (!pb.authStore.isValid) {
-      return fail(401, { message: 'User not authenticated' });
-    }
+        const data = {
+            clientId: formData.get('clientId'),
+            date: formData.get('date'),
+            number: formData.get('number'),
+            agreement_term: formData.get('agreement_term'),
+            services: formData.get('services'),
+            remark: formData.get('remark') || ''
+        };
 
-    const prepared_by = pb.authStore.model.id;
+        console.log('Processed data:', data);
 
-    try {
-        const record = await pb.collection('contracts').create({ 
-          clientId, date, number, prepared_by, agreement_term, services, remark
-        });
-  
-        console.log('Contract created:', record);
-  
-        // Redirect to contract detail page instead of list        
-        throw redirect(303, `/contracts/${record.id}`);
-
-      } catch (err) {
-        // Re-throw redirect responses so they aren't treated as errors
-        if (err && err.status && err.location) {
-          throw err;
+        // Validate required fields
+        if (!data.clientId || !data.date || !data.number || !data.agreement_term) {
+            console.error('Validation failed:', data);
+            return fail(400, {
+                error: 'All required fields must be filled',
+                values: Object.fromEntries(formData)
+            });
         }
-        console.error('Error updating contract:', err);
-        return fail(500, {
-          error: err.message || 'Error updating contract',
-          values: Object.fromEntries(formData)
-        });
-      }
+
+        // Ensure the user is authenticated
+        if (!pb.authStore.isValid) {
+            console.error('User not authenticated');
+            return fail(401, { error: 'User not authenticated' });
+        }
+
+        try {
+            // Convert number fields
+            data.number = Number(data.number);
+            data.agreement_term = Number(data.agreement_term);
+            data.prepared_by = pb.authStore.model.id;
+            data.archived = false;
+            data.complete = false;
+
+            console.log('Final data to create:', data);
+            
+            const record = await pb.collection('contracts').create(data);
+            console.log('Created contract:', record);
+            
+            throw redirect(303, `/contracts/${record.id}?success=created`);
+        } catch (err) {
+            if (err.status === 303) throw err;
+            console.error('Error creating contract:', err);
+            return fail(500, {
+                error: err.message || 'Failed to create contract',
+                values: Object.fromEntries(formData)
+            });
+        }
     }
-  };
+};

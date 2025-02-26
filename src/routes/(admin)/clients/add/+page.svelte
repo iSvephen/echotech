@@ -1,7 +1,22 @@
 <script>
 	import { onMount } from 'svelte';
+    import Toast from '$lib/components/Toast.svelte';
+    import { toast } from '$lib/utils/toast';
+    
     let error = null;
+
+    export let form;
+
+    $: if (form?.error) {
+        toast.error(form.error, 'Error');
+    }
+
+    $: if (form?.success) {
+        toast.success('Client created successfully!', 'Success');
+    }
 </script>
+
+<Toast />
 
 <div class="container-fluid">
 	<div class="row">

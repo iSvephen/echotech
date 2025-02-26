@@ -1,7 +1,10 @@
 <script>
   import { enhance } from '$app/forms';
   import { onMount } from 'svelte';
-    
+  import { page } from '$app/stores';
+  import Toast from '$lib/components/Toast.svelte';
+  import { toast } from '$lib/utils/toast';
+
   export let data;
   
   const { contracts, clients } = data;
@@ -43,8 +46,40 @@
   onMount(() => {
     // Initialize DataTable (make sure DataTables & jQuery are loaded)
     globalThis.$('#example3').DataTable();
+
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // Success notifications
+    if (urlParams.get('success') === 'created') {
+        toast.success('Contract created successfully');
+    } else if (urlParams.get('success') === 'updated') {
+        toast.success('Contract updated successfully');
+    } else if (urlParams.get('success') === 'deleted') {
+        toast.success('Contract deleted successfully');
+    } else if (urlParams.get('success') === 'archived') {
+        toast.success('Contract archived successfully');
+    }
+    
+    // Error notifications
+    if (urlParams.get('error') === 'create-failed') {
+        toast.error('Failed to create contract');
+    } else if (urlParams.get('error') === 'update-failed') {
+        toast.error('Failed to update contract');
+    } else if (urlParams.get('error') === 'delete-failed') {
+        toast.error('Failed to delete contract');
+    } else if (urlParams.get('error') === 'archive-failed') {
+        toast.error('Failed to archive contract');
+    }
+
+    // Clean up URL parameters
+    const url = new URL(window.location);
+    url.searchParams.delete('success');
+    url.searchParams.delete('error');
+    window.history.replaceState({}, '', url);
   });
 </script>
+
+<Toast />
 
 <div class="container-fluid">
   <div class="row">

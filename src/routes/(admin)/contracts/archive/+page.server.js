@@ -87,4 +87,18 @@ export const actions = {
         }
     },
 
+    archive: async ({ request }) => {
+        const formData = await request.formData();
+        const id = formData.get('id');
+
+        try {
+            await pb.collection('contracts').update(id, {
+                archived: true
+            });
+            throw redirect(303, '/contracts?success=archived');
+        } catch (err) {
+            if (err.status === 303) throw err;
+            throw redirect(303, '/contracts?error=archive-failed');
+        }
+    },
 };

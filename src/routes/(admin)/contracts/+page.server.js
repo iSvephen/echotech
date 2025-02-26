@@ -61,14 +61,16 @@ export const actions = {
         const formData = await request.formData();
         const id = formData.get('id');
 
-        if (!id) return fail(400, { message: 'Invalid service ID' });
+        if (!id) {
+            return fail(400, { error: 'Contract ID is required' });
+        }
 
         try {
             await pb.collection('contracts').delete(id);
-            throw redirect(303, '/contracts');
-        } catch (error) {
-            console.error('Error deleting service:', error);
-            return fail(500, { message: 'Failed to delete service' });
+            throw redirect(303, '/contracts?success=deleted');
+        } catch (err) {
+            if (err.status === 303) throw err;
+            throw redirect(303, '/contracts?error=delete-failed');
         }
     },
 
@@ -76,15 +78,18 @@ export const actions = {
         const formData = await request.formData();
         const id = formData.get('id');
 
-        if (!id) return fail(400, { message: 'Invalid contract ID' });
+        if (!id) {
+            return fail(400, { error: 'Contract ID is required' });
+        }
 
         try {
-            await pb.collection('contracts').update(id, { archived: true });
-            throw redirect(303, '/contracts');
-        } catch (error) {
-            console.error('Error archiving contract:', error);
-            return fail(500, { message: 'Failed to archive contract' });
+            await pb.collection('contracts').update(id, {
+                archived: true
+            });
+            throw redirect(303, '/contracts?success=archived');
+        } catch (err) {
+            if (err.status === 303) throw err;
+            throw redirect(303, '/contracts?error=archive-failed');
         }
     },
-
 };

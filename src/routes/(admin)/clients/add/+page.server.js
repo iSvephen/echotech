@@ -42,31 +42,11 @@ export const actions = {
       }
     }
 
-    // Construct full address
-    const address = `${address_street}, ${address_suburb}, ${address_city} ${address_postcode}`;
-
     try {
-      // Debug log
-      // console.log('Creating client with data:', {
-      //   name,
-      //   nzbn,
-      //   address,
-      //   address_street,
-      //   address_suburb,
-      //   address_city,
-      //   address_postcode,
-      //   contact_name,
-      //   contact_email,
-      //   contact_title,
-      //   contact_phone,
-      //   contact_address,
-      //   remark
-      // });
-
-      const record = await pb.collection('clients').create({
+      // Create the client record with all address fields
+      const data = {
         name,
         nzbn,
-        address,
         address_street,
         address_suburb,
         address_city,
@@ -76,19 +56,21 @@ export const actions = {
         contact_title,
         contact_phone,
         contact_address,
-        remark
-      });
+        remark,
+        status: 'active'
+      };
 
-      if (record) {
-        throw redirect(303, '/contracts/new');
-      }
+      const record = await pb.collection('clients').create(data);
+      throw redirect(303, `/contracts/new?client=${record.id}&success=client-created`);
+      
     } catch (err) {
-      if (err && err.status && err.location) {
+      if (err.status === 303) {
+        // This is our redirect, so throw it
         throw err;
       }
       console.error('Error creating client:', err);
       return fail(500, {
-        error: err.message || 'Error creating client',
+        error: err.message || 'Failed to create client',
         values: Object.fromEntries(formData)
       });
     }

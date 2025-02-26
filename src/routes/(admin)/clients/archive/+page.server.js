@@ -50,11 +50,11 @@ export const actions = {
         if (!id) return fail(400, { message: 'Invalid unit ID' });
 
         try {
-            await pb.collection('clients').update(id, { archive: true });
-            throw redirect(303, '/clients');
-        } catch (error) {
-            console.error('Error archiving unit:', error);
-            return fail(500, { message: 'Failed to archive unit' });
+            await pb.collection('clients').update(id, { status: 'archived' });
+            throw redirect(303, '/clients?success=archived');
+        } catch (err) {
+            if (err.status === 303) throw err;
+            throw redirect(303, '/clients?error=archive-failed');
         }
     },
 

@@ -48,7 +48,7 @@ export const actions = {
             });
             
             // console.log('Updated contract:', record);
-            throw redirect(303, `/contracts/${params.id}`);
+            throw redirect(303, `/contracts/${params.id}?success=updated`);
         } catch (err) {
             // Re-throw redirect responses so they aren't treated as errors
             if (err && err.status && err.location) {
@@ -68,7 +68,7 @@ export const actions = {
             return {
             status: 303,
             headers: {
-                location: '/contracts'
+                location: '/contracts?success=deleted'
             },
             success: true,
             message: 'Contract deleted successfully'

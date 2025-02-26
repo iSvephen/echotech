@@ -3,6 +3,7 @@
     import { page } from '$app/stores';
     import { derived } from 'svelte/store';
     import { onMount } from 'svelte';
+    import Toast from '$lib/components/Toast.svelte';
 
     function calculateTier() {
         // Get selected values
@@ -98,6 +99,7 @@ async function handleLogout(event) {
 <!--**********************************
           Main wrapper start
       ***********************************-->
+<Toast />
 <div id="main-wrapper">
     <!--**********************************
               Nav header start
@@ -263,7 +265,7 @@ async function handleLogout(event) {
             
 				<a class="add-menu-sidebar d-block" href="javascript:void(0)"  data-toggle="modal" data-target="#addOrderModalside" ><i class="fa fa-calculator"></i> Tiering Calculator</a>
             <!-- <div class="copyright">
-                <p><strong>Echo</strong> © 2025 All Rights Reserved</p>
+                <p><strong>Echo</strong> 2025 All Rights Reserved</p>
             </div> -->
         </div>
     </div>
@@ -376,7 +378,7 @@ async function handleLogout(event) {
     <div class="footer">
         <div class="copyright">
             <p>
-                Copyright ©
+                Copyright 
                 <a href="http://echotech.co.nz/" target="_blank">Echo</a> 2025
             </p>
         </div>
